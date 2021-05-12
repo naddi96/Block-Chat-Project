@@ -1,0 +1,31 @@
+
+truffle compile
+truffle migrate
+truffle console
+
+let instance = await BlockChat.deployed()
+
+
+
+instance.creaModelloNft()
+await instance.creaModelloNft("bla",3,3,3,false)
+await xx=await instance.getNFTcreatore()
+pr =await instance.getNFTcreatore.call()
+
+prova = await NFT_MODEL.at('0x171F97F0b86c8fb3633E605D507b907e96e6771B')
+
+prova.nome.call()
+
+instance.vota("",{from:""})
+
+
+let instance = await MetaVote2.deployed()
+
+instance.vota("0xe3FEf91d6daA4fd73ceE4a60132a5C25d8ED056d",{from:"0xDC42098bB91898eC2f419857C916cC78C23301dA"})
+instance.vota("0xe3FEf91d6daA4fd73ceE4a60132a5C25d8ED056d",{from:"0x0a578aCd9291A13440ec02F0dD0C67673003A9AC"})
+
+
+instance.togliVoto("0xe3FEf91d6daA4fd73ceE4a60132a5C25d8ED056d",{from:"0xDC42098bB91898eC2f419857C916cC78C23301dA"})
+
+vot = await instance.getNumeroVoti("0xe3FEf91d6daA4fd73ceE4a60132a5C25d8ED056d")
+
