@@ -143,8 +143,6 @@ function getNFTcreatore(address creatore) public view returns (NFT_MODEL [] memo
 
 
 
-
-
 }
 
 
