@@ -7,6 +7,9 @@ let instance = await BlockChat.deployed()
 
 
 await instance.creaModelloNft("blasss",3,3,3,false,{from:"0x562584E849A8D0C518C11fDe5d24c8168286365F"})
+
+await instance.creaModelloNft("blasss",3,3,3,false)
+
 await xx=await instance.getNFTcreatore()
 pr =await instance.getNFTcreatore.call()
 

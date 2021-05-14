@@ -1,19 +1,29 @@
 import React from "react";
+import Web3 from "web3";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Navigation, Footer, Home, About, Contact } from "./components";
+import Single_Nft from "./components/Single_Nft";
+import Block_chat from "./build/contracts/BlockChat.json";
+import Nft_model from "./build/contracts/NFT_MODEL.json";
+
+
+
 
 
 class App extends React.Component {
-  /*
+  
   async componentWillMount() {
     await this.loadWeb3()
     await this.loadBlockchainData()
   }
 
+
   async loadWeb3() {
+    console.log()
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum)
       await window.ethereum.enable()
+      
     }
     else if (window.web3) {
       window.web3 = new Web3(window.web3.currentProvider)
@@ -30,27 +40,21 @@ class App extends React.Component {
     
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0] })
-
+    this.setState({web3_istance:web3})
     const networkId = await web3.eth.net.getId()
     const net_block_chat = Block_chat.networks[networkId]
 
-       
-    console.log(Nft_model)
     if(net_block_chat) {
       const abi = Block_chat.abi
-      const address = net_block_chat.address
-      const contract = new web3.eth.Contract(abi, address)
-      this.setState({ contract })
-      console.log( ) 
-   
-      let cc=await contract.methods.getNFTlist().call()
-      console.log(cc)
-      let contract2 = new web3.eth.Contract(Nft_model.abi, cc[0])
-     
+      const address_contract = net_block_chat.address
+      const contract_block = new web3.eth.Contract(abi, address_contract)      
+      this.setState({ contract_block_chat:contract_block })
+      this.setState({abi_nft_model:Nft_model.abi})
+      //let cc=await contract_block.methods.getNFTlist().call()
+      //console.log(cc)
+      //let contract2 = new web3.eth.Contract(Nft_model.abi, cc[0])
      // await contract2.methods.compraNft().send({from: this.state.account})
-
-     console.log(await contract2.methods.ownerOf("3").call())
-     
+     //console.log(await contract2.methods.ownerOf("3").call())
      
      //   const totalSupply = await contract.methods.totalSupply().call()
     //  this.setState({ totalSupply })
@@ -67,13 +71,13 @@ class App extends React.Component {
     super(props)
     this.state = {
       account: '',
-      contract: null,
-      totalSupply: 0,
-      colors: []
+      abi_nft_model: null,
+      contract_block_chat: null,
+      web3_istance:null
     }
   }
 
-*/
+
 
   render() {
     return (
@@ -82,9 +86,10 @@ class App extends React.Component {
       <Router>
         <Navigation />
         <Switch>
-          <Route path="/" exact component={() => <Home />} />
+          <Route path="/" exact component={ () => <Home  data= {this.state} />} />
           <Route path="/about" exact component={() => <About />} />
-          <Route path="/contact" exact component={() => <Contact />} />
+          <Route path="/contact" exact component={() => <Contact/>} />
+          <Route path="/contract_nft" exact component={() => <Single_Nft data= {{account:this.state.account,web3:this.state.web3_istance, abi_nft_model:this.state.abi_nft_model}}/>} />
         </Switch>
         <Footer />
       </Router>

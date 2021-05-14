@@ -1,6 +1,13 @@
 import React from "react";
 
-function Contact() {
+class Contact extends React.Component {
+  
+  render() {
+    const authResult = new URLSearchParams(window.location.search); 
+    const code = authResult.get('prova')
+    console.log("ddddddddddddd")
+    console.log(code)
+   
   return (
     <div className="contact">
       <div class="container">
@@ -25,6 +32,7 @@ function Contact() {
       </div>
     </div>
   );
+}
 }
 
 export default Contact;
