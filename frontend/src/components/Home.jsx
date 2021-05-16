@@ -1,29 +1,5 @@
 import React from "react";
-import DISPLAY_MODEL from "./DISPLAY_MODEL";
-
-
-
-class NFT_MODELS extends React.Component {
-  async componentDidMount() {
-    
-
-  }
-  
-  render() {
-
-   
-      return (
-        <ul>
-          {
-          this.props.animals.map(item => (
-            <DISPLAY_MODEL item={item} />
-          ))}
-        </ul>
-      );
-    };
-
-   }
-
+import DisplayModel from "./DisplayModel";
 
 
 
@@ -32,7 +8,7 @@ class Home extends React.Component {
 
   async componentDidMount() {
     const x=this.props.data
-    if(x.account != "" && x.abi_nft_model != null && x.contract_block_chat != null){
+    if(x.account !== "" && x.abi_nft_model !== null && x.contract_block_chat !== null){
       x.contract_block_chat.events.ModelloNftCreato({fromBlock: 0},this.load_nft_model_event)
       /*
       x.contract_block_chat.events.ModelloNftCreato({
@@ -124,8 +100,12 @@ async load_nft_models() {
      <div className="container">
 
    
-     <NFT_MODELS animals={animals} />
-
+     <ul>
+          {
+          animals.map(item => (
+            <DisplayModel item={item} />
+          ))}
+        </ul>
    
  </div> </div>
   );

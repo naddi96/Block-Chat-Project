@@ -2,7 +2,7 @@ import React from "react";
 import Web3 from "web3";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Navigation, Footer, Home, About, Contact } from "./components";
-import Single_Nft from "./components/Single_Nft";
+import SingleNft from "./components/SingleNft";
 import Block_chat from "./build/contracts/BlockChat.json";
 import Nft_model from "./build/contracts/NFT_MODEL.json";
 
@@ -99,7 +99,7 @@ class App extends React.Component {
           <Route path="/about" exact component={() => <About />} />
           <Route path="/contact" exact component={() => <Contact/>} />
           <Route path="/contract_nft" exact component={() =>
-           <Single_Nft data= {{account:this.state.account,
+           <SingleNft data= {{account:this.state.account,
                               web3:this.state.web3_istance, 
                               abi_nft_model:this.state.abi_nft_model}}/>} />
         </Switch>

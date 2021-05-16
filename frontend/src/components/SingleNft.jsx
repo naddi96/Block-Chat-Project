@@ -1,7 +1,7 @@
 import React from "react";
-import DISPLAY_MODEL from "./DISPLAY_MODEL"
+import DisplayModel from "./DisplayModel"
 
-class Single_Nft extends React.Component{
+class SingleNft extends React.Component{
 
 
     async componentDidMount() {
@@ -10,11 +10,10 @@ class Single_Nft extends React.Component{
         const nft = authResult.get('nft')
         //console.log(nft)
         const web3= this.props.data.web3
-        if(x.account != "" && x.abi_nft_model != null && nft != null){
+        if(x.account !== "" && x.abi_nft_model != null && nft != null){
             console.log("aaaaa")
             try {
-                let contract = new web3.eth.Contract( x.abi_nft_model, nft)
-
+                 new web3.eth.Contract( x.abi_nft_model, nft)
             } catch (error) {
                 alert("contratto non esistente")
                 return                
@@ -43,11 +42,11 @@ class Single_Nft extends React.Component{
       }
     render(){
         return (
-            <DISPLAY_MODEL item={this.state.contract_nft}/>
+            <DisplayModel item={this.state.contract_nft}/>
 
 )
 
     }
 }
 
-export default Single_Nft;
+export default SingleNft;

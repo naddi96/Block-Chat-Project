@@ -1,7 +1,7 @@
 import React from "react";
 
 
-class DISPLAY_MODEL extends React.Component{
+class DisplayModel extends React.Component{
  
     render() {    
       let item= this.props.item
@@ -11,10 +11,6 @@ class DISPLAY_MODEL extends React.Component{
 
       
       } 
-
-
-
-
 
       if (!item.full){
         return(
@@ -40,11 +36,6 @@ class DISPLAY_MODEL extends React.Component{
         )
 
       }
-
-
-
-
-
       if (item.full) {return (
         <div key={item.nome+item.creatore}>
         <div className="card" style={{marginTop:20}} >
@@ -98,8 +89,8 @@ class DISPLAY_MODEL extends React.Component{
           </li>  
         </ul>
         <div className="card-body">
-          <a href="#" className="card-link">Compra</a>
-          <a href="#" className="card-link">Another link</a>
+          <a href="./#" className="card-link">Compra</a>
+          <a href="./#" className="card-link">Another link</a>
         </div>
       </div>
       </div>
@@ -113,5 +104,5 @@ class DISPLAY_MODEL extends React.Component{
     }
    
         
-export default DISPLAY_MODEL;
+export default DisplayModel;
    
