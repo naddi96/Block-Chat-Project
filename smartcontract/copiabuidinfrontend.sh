@@ -1,1 +1,1 @@
-cp .\build\ ..\frontend\
+cp .\build\ ..\frontend\src

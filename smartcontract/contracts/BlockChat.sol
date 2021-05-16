@@ -32,6 +32,9 @@ contract NFT_MODEL is ERC721{
             garanzia_risposta=garanzia_risposta1;
       }
 
+
+
+
 /*
       setIdProp(address sender){
       last_id = last_id+1;
@@ -107,6 +110,16 @@ mapping (bytes => address) combkey_to_creator; //abi.encodePacked(msg.sender,nom
 NFT_MODEL [] nft_list;
 //mapping (NFT_MODEL => string [] ) mex_list;
 
+
+
+event  ModelloNftCreato(address indexed _from,
+                        NFT_MODEL indirizzo_contratto,
+                        string  nome_modello,
+                        uint256 minuti_blocco,
+                        uint limite_messaggi,
+                        uint256 costo,
+                        bool garanzia_risposta);
+
 function creaModelloNft(string memory nome_modello,
                         uint256 minuti_blocco,
                         uint limite_messaggi,
@@ -129,6 +142,16 @@ function creaModelloNft(string memory nome_modello,
     creator_nft_list[msg.sender].push(nft);
     combkey_to_creator[compKey]=msg.sender;
     nft_list.push(nft);
+
+    emit ModelloNftCreato(msg.sender,
+                          nft,  
+                          nome_modello,
+                              minuti_blocco,
+                              limite_messaggi,
+                              costo,
+                              garanzia_risposta);
+
+
 }
 
 

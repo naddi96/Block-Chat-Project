@@ -12,7 +12,10 @@ import Nft_model from "./build/contracts/NFT_MODEL.json";
 
 class App extends React.Component {
   
-  async componentWillMount() {
+
+
+
+  async componentDidMount() {
     await this.loadWeb3()
     await this.loadBlockchainData()
   }
@@ -50,6 +53,12 @@ class App extends React.Component {
       const contract_block = new web3.eth.Contract(abi, address_contract)      
       this.setState({ contract_block_chat:contract_block })
       this.setState({abi_nft_model:Nft_model.abi})
+
+
+    
+    // If the transaction was rejected by the network with a receipt, the second parameter will be the receipt.
+
+    
       //let cc=await contract_block.methods.getNFTlist().call()
       //console.log(cc)
       //let contract2 = new web3.eth.Contract(Nft_model.abi, cc[0])
@@ -58,7 +67,7 @@ class App extends React.Component {
      
      //   const totalSupply = await contract.methods.totalSupply().call()
     //  this.setState({ totalSupply })
-      // Load Colors
+      // Load Color s
     
     } else {
       window.alert('Smart contract not deployed to detected network.')
@@ -89,7 +98,10 @@ class App extends React.Component {
           <Route path="/" exact component={ () => <Home  data= {this.state} />} />
           <Route path="/about" exact component={() => <About />} />
           <Route path="/contact" exact component={() => <Contact/>} />
-          <Route path="/contract_nft" exact component={() => <Single_Nft data= {{account:this.state.account,web3:this.state.web3_istance, abi_nft_model:this.state.abi_nft_model}}/>} />
+          <Route path="/contract_nft" exact component={() =>
+           <Single_Nft data= {{account:this.state.account,
+                              web3:this.state.web3_istance, 
+                              abi_nft_model:this.state.abi_nft_model}}/>} />
         </Switch>
         <Footer />
       </Router>

@@ -4,7 +4,7 @@ import DISPLAY_MODEL from "./DISPLAY_MODEL"
 class Single_Nft extends React.Component{
 
 
-    async componentWillMount() {
+    async componentDidMount() {
         const x=this.props.data
         const authResult = new URLSearchParams(window.location.search); 
         const nft = authResult.get('nft')
@@ -35,24 +35,14 @@ class Single_Nft extends React.Component{
     
     }
     
-
-
-
     constructor(props) {
         super(props)
         this.state = {
             contract_nft:null
         }
       }
-
-
-    
     render(){
-        
-       
-    
         return (
-
             <DISPLAY_MODEL item={this.state.contract_nft}/>
 
 )

@@ -3,10 +3,8 @@ import DISPLAY_MODEL from "./DISPLAY_MODEL";
 
 
 
-
-
 class NFT_MODELS extends React.Component {
-  async componentWillMount() {
+  async componentDidMount() {
     
 
   }
@@ -28,20 +26,48 @@ class NFT_MODELS extends React.Component {
 
 
 
-       
+
 
 class Home extends React.Component {
 
-  async componentWillMount() {
+  async componentDidMount() {
     const x=this.props.data
-    
     if(x.account != "" && x.abi_nft_model != null && x.contract_block_chat != null){
-      console.log(await this.load_nft_models())
+      x.contract_block_chat.events.ModelloNftCreato({fromBlock: 0},this.load_nft_model_event)
+      /*
+      x.contract_block_chat.events.ModelloNftCreato({
+        //filter: {myIndexedParam: [20,23], myOtherIndexedParam: '0x123456789...'}, // Using an array means OR: e.g. 20 or 23
+        fromBlock: 0
+    } , function(error, event){  }).on('data', function(event){
+          
+      console.log(event)
+       // same results as the optional callback above
+    })
+    .on('error', function(error){
+      alert("errore"); // same results as the optional callback above
+    })
+      
+*/
+     // console.log(await this.load_nft_models())
+    
+    
     }
-
-
   }
 
+
+   load_nft_model_event = (error,event) => {      
+    //console.log("aaa")
+    let nome = event.returnValues.nome_modello
+    let contratto=event.returnValues.indirizzo_contratto
+    let creatore =event.returnValues._from
+    let js={nome:nome,creatore:creatore,contract:contratto }
+    let stato=this.state.list_nft_models
+    this.setState( {list_nft_models: [js].concat(stato)})
+  }
+
+
+
+/*
 async load_nft_models() {
   let nft_models_contracs = await this.props.data.contract_block_chat.methods.getNFTlist().call()
   let web3 =this.props.data.web3_istance
@@ -68,18 +94,17 @@ async load_nft_models() {
 
   this.setState({list_nft_models:li})
   
-  
-
-}
+}*/
 
 
 
 
   constructor(props) {
+    
     super(props)
     this.state = {
       list_nft_models:[],
-
+      pippo:null
     }
   }
 
