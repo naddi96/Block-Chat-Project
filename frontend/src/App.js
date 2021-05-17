@@ -9,11 +9,7 @@ import Nft_model from "./build/contracts/NFT_MODEL.json";
 
 
 
-
 class App extends React.Component {
-  
-
-
 
   async componentDidMount() {
     await this.loadWeb3()

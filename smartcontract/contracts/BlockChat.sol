@@ -9,18 +9,24 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 contract NFT_MODEL is ERC721{
       string nome_modello;
       uint256 last_id=0;
-      //address pub_key_creatore;
+      address pub_key_creatore;
       uint256 minuti_blocco;
       uint limite_messaggi;
       uint256 costo;
+      uint tempo_validita
+//      uint256 costo_mex;
       bool garanzia_risposta;
-      mapping (uint256  =>address ) id_to_proprietario;
-      mapping (uint256  =>string [] ) mex_list;
+
+      mapping (uint256  => uint ) timestamp_mint;
+      mapping (uint256  => bool ) vip_riposta;
+
+      //mapping (uint256  =>string [] ) mex_list;
+
 
       constructor(string memory nome_modello1,
                         address pub_key_creatore1,
                         uint256   minuti_blocco1,
-                           uint  limite_messaggi1,
+                        uint  limite_messaggi1,
                         uint256  costo1,
                         bool  garanzia_risposta1) ERC721("CreatorChat","BlockChat") {
              
@@ -43,6 +49,14 @@ contract NFT_MODEL is ERC721{
 */
 
 
+/*
+function confermarisposta(uint256 id,string mex_utente) public{
+      //
+}*/
+
+
+
+
 
 function compraNft() public{
     last_id = last_id+1;
@@ -52,8 +66,8 @@ function compraNft() public{
 
 
 //getters
-function getPropretarioFromId(uint256 id)public view returns (address){
-      return id_to_proprietario[id];
+function getCreatore()public view returns (address){
+      return pub_key_creatore;
 }
 
 
@@ -107,7 +121,7 @@ struct NFT_MODEL {
 */
 mapping (address => NFT_MODEL []) creator_nft_list;
 mapping (bytes => address) combkey_to_creator; //abi.encodePacked(msg.sender,nome_modello)
-NFT_MODEL [] nft_list;
+//NFT_MODEL [] nft_list;
 //mapping (NFT_MODEL => string [] ) mex_list;
 
 
@@ -154,10 +168,10 @@ function creaModelloNft(string memory nome_modello,
 
 }
 
-
+/*
 function getNFTlist() public view returns (NFT_MODEL [] memory) {
       return nft_list;
-}
+}*/
 
 
 function getNFTcreatore(address creatore) public view returns (NFT_MODEL [] memory) {
