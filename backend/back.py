@@ -1,5 +1,4 @@
 from flask import Flask,request ,make_response
-
 import json
 import random
 app = Flask(__name__)
@@ -28,6 +27,29 @@ def save_mex_db(mex,id_nft,nft_contract,address):
 
 
 
+def is_logged(address,cookie):
+    if cookie in login_session:
+        if address == login_session[cookie]:
+            return True
+    return False
+
+
+def check_signed(address,signed_string):
+    #to do
+    pass
+
+
+
+'''
+load mex from db return list
+to do
+'''
+def getmex_db():
+    pass
+
+
+
+
 '''
 /prelogin?address=0xfsfs...
 '''
@@ -40,16 +62,6 @@ def rando():
 
 
 
-def is_logged(address,cookie):
-    if cookie in login_session:
-        if address == login_session[cookie]:
-            return True
-    return False
-
-
-def check_signed(address,signed_string):
-    #to do
-    pass
 
 '''
 nel body della richiesta (request.data) c'è:
@@ -97,18 +109,6 @@ def receive_mex():
         #richiesta=dict(request.body)
     except:
         return "richiesta mal formata"
-
-
-
-
-'''
-load mex from db return list
-to do
-'''
-def getmex_db():
-    pass
-
-
 
 
 
