@@ -24,7 +24,7 @@ class SingleNft extends React.Component{
             let minBlocco =await contract.methods.getMinutiBlocco().call()
             let costo = await contract.methods.getCosto().call()
             let grisp= await contract.methods.getGaranziaRisposta().call()
-            let creatore = await contract.methods.getPropretarioFromId(0).call()
+            let creatore = 0//await contract.methods.getPropretarioFromId(0).call()
             //let min_blocco = await contract.methods.getMinutiBlocco()
             let js={full:true,nome:nome,lastid:lastid,minBlocco:minBlocco,costo:costo,grisp:grisp,creatore:creatore,contract:nft}
             this.setState({contract_nft:js})

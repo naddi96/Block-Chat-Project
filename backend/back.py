@@ -15,6 +15,11 @@ f = open('../smartcontract/build/contracts/NFT_MODEL.json')
 nft_model = json.load(f)
 abi = nft_model["abi"]
 
+
+
+
+
+
 def randString(length):
     return ''.join(random.choices(string.letters, k=length))
 
@@ -48,8 +53,26 @@ def check_vincoli(id_nft,nft_contract,address,scrittura):
     return True
     
 def save_mex_db(mex,id_nft,nft_contract,address):
-    #to do
-    pass
+    try:
+        db=json.load(open("db.json","r"))
+        if nft_contract in db:
+            if id_nft in db[nft_contract]:
+                db[nft_contract][id_nft].append({
+                                    "sender":address,
+                                    "mex":mex})
+            else:
+                db[nft_contract][id_nft]={
+                                    "sender":address,
+                                    "mex":mex}
+        else:
+            db[nft_contract]={id_nft:{
+                                    "sender":address,
+                                    "mex":mex} }
+        stri=json.dumps(db)
+        open("db.json","w").write(stri)
+        return True
+    except:
+        return False
 
 
 
@@ -81,9 +104,12 @@ to do
 '''
 
 
-def getmex_db(address,id_nft,nft_contract):
-    pass
-
+def getmex_db(id_nft,nft_contract):
+    db=json.load(open("db.json","r"))
+    try:
+        return db[nft_contract][id_nft]
+    except:
+        return []
 
 
 
@@ -174,5 +200,7 @@ if __name__ == '__main__':
     print("ss")
     x=check_signed("0x45b73Aec479f33324f2529d6DbAAbe5b51f08973","0x1d6cdd4f43f78cd4bf07772778028353bd38a9409c2617ddae500646dc03bb155ad09830db03ced2539da6630531c4b3d9214b24e486604d35ce5d141c686a611b","Some dataa")
     print(x)
+    save_mex_db("bla bla","id","contractAddress","indirizzoprova")
     
+    print(getmex_db("id","contractAddress"))
     print(check_signed("","",""))
