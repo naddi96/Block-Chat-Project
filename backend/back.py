@@ -5,6 +5,8 @@ app = Flask(__name__)
 import string
 from web3 import Web3
 from hexbytes import HexBytes
+from datetime import datetime
+
 
 login_session={}
 pre_login={"0x45b73Aec479f33324f2529d6DbAAbe5b51f08973":"Some dataa"}
@@ -29,20 +31,27 @@ def check_vincoli(id_nft,nft_contrat,address):
 
 def save_mex_db(mex,id_nft,nft_contract,address):
     try:
+        now = datetime.now()
+        timestamp = datetime.timestamp(now)
+
         db=json.load(open("db.json","r"))
         if nft_contract in db:
             if id_nft in db[nft_contract]:
                 db[nft_contract][id_nft].append({
                                     "sender":address,
-                                    "mex":mex})
+                                    "mex":mex,
+                                    "timestamp":timestamp
+                                    })
             else:
                 db[nft_contract][id_nft]={
                                     "sender":address,
-                                    "mex":mex}
+                                    "mex":mex,
+                                    "timestamp":timestamp}
         else:
             db[nft_contract]={id_nft:{
                                     "sender":address,
-                                    "mex":mex} }
+                                    "mex":mex,
+                                    "timestamp":timestamp} }
         stri=json.dumps(db)
         open("db.json","w").write(stri)
         return True
