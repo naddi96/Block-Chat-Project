@@ -3,9 +3,12 @@ import json
 import random
 app = Flask(__name__)
 import string
+from web3 import Web3
+from hexbytes import HexBytes
 
 login_session={}
-pre_login={}
+pre_login={"0x45b73Aec479f33324f2529d6DbAAbe5b51f08973":"Some dataa"}
+w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545'))  
 
 def randString(length):
     return ''.join(random.choices(string.letters, k=length))
@@ -18,8 +21,6 @@ def check_vincoli(id_nft,nft_contrat,address):
     '''
     to do: return true se i vcoli nella blockchain sono soddisfatti 
     '''
-   
-
 
 def save_mex_db(mex,id_nft,nft_contract,address):
     #to do
@@ -34,17 +35,28 @@ def is_logged(address,cookie):
     return False
 
 
-def check_signed(address,signed_string):
-    #to do
-    pass
+def check_signed(address,signed_string,mex):
+    try:
+        hashmex=Web3.sha3(text=mex)
+        if(pre_login[address] != mex):
+            return False
 
+        signingAddress = w3.eth.account.recoverHash(hashmex, signature=signed_string)
+
+        if signingAddress == address:
+            return True
+        return False
+    except:
+        return False
 
 
 '''
-load mex from db return list
+load mex from db return  mex list
 to do
 '''
-def getmex_db():
+
+
+def getmex_db(address,id_nft,nft_contract):
     pass
 
 
@@ -74,8 +86,7 @@ def login():
     signed_string=data['signed_string']
     rand_string=data['rand_string']
     
-    if (pre_login[address] != rand_string): return "login error"
-    if(check_signed(address,signed_string)):
+    if(check_signed(address,signed_string,rand_string)):
         cookie=randString(100)
         resp = make_response("login completato")
         resp.set_cookie('login', cookie)
@@ -125,8 +136,8 @@ def get_mex():
     nft_contract=data['nft_contract']
     cookie = request.cookies.get('login')
     if is_logged(address,cookie):
-        if(check_vincoli(id_nft,nft_contract,address)):
-            return getmex_db(address,id_nft,nft_contract)
+        #if(check_vincoli(id_nft,nft_contract,address)):
+        return getmex_db(address,id_nft,nft_contract)
     return "not logged"
         
 
@@ -134,4 +145,9 @@ def get_mex():
 
 
 if __name__ == '__main__':
-    app.run()
+    #app.run()
+    print("ss")
+    x=check_signed("0x45b73Aec479f33324f2529d6DbAAbe5b51f08973","0x1d6cdd4f43f78cd4bf07772778028353bd38a9409c2617ddae500646dc03bb155ad09830db03ced2539da6630531c4b3d9214b24e486604d35ce5d141c686a611b","Some dataa")
+    print(x)
+    
+    print(check_signed("","",""))
