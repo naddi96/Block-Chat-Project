@@ -1,6 +1,7 @@
 from flask import Flask,request ,make_response
 import json
 import random
+from datetime import datetime, time
 app = Flask(__name__)
 import string
 from web3 import Web3
@@ -8,7 +9,11 @@ from hexbytes import HexBytes
 
 login_session={}
 pre_login={"0x45b73Aec479f33324f2529d6DbAAbe5b51f08973":"Some dataa"}
-w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545'))  
+w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545')) 
+
+f = open('../smartcontract/build/contracts/NFT_MODEL.json')
+nft_model = json.load(f)
+abi = nft_model["abi"]
 
 def randString(length):
     return ''.join(random.choices(string.letters, k=length))
@@ -16,12 +21,32 @@ def randString(length):
 
 
 
-def check_vincoli(id_nft,nft_contrat,address):
-    pass
-    '''
-    to do: return true se i vcoli nella blockchain sono soddisfatti 
-    '''
+def check_vincoli(id_nft,nft_contract,address,scrittura):
 
+    contract = Web3.eth.contract(abi=abi, address=nft_contract)
+    owner = contract.functions.ownerOf(id_nft)
+
+    mex_list = getmex_db()
+
+    minuti_blocco = contract.functions.getMinutiBlocco()
+    limite_messaggi = contract.functions.getLimiteMex()
+    tempo_validita =  contract.functions.getTempoValidita()   
+    timestamp_creation = contract.functions.getTimestampCreation()
+
+    now = datetime.now()
+    timestamp = datetime.timestamp(now)
+    if mex_list[-1]["string"]+minuti_blocco*60 < timestamp:
+        return False
+    
+    if tempo_validita+timestamp_creation < timestamp:
+        return False
+    
+    if scrittura:
+        if len(mex_list) >= limite_messaggi:
+            return False
+    
+    return True
+    
 def save_mex_db(mex,id_nft,nft_contract,address):
     #to do
     pass
@@ -112,7 +137,7 @@ def receive_mex():
         cookie = request.cookies.get('login')
         
         if is_logged(address,cookie):
-            if(check_vincoli(id_nft,nft_contract,address)):
+            if(check_vincoli(id_nft,nft_contract,address,True)):
                 save_mex_db(mex,id_nft,nft_contract,address)
                 return "message saved"
         return "vincoli non soddisfatti"
@@ -136,8 +161,8 @@ def get_mex():
     nft_contract=data['nft_contract']
     cookie = request.cookies.get('login')
     if is_logged(address,cookie):
-        #if(check_vincoli(id_nft,nft_contract,address)):
-        return getmex_db(address,id_nft,nft_contract)
+        if(check_vincoli(id_nft,nft_contract,address,False)):
+            return getmex_db(address,id_nft,nft_contract)
     return "not logged"
         
 
