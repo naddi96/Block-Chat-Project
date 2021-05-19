@@ -6,17 +6,17 @@ truffle console
 let instance = await BlockChat.deployed()
 
 
-await instance.creaModelloNft("blasss",3,3,3,false,{from:"0x562584E849A8D0C518C11fDe5d24c8168286365F"})
+await instance.creaModelloNft("blasss",500,300,40,39,false,{from:"0x562584E849A8D0C518C11fDe5d24c8168286365F"})
 
 await instance.creaModelloNft("blasss",3,3,3,false)
-
+await prova.compraNft("messaggio",{value:39})
 await xx=await instance.getNFTcreatore()
 pr =await instance.getNFTcreatore.call()
 
 pr = await instance.getNFTlist.call()
 
-prova = await NFT_MODEL.at('0x24931eeC7113ce286D36Dac45cb2f120D0aBE3e6')
-
+prova = await NFT_MODEL.at('0xfE3Ed8a70822f3768C3002679F4Bea430e02b5fe')
+0xfE3Ed8a70822f3768C3002679F4Bea430e02b5fe
 await prova.getNome()
 
 

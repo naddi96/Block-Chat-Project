@@ -12,14 +12,9 @@ from datetime import datetime
 login_session={}
 pre_login={"0x45b73Aec479f33324f2529d6DbAAbe5b51f08973":"Some dataa"}
 w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545')) 
-
 f = open('../smartcontract/build/contracts/NFT_MODEL.json')
 nft_model = json.load(f)
 abi = nft_model["abi"]
-
-
-
-
 
 
 def randString(length):
@@ -30,28 +25,32 @@ def randString(length):
 
 def check_vincoli(id_nft,nft_contract,address,scrittura):
 
-    contract = Web3.eth.contract(abi=abi, address=nft_contract)
+    contract = w3.eth.contract(abi=abi, address=nft_contract)
     owner = contract.functions.ownerOf(id_nft)
 
-    mex_list = getmex_db()
+    mex_list = getmex_db(id_nft,nft_contract)
 
-    minuti_blocco = contract.functions.getMinutiBlocco()
-    limite_messaggi = contract.functions.getLimiteMex()
-    tempo_validita =  contract.functions.getTempoValidita()   
-    timestamp_creation = contract.functions.getTimestampCreation()
-
+    minuti_blocco = contract.functions.getMinutiBlocco().call()
+    limite_messaggi = contract.functions.getLimiteMex().call()
+    tempo_validita =  contract.functions.getTempoValidita().call()
+    timestamp_creation = contract.functions.getTimestampCreation().call()
+    print(minuti_blocco,limite_messaggi,tempo_validita,timestamp_creation)
     now = datetime.now()
     timestamp = datetime.timestamp(now)
-    if mex_list[-1]["string"]+minuti_blocco*60 < timestamp:
-        return False
     
-    if tempo_validita+timestamp_creation < timestamp:
-        return False
-    
-    if scrittura:
-        if len(mex_list) >= limite_messaggi:
+    if len(mex_list)>0:
+        if mex_list[-1]["timestamp"]+minuti_blocco*60 < timestamp and minuti_blocco != 0:
             return False
+        
+    if scrittura:
+        if len(mex_list) >= limite_messaggi and limite_messaggi != 0:
+            return False
+
+    if tempo_validita+timestamp_creation < timestamp:
+        print("aaaa")
+        return False
     
+
     return True
     
 def save_mex_db(mex,id_nft,nft_contract,address):
@@ -206,10 +205,11 @@ def get_mex():
 
 if __name__ == '__main__':
     #app.run()
-    print("ss")
-    x=check_signed("0x45b73Aec479f33324f2529d6DbAAbe5b51f08973","0x1d6cdd4f43f78cd4bf07772778028353bd38a9409c2617ddae500646dc03bb155ad09830db03ced2539da6630531c4b3d9214b24e486604d35ce5d141c686a611b","Some dataa")
-    print(x)
-    save_mex_db("bla bla","id","contractAddress","indirizzoprova")
+   # check_vincoli("",)
     
-    print(getmex_db("id","contractAddress"))
-    print(check_signed("","",""))
+    print("ss")
+   # x=check_signed("0x45b73Aec479f33324f2529d6DbAAbe5b51f08973","0x1d6cdd4f43f78cd4bf07772778028353bd38a9409c2617ddae500646dc03bb155ad09830db03ced2539da6630531c4b3d9214b24e486604d35ce5d141c686a611b","Some dataa")
+    #save_mex_db("bla bla","id","contractAddress","indirizzoprova")
+    
+    print(check_vincoli(1,"0xfE3Ed8a70822f3768C3002679F4Bea430e02b5fe","0xf472a171dc35fD30a2462dD5CDCF5F39b26dc390",False))
+

@@ -26,6 +26,7 @@ contract NFT_MODEL is ERC721{
                         uint256   minuti_blocco1,
                         uint  limite_messaggi1,
                         uint      limite_mint1,
+                        uint256      tempo_validita1,
                         uint256  costo1,
                         bool  garanzia_risposta1) ERC721("CreatorChat","BlockChat") {
              
@@ -35,6 +36,7 @@ contract NFT_MODEL is ERC721{
             costo=costo1;
             limite_messaggi=limite_messaggi1;
             limite_mint=limite_mint1;
+            tempo_validita=tempo_validita1;
             garanzia_risposta=garanzia_risposta1;
             timestamp_creation= block.timestamp;
       }
@@ -168,6 +170,7 @@ function creaModelloNft(string memory nome_modello,
                         uint256 minuti_blocco,
                         uint limite_messaggi,
                         uint limite_mint,
+                        uint256 tempo_validita,
                         uint256 costo,
                         bool garanzia_risposta) public{
 
@@ -178,6 +181,7 @@ function creaModelloNft(string memory nome_modello,
                                     minuti_blocco,
                                     limite_messaggi,
                                     limite_mint,
+                                    tempo_validita,
                                     costo,
                                     garanzia_risposta);
 
