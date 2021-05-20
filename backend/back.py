@@ -2,11 +2,16 @@ from flask import Flask,request ,make_response
 import json
 import random
 from datetime import datetime, time
-app = Flask(__name__)
+
 import string
 from web3 import Web3
 from hexbytes import HexBytes
 from datetime import datetime
+from flask_cors import CORS, cross_origin
+
+
+app = Flask(__name__)
+CORS(app)
 
 
 login_session={}
@@ -18,7 +23,7 @@ abi = nft_model["abi"]
 
 
 def randString(length):
-    return ''.join(random.choices(string.letters, k=length))
+    return ''.join(random.choices(string.ascii_letters, k=length))
 
 
 
@@ -188,6 +193,7 @@ nel body della richiesta (request.data) c'è:
 {"address":"0x000","id_nft:"3","nft_contract":"0x000"}
 '''
 @app.route('/getmex',methods=["POST"])
+@cross_origin()
 def get_mex():
     data=json.loads(request.data)
     id_nft=data['id_nft']
@@ -204,12 +210,12 @@ def get_mex():
 
 
 if __name__ == '__main__':
-    #app.run()
+    app.run()
    # check_vincoli("",)
     
-    print("ss")
+    #print("ss")
    # x=check_signed("0x45b73Aec479f33324f2529d6DbAAbe5b51f08973","0x1d6cdd4f43f78cd4bf07772778028353bd38a9409c2617ddae500646dc03bb155ad09830db03ced2539da6630531c4b3d9214b24e486604d35ce5d141c686a611b","Some dataa")
     #save_mex_db("bla bla","id","contractAddress","indirizzoprova")
     
-    print(check_vincoli(1,"0xfE3Ed8a70822f3768C3002679F4Bea430e02b5fe","0xf472a171dc35fD30a2462dD5CDCF5F39b26dc390",False))
+    #print(check_vincoli(1,"0xfE3Ed8a70822f3768C3002679F4Bea430e02b5fe","0xf472a171dc35fD30a2462dD5CDCF5F39b26dc390",False))
 

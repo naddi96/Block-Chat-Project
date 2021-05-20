@@ -1,7 +1,6 @@
 import React from "react";
 import DisplayModel from "./DisplayModel";
-
-
+import LoginButton from "./LoginButton";
 
 
 class Home extends React.Component {
@@ -99,7 +98,7 @@ async load_nft_models() {
   <div className="home">
      <div className="container">
 
-   
+    <LoginButton data={{account:this.props.data.account, web3:this.props.data.web3_istance }}/>
      <ul>
           {
           animals.map(item => (

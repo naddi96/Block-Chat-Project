@@ -38,18 +38,19 @@ class App extends React.Component {
     
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0] })
-    this.setState({web3_istance:web3})
     const networkId = await web3.eth.net.getId()
     const net_block_chat = Block_chat.networks[networkId]
+    /*
     console.log("aaaaaaaaaa")
     let msg = "Some dataa" 
     let msgHash1 = web3.utils.sha3(msg)
     console.log(accounts)
     console.log(msg)
     console.log(msgHash1)
+    
     let sig1 = await web3.eth.sign(msgHash1, accounts[0]);
     console.log(sig1)
-    
+    */
 
     if(net_block_chat) {
       const abi = Block_chat.abi
@@ -59,7 +60,8 @@ class App extends React.Component {
       this.setState({abi_nft_model:Nft_model.abi})
 
 
-    
+    this.setState({web3_istance:web3})
+
     // If the transaction was rejected by the network with a receipt, the second parameter will be the receipt.
 
     
