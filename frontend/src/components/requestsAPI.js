@@ -25,6 +25,7 @@ export async function login(address,web3){
             return realLogin(address,msg,sig1).then(result => {
                 if( result.data=="loggin error"){
                     alert("Problema con il login")
+                    return false
                 }
                 if(result.data=="login completato"){
                     return true
