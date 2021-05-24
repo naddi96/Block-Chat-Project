@@ -23,11 +23,11 @@ export async function login(address,web3){
             let msgHash1 = web3.utils.sha3(msg)
             let sig1 = await web3.eth.sign(msgHash1, address);
             return realLogin(address,msg,sig1).then(result => {
-                if( result.data=="loggin error"){
+                if( result.data==="loggin error"){
                     alert("Problema con il login")
                     return false
                 }
-                if(result.data=="login completato"){
+                if(result.data==="login completato"){
                     return true
                 }
                 return false          

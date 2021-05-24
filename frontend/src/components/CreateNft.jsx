@@ -17,8 +17,14 @@ class CreateNft extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-            wei : null,
-            eth: null
+            wei : "",
+            eth: "",
+            nome: "",
+            scadenza:"",
+            minutiblocco:"",
+            garanziarisposta:"Si",
+            data:"",
+            mint:""
         }
       }
 
@@ -44,6 +50,29 @@ class CreateNft extends React.Component{
     }
 
 
+    sendTransition= (e)=>{
+
+        console.log(this.state)
+        
+        alert("aaa")
+
+    }
+
+
+    convertDatetToOffset =(e)=>{
+        let now=new Date().getTime();
+        let selected_date=new Date(e.target.value).getTime();
+        if(now> selected_date){
+            alert("la scadenza non può essere nel passato")
+            this.setState({data:""})
+        }else{ 
+
+            let offset=selected_date-now
+            this.setState({scadenza:offset})
+            this.setState({data:e.target.value})
+        }
+    }
+
     render(){
         return(
             
@@ -51,23 +80,32 @@ class CreateNft extends React.Component{
             <form>
             <div class="form-group">
               <label for="exampleFormControlInput1">Nome Nft</label>
-              <input type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com"/>
+              <input onChange={e => this.setState({ nome: e.target.value })} 
+              type="email" className="form-control" id="exampleFormControlInput1" placeholder="nft example"/>
             </div>
 
             <div class="form-group">
               <label for="exampleFormControlInput1">Data Scadenza</label>
-              <input type="date" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com"/>
+              <input value={this.state.data} onChange={this.convertDatetToOffset} 
+              type="date" className="form-control" id="exampleFormControlInput1" placeholder="no blocco"/>
             </div>
 
 
             <div class="form-group">
               <label for="exampleFormControlInput1">Minuti di Blocco per messaggio</label>
-              <input type="number" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com"/>
+              <input value={this.state.minutiblocco} onChange={e => { if(e.target.value<=0 ){
+                    this.setState({ minutiblocco : "" })
+              }else this.setState({ minutiblocco:e.target.value })} }
+              type="number" min="1" className="form-control" id="exampleFormControlInput1" placeholder="nessun blocco di default"/>
             </div>
 
+
             <div class="form-group">
-              <label for="exampleFormControlInput1">Minuti di Blocco per messaggio</label>
-              <input type="number" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com"/>
+              <label for="exampleFormControlInput1">Numero di nft comprabili</label>
+              <input value={this.state.mint} onChange={e => {if(e.target.value<=0 ){
+                    this.setState({ mint : "" })
+              }else this.setState({ mint:e.target.value })} }
+              type="number" min="1" className="form-control" id="exampleFormControlInput1" placeholder="nessun limite"/>
             </div>
 
 
@@ -80,31 +118,17 @@ class CreateNft extends React.Component{
 
 
             <div class="form-group">
-              <label for="exampleFormControlSelect1">Example select</label>
-              <select class="form-control" id="exampleFormControlSelect1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
+              <label for="exampleFormControlSelect1">Garanzia Risposta</label>
+              <select onChange={e => this.setState({ garanziarisposta : e.target.value })} 
+               class="form-control" id="exampleFormControlSelect1">
+                <option>Si</option>
+                <option>No</option>
+               </select>
             </div>
-            <div class="form-group">
-              <label for="exampleFormControlSelect2">Example multiple select</label>
-              <select multiple class="form-control" id="exampleFormControlSelect2">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="exampleFormControlTextarea1">Example textarea</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
+           
           </form>
-            <button>Crea Nft</button>
+          <button onClick={this.sendTransition}>Crea Nft</button>
+
          </div>
         );
     }

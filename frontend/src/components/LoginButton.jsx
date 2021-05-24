@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import {login} from "./requestsAPI"
 class LoginButton extends React.Component{
 
