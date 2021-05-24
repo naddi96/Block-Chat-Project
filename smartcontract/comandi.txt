@@ -1,4 +1,27 @@
 
+backend
+cd backend
+pip install flask
+pip install web3 (come amministartore)
+python back.py
+
+frontend
+cd frontend
+npm install
+npm start
+
+
+
+smart contract
+truffle compile
+truffle migrate --reset
+truffle console
+
+
+
+
+
+
 truffle compile
 truffle migrate
 truffle console
