@@ -4,27 +4,28 @@ class CreateNft extends React.Component{
 
 
     async componentDidMount() {
-        //console.log(nft)
-        //const web3= this.props.data.web3
-       // alert("prova")
-        console.log()
-        //if(x.account !== "" && x.abi_nft_model != null && nft != null){
-        //}
-    
-    
+        let x= this.props.data
+        console.log(this.props.data)
+        this.setState({account:x.account}) 
+        this.setState({contract: x.contract})
+        this.setState({web3:x.web3})
     }
     
     constructor(props) {
         super(props)
         this.state = {
+            account:"",
             wei : "",
             eth: "",
             nome: "",
             scadenza:"",
             minutiblocco:"",
-            garanziarisposta:"Si",
+            garanziarisposta:true,
             data:"",
-            mint:""
+            limitemessaggi:"30",
+            mint:"",
+            contract:null,
+            web3:null,
         }
       }
 
@@ -51,11 +52,56 @@ class CreateNft extends React.Component{
 
 
     sendTransition= (e)=>{
-
-        console.log(this.state)
         
-        alert("aaa")
+        let stri=""
+        if (this.state.nome===""){
+            stri="Inserire il nome\n"
+        }
+        if (this.state.scadenza===""){
+            stri=stri+"Inserire una scadenza\n"
+        }
+        if (this.state.wei===""){
+            stri=stri+"Inserire il costo\n"
+        }
+        
+        if (stri!==""){
+            alert(stri)
+            return
+        }
+        let minblocco=this.state.minutiblocco
+        let limex=this.state.limitemessaggi
+        let mint= this.state.mint
 
+        if (this.state.minutiblocco==="") minblocco=0
+
+        if (this.state.limitemessaggi==="") limex=0
+        
+        if (this.state.mint==="") mint=0
+
+        let contract= this.state.contract
+        console.log(this.state)
+        contract.methods.creaModelloNft(
+            this.state.nome,
+            minblocco,
+            limex,
+            mint,
+            this.state.scadenza,
+            this.state.wei,
+            this.state.garanziarisposta
+            )
+                .send({from: this.state.account})
+                .on('receipt', function (receipt) {
+                    alert("transazione ricevuta")
+                    console.log("receipt:" + receipt);
+                }).on('confirmation', function (confirmationNumber, receipt) {
+                    //alert("transazione confermata")
+                    console.log("confirmationNumber:" + confirmationNumber + " receipt:" + receipt);
+                    console.log(receipt)
+                }).on('error', function (error) {
+                    alert("transazione non completata ci sono stati degli errori causa:\n"+error.stack)
+
+                    console.log(error.stack)
+                });
     }
 
 
@@ -77,55 +123,76 @@ class CreateNft extends React.Component{
         return(
             
             <div className="formCreaNft">
+            
             <form>
-            <div class="form-group">
-              <label for="exampleFormControlInput1">Nome Nft</label>
+            <p>{this.state.account}</p>
+            <div className="form-group">
+              <label>Nome Nft</label>
               <input onChange={e => this.setState({ nome: e.target.value })} 
-              type="email" className="form-control" id="exampleFormControlInput1" placeholder="nft example"/>
+              type="email" className="form-control"  placeholder="nft example"/>
             </div>
 
-            <div class="form-group">
-              <label for="exampleFormControlInput1">Data Scadenza</label>
+            <div className="form-group">
+              <label>Data Scadenza</label>
               <input value={this.state.data} onChange={this.convertDatetToOffset} 
-              type="date" className="form-control" id="exampleFormControlInput1" placeholder="no blocco"/>
+              type="date" className="form-control"  placeholder="no blocco"/>
             </div>
 
 
-            <div class="form-group">
-              <label for="exampleFormControlInput1">Minuti di Blocco per messaggio</label>
+            <div className="form-group">
+              <label >Minuti di blocco per messaggio</label>
               <input value={this.state.minutiblocco} onChange={e => { if(e.target.value<=0 ){
                     this.setState({ minutiblocco : "" })
               }else this.setState({ minutiblocco:e.target.value })} }
-              type="number" min="1" className="form-control" id="exampleFormControlInput1" placeholder="nessun blocco di default"/>
-            </div>
-
-
-            <div class="form-group">
-              <label for="exampleFormControlInput1">Numero di nft comprabili</label>
-              <input value={this.state.mint} onChange={e => {if(e.target.value<=0 ){
-                    this.setState({ mint : "" })
-              }else this.setState({ mint:e.target.value })} }
-              type="number" min="1" className="form-control" id="exampleFormControlInput1" placeholder="nessun limite"/>
+              type="number" min="1" className="form-control"  placeholder="nessun blocco di default"/>
             </div>
 
 
             
-            <div class="form-group">
-              <label for="exampleFormControlInput1">Costo</label>
-              <input value={this.state.wei} type="number" className="form-control" id="exampleFormControlInput1" placeholder="wei" onChange={this.changeWeiToEth}/>
-              <input value={this.state.eth} type="number" className="form-control" id="exampleFormControlInput1" placeholder="Ether" onChange={this.changeEthToWei}/>
+            <div className="form-group">
+              <label >Limite Messaggi</label>
+              <input value={this.state.minutiblocco} onChange={e => { if(e.target.value<=0 ){
+                    this.setState({ limitemessaggi : "" })
+              }else this.setState({ limitemessaggi:e.target.value })} }
+              type="number" min="1" className="form-control" placeholder="nessun blocco di default"/>
             </div>
 
 
-            <div class="form-group">
-              <label for="exampleFormControlSelect1">Garanzia Risposta</label>
-              <select onChange={e => this.setState({ garanziarisposta : e.target.value })} 
-               class="form-control" id="exampleFormControlSelect1">
+            <div className="form-group">
+              <label>Numero di nft comprabili</label>
+              <input value={this.state.mint} onChange={e => {if(e.target.value<=0 ){
+                    this.setState({ mint : "" })
+              }else this.setState({ mint:e.target.value })} }
+              type="number" min="1" className="form-control"  placeholder="nessun limite"/>
+            </div>
+
+
+            
+            <div className="form-group">
+              <label >Costo</label>
+              <input value={this.state.wei} type="number" className="form-control" placeholder="wei" onChange={this.changeWeiToEth}/>
+              <input value={this.state.eth} type="number" className="form-control" placeholder="Ether" onChange={this.changeEthToWei}/>
+            </div>
+
+
+            <div className="form-group">
+              <label >Garanzia Risposta</label>
+              <select onChange={e => {
+                  if (e.target.value==="Si" ){ 
+                    this.setState({ garanziarisposta : true })
+                 }else{
+                    this.setState({ garanziarisposta : false })
+                 }
+                }}
+              className="form-control">
                 <option>Si</option>
                 <option>No</option>
                </select>
             </div>
            
+         
+
+
           </form>
           <button onClick={this.sendTransition}>Crea Nft</button>
 

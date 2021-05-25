@@ -106,11 +106,16 @@ class App extends React.Component {
           <Route path="/about" exact component={() => <About />} />
           <Route path="/contact" exact component={() => <Contact/>} />
           <Route path="/contract_nft" exact component={() =>
-           <SingleNft data= {{account:this.state.account,
+                        <SingleNft data= {{account:this.state.account,
                               web3:this.state.web3_istance, 
                               abi_nft_model:this.state.abi_nft_model}}/>} />
         
-        <Route path="/createNft" exact component={() => <CreateNft/>} />
+        <Route path="/createNft" exact component={() => 
+                     <CreateNft data={{
+                      account:this.state.account,
+                      web3:this.state.web3_istance, 
+                      contract:this.state.contract_block_chat
+                     }} />} />
           
         
         </Switch>

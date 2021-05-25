@@ -23,6 +23,16 @@ function Navigation(props) {
               </li>
               <li
                 className={`nav-item  ${
+                  props.location.pathname === "/createNft" ? "active" : ""
+                }`}
+              >
+                <Link className="nav-link" to="/createNft">
+                  Crea Nft
+                  <span className="sr-only">(current)</span>
+                </Link>
+              </li>
+              <li
+                className={`nav-item  ${
                   props.location.pathname === "/about" ? "active" : ""
                 }`}
               >
