@@ -31,6 +31,23 @@ function Navigation(props) {
                   <span className="sr-only">(current)</span>
                 </Link>
               </li>
+
+
+                {//TODO:: link alla pagina per comprare gli nft disponibili
+                }
+              <li
+                className={`nav-item  ${
+                  props.location.pathname === "/buyNft" ? "active" : ""
+                }`}
+              >
+                <Link className="nav-link" to="/buyNft">
+                  Compra Nft
+                  <span className="sr-only">(current)</span>
+                </Link>
+              </li>
+
+
+
               <li
                 className={`nav-item  ${
                   props.location.pathname === "/about" ? "active" : ""

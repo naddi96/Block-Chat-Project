@@ -22,7 +22,7 @@ class CreateNft extends React.Component{
             minutiblocco:"",
             garanziarisposta:true,
             data:"",
-            limitemessaggi:"30",
+            limitemessaggi:"",
             mint:"",
             contract:null,
             web3:null,
@@ -151,7 +151,7 @@ class CreateNft extends React.Component{
             
             <div className="form-group">
               <label >Limite Messaggi</label>
-              <input value={this.state.minutiblocco} onChange={e => { if(e.target.value<=0 ){
+              <input value={this.state.limitemessaggi} onChange={e => { if(e.target.value<=0 ){
                     this.setState({ limitemessaggi : "" })
               }else this.setState({ limitemessaggi:e.target.value })} }
               type="number" min="1" className="form-control" placeholder="nessun blocco di default"/>
