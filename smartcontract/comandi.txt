@@ -31,6 +31,8 @@ let instance = await BlockChat.deployed()
 
 await instance.creaModelloNft("blasss",500,300,40,39,false,{from:"0x562584E849A8D0C518C11fDe5d24c8168286365F"})
 
+await instance.creaModelloNft("this.state.nome2","34","45","40","224234296","4000000000000000000",true)
+
 await instance.creaModelloNft("blasss",3,3,3,false)
 await prova.compraNft("messaggio",{value:39})
 await xx=await instance.getNFTcreatore()

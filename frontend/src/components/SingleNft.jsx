@@ -2,8 +2,6 @@ import React from "react";
 import DisplayModel from "./DisplayModel"
 
 class SingleNft extends React.Component{
-
-
     async componentDidMount() {
         const x=this.props.data
         const authResult = new URLSearchParams(window.location.search); 
