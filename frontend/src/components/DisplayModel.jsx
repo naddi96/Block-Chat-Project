@@ -39,7 +39,7 @@ class DisplayModel extends React.Component{
       if (item.full) {return (
         <div key={item.nome+item.creatore}>
         <div className="card" style={{marginTop:20}} >
-        <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/062.jpg" className="card-img-top" alt="..."/>
+        <img src="https://pbs.twimg.com/profile_images/1280515721286619136/r35mYqRK.jpg" className="card-img-top" alt="..."/>
         <div className="card-body">
           <h5 className="card-title">{ item.nome}</h5>
           
@@ -51,6 +51,10 @@ class DisplayModel extends React.Component{
    
         </div>
         <ul className="list-group list-group-flush">
+        <li className="list-group-item">
+         <div className="text-secondary" style={{display:"inline"}} >Numero di NFT totali:</div>
+          <div style={{display:"inline"}}>{item.limiteMint}</div> 
+            </li>
          
          
           <li className="list-group-item">

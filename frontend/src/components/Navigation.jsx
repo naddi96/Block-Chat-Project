@@ -33,7 +33,8 @@ function Navigation(props) {
               </li>
 
 
-
+                {//TODO:: link alla pagina per comprare gli nft disponibili
+                }
               <li
                 className={`nav-item  ${
                   props.location.pathname === "/buyNft" ? "active" : ""

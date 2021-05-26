@@ -4,8 +4,6 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 
-
-
 contract NFT_MODEL is ERC721{
       string nome_modello;
       uint256 last_id=0;
@@ -54,20 +52,23 @@ contract NFT_MODEL is ERC721{
               return keccak256(b1) == keccak256(b2);
   }
 
-
+//caller: possessore nft (non creatore)
 function reclamo(uint256 id) public {
       require(ownerOf(id) == msg.sender,"nft non tuo");
-      require(tempo_validita + timestamp_creation > block.timestamp,"troppo presto per chiedere reclamo");
-      require(vip_riposta[id]==true,"il vip ha risposto");
+      require(tempo_validita + timestamp_creation < block.timestamp,"troppo presto per chiedere reclamo");
+      require(vip_riposta[id]==false,"il vip ha risposto");
       address payable utente= payable(msg.sender);
       utente.transfer(costo);
 }
 
-
+//caller: creatore del nft
 function confermaRisposta(uint256 id,string memory mex_utente) public{
       require(pub_key_creatore== msg.sender,"modello nft non tuo");
-      require( tempo_validita + timestamp_creation < block.timestamp,"tempo per rispondere al messaggio scaduto");
+      require( tempo_validita + timestamp_creation > block.timestamp,"tempo per rispondere al messaggio scaduto");
+
+      //check lettura
       require(compare(mex_utente,primo_mex[id]), "i messaggi non corrispondono" );
+
       require(vip_riposta[id]==false,"hai gia ritirato questo nft");
       //fai transazione a favore del vip
       address payable vip= payable(msg.sender);
@@ -77,7 +78,9 @@ function confermaRisposta(uint256 id,string memory mex_utente) public{
 
 
 function compraNft(string  memory mex) public payable{
-      require(limite_mint != 0 && last_id<= limite_mint,"nft terminati");
+      if(limite_mint != 0){
+            require(last_id < limite_mint,"nft terminati");
+      }
       require( tempo_validita + timestamp_creation > block.timestamp,"tempo per comprare nft scaduto");
     //invia soldi al contratto
     //id_to_proprietario[last_id]=msg.sender;
