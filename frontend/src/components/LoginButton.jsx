@@ -20,8 +20,9 @@ faiLogin = () => {
       }
     render(){
         if(this.props.data.account !=null){
-        return (<button onClick={() => this.faiLogin()}>Login</button>)}
-        return (<button >PRO</button>)
+            return (<button onClick={() => this.faiLogin()}>Login</button>)
+        }
+        return (<button>PRO</button>)
     }                 
         
     

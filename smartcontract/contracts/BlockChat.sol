@@ -78,7 +78,7 @@ function confermaRisposta(uint256 id,string memory mex_utente) public{
 
 function compraNft(string  memory mex) public payable{
       require(limite_mint != 0 && last_id<= limite_mint,"nft terminati");
-      require( tempo_validita + timestamp_creation < block.timestamp,"tempo per comprare nft scaduto");
+      require( tempo_validita + timestamp_creation > block.timestamp,"tempo per comprare nft scaduto");
     //invia soldi al contratto
     //id_to_proprietario[last_id]=msg.sender;
     //timestamp_mint[last_id]= now;

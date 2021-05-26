@@ -7,7 +7,7 @@ class DisplayModel extends React.Component{
       let item= this.props.item
       if (item==null){
         return ("");
-      
+
 
       
       } 
@@ -16,20 +16,20 @@ class DisplayModel extends React.Component{
         return(
         <div key={item.nome+item.creatore}>
         <div className="card" style={{marginTop:20}} >
-        <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/062.jpg" className="card-img-top" alt="..."/>
+        <img src="https://pbs.twimg.com/profile_images/1280515721286619136/r35mYqRK.jpg" className="card-img-top" alt="..."/>
         <div className="card-body">
           <h5 className="card-title">{ item.nome}</h5>
           
           <div className="card-text"><div className="text-secondary">creato da:
-          </div>{item.creatore }</div>
+          </div>{item.creatore}</div>
    
           <div className="card-text"><div className="text-secondary">indirizzo contratto:
           </div>{item.contract}</div>
    
         </div>
            <div className="card-body">
-          <a href={"./contract_nft?nft="+item.contract} className="card-link">Dettagli</a>
-         
+          <a href={"./buyNft?nft="+item.contract} className="card-link">Dettagli</a>
+        
         </div>
         </div></div>
 
@@ -62,6 +62,7 @@ class DisplayModel extends React.Component{
          
           <li className="list-group-item">
           <div className="text-secondary" style={{display:"inline"}}>Limite messaggi:</div>
+          <div style={{display:"inline"}}>{item.limiteMessaggi}</div> 
             </li>
         
           
@@ -84,14 +85,11 @@ class DisplayModel extends React.Component{
                        
           <li className="list-group-item">
          <div className="text-secondary" style={{display:"inline"}} >Garanzia risposta:</div>
-          <div style={{display:"inline"}}>{item.grisp.toString()}</div>
+          <div style={{display:"inline"}}>{item.gRisp.toString()}</div>
    
           </li>  
         </ul>
-        <div className="card-body">
-          <a href="./#" className="card-link">Compra</a>
-          <a href="./#" className="card-link">Another link</a>
-        </div>
+
       </div>
       </div>
      

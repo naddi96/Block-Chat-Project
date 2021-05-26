@@ -9,6 +9,7 @@ frontend
 cd frontend
 npm install
 npm start
+///pacchetti: web3, ethereumjs-units
 
 
 
