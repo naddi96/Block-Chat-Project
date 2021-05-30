@@ -6,7 +6,7 @@ import Block_chat from "./build/contracts/BlockChat.json";
 import Nft_model from "./build/contracts/NFT_MODEL.json";
 import CreateNft from "./components/CreateNft";
 import BuyNft from "./components/BuyNft"
-
+import Chat from "./components/Chat"
 
 class App extends React.Component {
 
@@ -117,7 +117,9 @@ class App extends React.Component {
                       web3:this.state.web3_istance, 
                       abi_nft_model:this.state.abi_nft_model}} />} />
           
-        
+        <Route path="/chat" exact component={() => 
+        <Chat/> }
+          />
         </Switch>
         <Footer />
       </Router>
