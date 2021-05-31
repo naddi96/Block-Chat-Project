@@ -28,31 +28,35 @@ def randString(length):
 
 
 
-def check_vincoli(id_nft,nft_contract,address,scrittura):
+def check_vincoli(id_nft,nft_contract,cookie,scrittura):
 
     contract = w3.eth.contract(abi=abi, address=nft_contract)
-    owner = contract.functions.ownerOf(id_nft)
+    owner = contract.functions.ownerOf(int(id_nft)).call()
 
     mex_list = getmex_db(id_nft,nft_contract)
-
+    #
+    # print(mex_list)
     minuti_blocco = contract.functions.getMinutiBlocco().call()
     limite_messaggi = contract.functions.getLimiteMex().call()
     tempo_validita =  contract.functions.getTempoValidita().call()
     timestamp_creation = contract.functions.getTimestampCreation().call()
-    print(minuti_blocco,limite_messaggi,tempo_validita,timestamp_creation)
+    #print(minuti_blocco,limite_messaggi,tempo_validita,timestamp_creation)
     now = datetime.now()
     timestamp = datetime.timestamp(now)
-    
-    if len(mex_list)>0:
-        if mex_list[-1]["timestamp"]+minuti_blocco*60 < timestamp and minuti_blocco != 0:
-            return False
-        
+    print(owner)
+    if owner != login_session[cookie]:
+        return False
+
     if scrittura:
+        if len(mex_list)>0:
+            if mex_list[-1]["timestamp"]+minuti_blocco*60 > timestamp and minuti_blocco != 0:
+                return False
+        
         if len(mex_list) >= limite_messaggi and limite_messaggi != 0:
             return False
 
     if tempo_validita+timestamp_creation < timestamp:
-        print("aaaa")
+        #print("aaaa")
         return False
     
 
@@ -72,15 +76,15 @@ def save_mex_db(mex,id_nft,nft_contract,address):
                                     "timestamp":timestamp
                                     })
             else:
-                db[nft_contract][id_nft]={
+                db[nft_contract][id_nft]=[{
                                     "sender":address,
                                     "mex":mex,
-                                    "timestamp":timestamp}
+                                    "timestamp":timestamp}]
         else:
-            db[nft_contract]={id_nft:{
+            db[nft_contract]={id_nft:[{
                                     "sender":address,
                                     "mex":mex,
-                                    "timestamp":timestamp} }
+                                    "timestamp":timestamp}] }
         stri=json.dumps(db)
         open("db.json","w").write(stri)
         return True
@@ -167,27 +171,23 @@ nel body della richiesta (request.data) c'è:
 '''
 @app.route('/sendmex',methods=["POST"])
 def receive_mex():
-    try:
+    #try:
         data=json.loads(request.data)
         id_nft=data['id_nft']
         mex=data['mex']
         address=data['address']
         nft_contract=data['nft_contract']
         cookie = request.cookies.get('login')
-        
-        print(data)
-        print(login_session)
-        print(cookie)
         if is_logged(address,cookie):
-            print('aaaa')
-            if(check_vincoli(id_nft,nft_contract,address,True)):
+            if(check_vincoli(id_nft,nft_contract,cookie,True)):
                 save_mex_db(mex,id_nft,nft_contract,address)
                 return "message saved"
         return "vincoli non soddisfatti"
         #print(j)
         #richiesta=dict(request.body)
-    except:
-        return "richiesta mal formata"
+    #except  Exception as e:
+#        print(e)
+ #       return "richiesta mal formata"
 
 
 
@@ -197,7 +197,6 @@ nel body della richiesta (request.data) c'è:
 {"address":"0x000","id_nft:"3","nft_contract":"0x000"}
 '''
 @app.route('/getmex',methods=["POST"])
-@cross_origin()
 def get_mex():
     data=json.loads(request.data)
     id_nft=data['id_nft']
@@ -205,8 +204,8 @@ def get_mex():
     nft_contract=data['nft_contract']
     cookie = request.cookies.get('login')
     if is_logged(address,cookie):
-        if(check_vincoli(id_nft,nft_contract,address,False)):
-            return getmex_db(address,id_nft,nft_contract)
+        if(check_vincoli(id_nft,nft_contract,cookie,False)):
+            return json.dumps (getmex_db(id_nft,nft_contract))
     return "not logged"
         
 

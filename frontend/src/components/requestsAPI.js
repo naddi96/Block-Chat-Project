@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-
+const endpoint="http://localhost/"
 
 async function realLogin(address,rand_string,signed_string){
-    return await axios.post("http://localhost/login",{
+    return await axios.post(endpoint+"login",{
         address: address,
         signed_string:signed_string,
         rand_string:rand_string
@@ -17,7 +17,7 @@ export async function login(address,web3){
     //show progress bar
      // fetch repos with axios
          let res=await axios
-         .get(`http://localhost/prelogin?address=`+address , {withCredentials: 'True'})
+         .get(endpoint+`prelogin?address=`+address , {withCredentials: 'True'})
          .then(async result => {
             console.log(web3)
             let msg = result.data
@@ -46,7 +46,7 @@ export async function login(address,web3){
 }
 
 export async function sendmex(mex,address,id_nft,nft_contract){
-    await axios.post("http://localhost/sendmex",{
+    return await axios.post(endpoint+"sendmex",{
         mex:mex,
         address:address,
         id_nft:id_nft,
@@ -54,10 +54,33 @@ export async function sendmex(mex,address,id_nft,nft_contract){
     },
     {withCredentials: 'True'})
     .then(async result => {
-        console.log(result)
+        return result.data
     })
+    
     .catch(thrown => {
-        alert("problema con il messaggio")
+        alert("problema con interno messaggio non inviato")
         return false
     });
+}
+
+
+export async function getmex(address,id_nft,nft_contract){
+    
+    return await axios.post(endpoint+"getmex",{
+        address:address,
+        id_nft:id_nft,
+        nft_contract:nft_contract
+    },
+    {withCredentials: 'True'}).then(result => {
+        if( result.data==="not logged"){
+            console.log(address,id_nft,nft_contract)
+            alert("non sei logatto o non nft non è di tua proprietà")
+            return []
+        }else{
+            return result.data
+        }
+
+    })
+
+
 }

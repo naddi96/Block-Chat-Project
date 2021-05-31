@@ -92,40 +92,58 @@ class App extends React.Component {
     }
   }
 
-
+  
 
   render() {
-    return (
+    if (this.state.account !="" &&
+      this.state.abi_nft_model!= null &&
+      this.state.contract_block_chat!= null &&
+      this.state.web3_istance != null){
+      return (
 
-      <div className="App">
-      <Router>
-        <Navigation />
-        <Switch>
-          <Route path="/" exact component={ () => <Home  data= {this.state} />} />
-          <Route path="/about" exact component={() => <About />} />
-          <Route path="/contact" exact component={() => <Contact/>} />
-        
-        <Route path="/createNft" exact component={() => 
-                     <CreateNft data={{
-                      account:this.state.account,
-                      web3:this.state.web3_istance, 
-                      contract:this.state.contract_block_chat
-                     }} />} />
-        
-        <Route path="/buyNft" exact component={() => 
-                     <BuyNft data={{account:this.state.account,
-                      web3:this.state.web3_istance, 
-                      abi_nft_model:this.state.abi_nft_model}} />} />
+        <div className="App">
+        <Router>
+          <Navigation />
           
-        <Route path="/chat" exact component={() => 
-        <Chat/> }
-          />
-        </Switch>
-        <Footer />
-      </Router>
-    </div>
+          
+          
+          <Switch>
+            
+            
+            <Route path="/" exact component={ () => <Home  data= {this.state} />} />
+            <Route path="/about" exact component={() => <About />} />
+            <Route path="/contact" exact component={() => <Contact/>} />
+          
+          <Route path="/createNft" exact component={() => 
+                      <CreateNft data={{
+                        account:this.state.account,
+                        web3:this.state.web3_istance, 
+                        contract:this.state.contract_block_chat
+                      }} />} />
+          
+          <Route path="/buyNft" exact component={() => 
+                      <BuyNft data={{account:this.state.account,
+                        web3:this.state.web3_istance, 
+                        abi_nft_model:this.state.abi_nft_model}} />} />
+            
+    
+          <Route path="/chat" exact component={() => 
+          
+          <Chat account={this.state.account}
+                abi_nft_model={  this.state.abi_nft_model}
+                web3={this.state.web3_istance} /> }
+            />
+          </Switch>
+          <Footer />
+        </Router>
+      </div>
 
-      );
+      );}else return (
+      
+      <Router>
+        <Navigation />        
+        </Router>
+)
     }
   }
 

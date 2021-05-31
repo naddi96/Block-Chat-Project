@@ -1,49 +1,104 @@
 
 import React from "react";
-import {sendmex} from "./requestsAPI";
+import {sendmex,getmex} from "./requestsAPI";
 
 /** Replace these with your own API keys, username and roomId from Chatkit  */
 
 const username = 'perborgen'
 const roomId = 9806194
 class Chat extends React.Component {
+    
     constructor() {
         super()
         this.state = {
-            messages: [{
-            text:"prova",
-            css:"othermex"
-        },
-        {
-            text:"prova",
-            css:"othermex"
-        },
-        {
-            css:"mymex",
-            text:"prova",
-           },
-            {
-            css:"mymex",
-            text:"prova",
-           },
-        ]
+            id_nft:null,
+            contract_nft:null,
+            account:null,
+            creatore:null,
+            limiteMessaggi:null,
+            minBlocco:null,
+            messages:[],
         }
         this.sendMessage = this.sendMessage.bind(this)
     } 
-    
-    componentDidMount() {
+
+
+   async carica_contratto(nft,id){
+        let abi=this.props.abi_nft_model
+        let web3=this.props.web3
+        let account=this.props.account
+        const contract= new web3.eth.Contract(abi,nft)      
+        let creatore = await contract.methods.getCreatore().call();
+        let limiteMessaggi = await contract.methods.getLimiteMex().call();
+        let minBlocco = await contract.methods.getMinutiBlocco().call();
+        let primoMex = await contract.methods.getPrimoMex(id).call();
+        let css="mymex"
+        if (creatore===account){
+            css="othermex"
+        }
         
+        this.setState({
+            id_nft:id,
+            contract_nft:nft,
+            account:account,
+            creatore:creatore,
+            limiteMessaggi:limiteMessaggi,
+            minBlocco:minBlocco,
+            messages:[{
+                css:css,
+                text:primoMex,
+            }]
+        })
+   }
+
+   async componentDidMount() {
+        
+        const authResult = new URLSearchParams(window.location.search);
+        const nft = authResult.get("nft");
+        const id = authResult.get("id");
+    
+        if ( this.props.account!= "" && nft && id){
+            await this.carica_contratto(nft,id)
+            let x=await getmex(this.props.account,id,nft)
+            
+            let li=this.state.messages
+            for (let i=0; i<x.length;i++){
+                if (x[i].sender === this.state.creatore){
+                    li.push(
+                        {
+                            css:"othermex",
+                            text:x[i].mex,
+                        })
+                }else{
+                    li.push(
+                        {
+                            css:"mymex",
+                            text:x[i].mex,
+                        })
+                }
+            }
+            this.setState({
+                messages:li,
+
+            })
+        
+        }
+
         
     }    
     
     async sendMessage(text) {
-        await sendmex(text,'0xAd5fc8832F3E3E80Fa590e27bB0894Aa20624324',1,'0xeDD150911C91B957EDCf95c22efcd6a3678cB4C3')
-        
+        let risp=await sendmex(text,this.state.account,this.state.id_nft,this.state.contract_nft)
+        console.log(risp)
+        if (risp==="vincoli non soddisfatti"){
+            alert("messaggio bloccato: Hai esaurito i messaggi per il momento")
+            return
+        }
         this.setState({
             messages:this.state.messages.concat([{
              css:"mymex",
             text:text,
-            roomId:roomId,    
+            roomId:roomId, 
         }])
   
         })
