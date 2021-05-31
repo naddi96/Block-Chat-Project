@@ -1,5 +1,6 @@
 
 import React from "react";
+import {sendmex} from "./requestsAPI";
 
 /** Replace these with your own API keys, username and roomId from Chatkit  */
 
@@ -35,8 +36,8 @@ class Chat extends React.Component {
         
     }    
     
-    sendMessage(text) {
-        
+    async sendMessage(text) {
+        await sendmex(text,'0xAd5fc8832F3E3E80Fa590e27bB0894Aa20624324',1,'0xeDD150911C91B957EDCf95c22efcd6a3678cB4C3')
         
         this.setState({
             messages:this.state.messages.concat([{

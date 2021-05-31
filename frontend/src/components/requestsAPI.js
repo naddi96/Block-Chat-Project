@@ -3,11 +3,12 @@ import axios from 'axios';
 
 
 async function realLogin(address,rand_string,signed_string){
-    return await axios.post("http://127.0.0.1:5000/login",{
+    return await axios.post("http://localhost/login",{
         address: address,
         signed_string:signed_string,
         rand_string:rand_string
-    })
+    },
+    {withCredentials: 'True'})
 
 }
 
@@ -16,7 +17,7 @@ export async function login(address,web3){
     //show progress bar
      // fetch repos with axios
          let res=await axios
-         .get(`http://127.0.0.1:5000/prelogin?address=`+address)
+         .get(`http://localhost/prelogin?address=`+address , {withCredentials: 'True'})
          .then(async result => {
             console.log(web3)
             let msg = result.data
@@ -44,3 +45,19 @@ export async function login(address,web3){
        return res
 }
 
+export async function sendmex(mex,address,id_nft,nft_contract){
+    await axios.post("http://localhost/sendmex",{
+        mex:mex,
+        address:address,
+        id_nft:id_nft,
+        nft_contract:nft_contract
+    },
+    {withCredentials: 'True'})
+    .then(async result => {
+        console.log(result)
+    })
+    .catch(thrown => {
+        alert("problema con il messaggio")
+        return false
+    });
+}

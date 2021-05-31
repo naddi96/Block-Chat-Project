@@ -11,7 +11,7 @@ from flask_cors import CORS, cross_origin
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["http://localhost:3000"], headers=['Content-Type'], expose_headers=['Access-Control-Allow-Origin'], supports_credentials=True)
 
 
 login_session={}
@@ -175,7 +175,11 @@ def receive_mex():
         nft_contract=data['nft_contract']
         cookie = request.cookies.get('login')
         
+        print(data)
+        print(login_session)
+        print(cookie)
         if is_logged(address,cookie):
+            print('aaaa')
             if(check_vincoli(id_nft,nft_contract,address,True)):
                 save_mex_db(mex,id_nft,nft_contract,address)
                 return "message saved"
@@ -210,7 +214,7 @@ def get_mex():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=80)
    # check_vincoli("",)
     
     #print("ss")
