@@ -69,9 +69,12 @@ class BuyNft extends React.Component {
   sendTransition = (e) => {
     let contract = this.state.contract;
 
-
+    if (this.state.primoMex === ""){
+      alert("inserisci il primo messaggio ")
+      return
+    }
     contract.methods
-      .compraNft("ciaooooo")
+      .compraNft(this.state.primoMex)
       .send({
         from: this.props.data.account,
         value: this.state.contract_nft.costo,

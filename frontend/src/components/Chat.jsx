@@ -12,6 +12,8 @@ class Chat extends React.Component {
         super()
         this.state = {
             id_nft:null,
+            primoMex:null,
+            contract_istance:null,
             contract_nft:null,
             account:null,
             creatore:null,
@@ -27,7 +29,7 @@ class Chat extends React.Component {
         let abi=this.props.abi_nft_model
         let web3=this.props.web3
         let account=this.props.account
-        const contract= new web3.eth.Contract(abi,nft)      
+        let contract= new web3.eth.Contract(abi,nft)      
         let creatore = await contract.methods.getCreatore().call();
         let limiteMessaggi = await contract.methods.getLimiteMex().call();
         let minBlocco = await contract.methods.getMinutiBlocco().call();
@@ -38,7 +40,9 @@ class Chat extends React.Component {
         }
         
         this.setState({
+            primoMex:primoMex,
             id_nft:id,
+            contract_istance:contract,
             contract_nft:nft,
             account:account,
             creatore:creatore,
@@ -63,16 +67,18 @@ class Chat extends React.Component {
             
             let li=this.state.messages
             for (let i=0; i<x.length;i++){
-                if (x[i].sender === this.state.creatore){
+                if (x[i].sender === this.props.account){
                     li.push(
-                        {
-                            css:"othermex",
+                        {   
+                            sender:x[i].sender,
+                            css:"mymex",
                             text:x[i].mex,
                         })
                 }else{
                     li.push(
                         {
-                            css:"mymex",
+                            sender:x[i].sender,
+                            css:"othermex",
                             text:x[i].mex,
                         })
                 }
@@ -88,6 +94,30 @@ class Chat extends React.Component {
     }    
     
     async sendMessage(text) {
+        let confermaDaCreator=false
+        if( this.state.account == this.state.creatore){
+            console.log("aaaa")
+
+            for (let i=0; i<this.state.messages.length ;i++){
+                if (this.state.messages[i].sender ==this.state.creatore){
+                    console.log("sss")
+                    confermaDaCreator=true
+                }
+            }
+            
+            if (!confermaDaCreator){
+                console.log("aaaassss")
+
+                this.state.
+                contract_istance.methods.
+                confermaRisposta(this.state.id_nft,this.state.primoMex).send({
+                    from: this.state.account});
+
+            }
+        }
+        
+        
+        
         let risp=await sendmex(text,this.state.account,this.state.id_nft,this.state.contract_nft)
         console.log(risp)
         if (risp==="vincoli non soddisfatti"){
@@ -96,7 +126,8 @@ class Chat extends React.Component {
         }
         this.setState({
             messages:this.state.messages.concat([{
-             css:"mymex",
+            sender:this.state.account,
+            css:"mymex",
             text:text,
             roomId:roomId, 
         }])

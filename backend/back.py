@@ -32,7 +32,7 @@ def check_vincoli(id_nft,nft_contract,cookie,scrittura):
 
     contract = w3.eth.contract(abi=abi, address=nft_contract)
     owner = contract.functions.ownerOf(int(id_nft)).call()
-
+    creatore = contract.functions.getCreatore().call()
     mex_list = getmex_db(id_nft,nft_contract)
     #
     # print(mex_list)
@@ -44,8 +44,11 @@ def check_vincoli(id_nft,nft_contract,cookie,scrittura):
     now = datetime.now()
     timestamp = datetime.timestamp(now)
     print(owner)
-    if owner != login_session[cookie]:
-        return False
+    
+
+
+
+
 
     if scrittura:
         if len(mex_list)>0:
@@ -59,8 +62,11 @@ def check_vincoli(id_nft,nft_contract,cookie,scrittura):
         #print("aaaa")
         return False
     
-
-    return True
+    if owner == login_session[cookie]:
+        return True
+    if creatore == login_session[cookie]:
+        return True
+    return False
     
 def save_mex_db(mex,id_nft,nft_contract,address):
     try:
