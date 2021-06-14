@@ -29,7 +29,8 @@ truffle console
 
 let instance = await BlockChat.deployed()
 
-
+await instance.getNftComprati("0x9921fCC51EC3EC283Add11F59E258C2E6601b170")
+[]
 await instance.creaModelloNft("blasss",500,300,40,39,false,{from:"0x562584E849A8D0C518C11fDe5d24c8168286365F"})
 
 await instance.creaModelloNft("this.state.nome2","34","45","40","224234296","4000000000000000000",true)
@@ -41,10 +42,10 @@ pr =await instance.getNFTcreatore.call()
 
 pr = await instance.getNFTlist.call()
 
-prova = await NFT_MODEL.at('0xfE3Ed8a70822f3768C3002679F4Bea430e02b5fe')
+prova = await NFT_MODEL.at('0x1B98B1A43b066a540e33B7360dFf1244a8b656b1')
 0xfE3Ed8a70822f3768C3002679F4Bea430e02b5fe
 await prova.getNome()
-
+await prova.safeTransferFrom("0x35E2EA3F6Cd66cDBEaD52E5bA16B39D6b79A15D9","0x45b73Aec479f33324f2529d6DbAAbe5b51f08973",1,{from:0x35E2EA3F6Cd66cDBEaD52E5bA16B39D6b79A15D9})
 
 
 await prova.compraNft({from:"0x4705Ca99E6033A3255985bC80dAf0875A2a4514B"})

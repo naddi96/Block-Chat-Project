@@ -35,7 +35,7 @@ class BuyNft extends React.Component {
       let limiteMessaggi = await contract.methods.getLimiteMex().call();
       let limiteMint = await contract.methods.getLimiteMint().call();
       let costo = await contract.methods.getCosto().call();
-      let gRisp = await contract.methods.getGaranziaRisposta().call();
+     // let gRisp = await contract.methods.getGaranziaRisposta().call();
       let creatore = await contract.methods.getCreatore().call();
       //let scadenza
       let js = {
@@ -46,7 +46,7 @@ class BuyNft extends React.Component {
         costo: costo,
         limiteMessaggi: limiteMessaggi,
         limiteMint: limiteMint,
-        gRisp: gRisp,
+       // gRisp: gRisp,
         creatore: creatore,
         contract: nft,
       };

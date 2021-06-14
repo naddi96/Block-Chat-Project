@@ -86,8 +86,7 @@ class CreateNft extends React.Component{
             limex,
             mint,
             this.state.scadenza,
-            this.state.wei,
-            this.state.garanziarisposta
+            this.state.wei
             )
                 .send({from: this.state.account})
                 .on('receipt', function (receipt) {
@@ -175,20 +174,7 @@ class CreateNft extends React.Component{
             </div>
 
 
-            <div className="form-group">
-              <label >Garanzia Risposta</label>
-              <select onChange={e => {
-                  if (e.target.value==="Si" ){ 
-                    this.setState({ garanziarisposta : true })
-                 }else{
-                    this.setState({ garanziarisposta : false })
-                 }
-                }}
-              className="form-control">
-                <option>Si</option>
-                <option>No</option>
-               </select>
-            </div>
+        
            
          
 

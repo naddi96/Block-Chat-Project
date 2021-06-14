@@ -86,12 +86,7 @@ class DisplayModel extends React.Component{
           </li>
    
    
-                       
-          <li className="list-group-item">
-         <div className="text-secondary" style={{display:"inline"}} >Garanzia risposta:</div>
-          <div style={{display:"inline"}}>{item.gRisp.toString()}</div>
-   
-          </li>  
+ 
         </ul>
 
       </div>
