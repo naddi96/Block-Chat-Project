@@ -110,7 +110,7 @@ class App extends React.Component {
           
           <Switch>
             
-            <Route path="/NftShop" exact component={ () => <div><Navigation/><NftShop/></div>}/>
+            <Route path="/NftShop" exact component={ () => <div><Navigation/><NftShop data= {this.state}/></div>}/>
             <Route path="/" exact component={ () => <Homepage/>} />
             <Route path="/about" exact component={() => <div><Navigation/><About/></div>} />
             <Route path="/contact" exact component={() => <div><Navigation/><Contact/></div>} />
@@ -162,47 +162,7 @@ class App extends React.Component {
       </div>
 
       );}else return (
-        <div className="App">
-        <Router>
-          
-          
-          <Switch>
-            
-            <Route path="/NftShop" exact component={ () => <div><Navigation/><NftShop/></div>}/>
-            <Route path="/" exact component={ () => <Homepage/>} />
-            <Route path="/about" exact component={() => <div><Navigation/><About/></div>} />
-            <Route path="/contact" exact component={() => <div><Navigation/><Contact/></div>} />
-          
-          <Route path="/createNft" exact component={() => <div>
-                      <Navigation/>
-                      <CreateNft data={{
-                        account:this.state.account,
-                        web3:this.state.web3_istance, 
-                        contract:this.state.contract_block_chat
-                      }} /> </div>} />
-          
-          <Route path="/buyNft" exact component={() => <div>
-                      <Navigation/>
-                      <BuyNft data={{account:this.state.account,
-                        web3:this.state.web3_istance, 
-                        abi_nft_model:this.state.abi_nft_model}} />
-                        </div>} />
-            
-    
-          <Route path="/chat" exact component={() => 
-          <div>
-          <Navigation/>
-          <Chat account={this.state.account}
-                abi_nft_model={  this.state.abi_nft_model}
-                web3={this.state.web3_istance} /> 
-                </div>}
-            />
-            
-          </Switch>
-          <Footer />
-        </Router>
-      </div>
-
+       ""
       
 )
     }

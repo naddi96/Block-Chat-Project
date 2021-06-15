@@ -33,20 +33,35 @@
   max-width: 80%;
   width: auto;
   float: right;
-  
+
 
 }
 
 
 
 .mymex div:nth-child(1) {
+
   font-size: 11px;
   color: var(--main-text-color);
   opacity: 0.9;
   margin-bottom: 6px;
 }
+
+
+.mymex div:nth-child(2):hover {
+  border: #cecfd7 solid 2px;
+  background: #64576f;;
+  color: var(--secondary-color);
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: ease-in all 0.5s;
+  cursor: pointer;
+}
+
 .mymex div:nth-child(2) {
-  background: var(--main-color);
+  border: #cecfd7 solid 2px;
+  background: #8308eb  ;
+  transition: ease-in all 0.5s;
   color: var(--secondary-color);
   padding: 4px 8px;
   border-radius: 8px;
@@ -60,15 +75,25 @@
   color: var(--main-text-color);
   opacity: 0.9;
   margin-bottom: 6px;
+  transition: ease-in all 0.5s;
+
 }
 .othermex div:nth-child(2) {
-  background: var(--main-color);
+  transition: ease-in all 0.5s;
+
+  border: #cecfd7 solid 2px;
+  background: #64576f;
   color: var(--secondary-color);
   padding: 4px 8px;
   border-radius: 6px;
-  
-
-}
+  }
+  .othermex div:nth-child(2):hover {
+    border: #cecfd7 solid 2px;
+    background: #8308eb;
+    color: var(--secondary-color);
+    padding: 4px 8px;
+    border-radius: 6px;
+    }
 
 
 
@@ -78,7 +103,7 @@
   padding: 30px 30px 50px 30px;
   margin: 0;
   width: 100%;
-  background: white;
+  
 }
 
 .send-message-form {
@@ -101,8 +126,12 @@
   padding: 15px 10px;
   border: none;
   margin: 0;
-  background: var(--send-message-form);
+  background: #b7adad;
   font-weight: 200;
+  border: #cecfd7 solid 2px;
+  border-radius: 15px;
+
+
 }
 
 .send-message-form input:focus {
@@ -114,7 +143,26 @@
 }
 
 
+.contract-info{
+  background: #ffffff;
+  border-radius: 15px;
+  border: #cecfd7 solid 2px;
+  text-align: center;
+  margin-bottom: 20px;
 
+}
+
+.compra-button{
+  display: table;
+  margin: 0 auto;
+  border: 1px solid black;
+  padding-right: 15px;
+  padding-left: 15px;
+  width: 50%;
+  border: #cecfd7 solid 2px;
+  border-radius: 15px;
+  margin-top: 3px;
+}
 
 
 
@@ -198,4 +246,19 @@ code {
 }
 
 
+.App{
+  height: 100vh;
+  background-color:#0c0f38;
 
+;
+
+}
+
+
+.table {
+  width: 100%;
+  
+  margin-bottom: 0;
+  /* margin-bottom: 1rem; */
+  /* color: #212529; */
+}

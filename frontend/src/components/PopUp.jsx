@@ -7,7 +7,7 @@ const PopUp = ({ handleClose, show, children }) => {
     <div className={showHideClassName}>
       <div className="modal-container">
         {children}
-        <button className="modal-close" onClick={handleClose}>
+        <button className="compra-button" onClick={handleClose}>
           chiudi
         </button>
       </div>

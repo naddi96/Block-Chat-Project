@@ -149,7 +149,7 @@ class BuyNft extends React.Component {
                 />
             </div>
             <div className="form-group">
-                <button onClick={e => {this.sendTransition()
+                <button className="compra-button"  onClick={e => {this.sendTransition()
                                         this.modalClose(e)}} type="button">
                 Compra
                 </button>
@@ -158,14 +158,12 @@ class BuyNft extends React.Component {
 
           <DisplayModel item={this.state.contract_nft} />
         </div>
-        <div className="card-body">
-          <button onClick={e => this.modalOpen(e)} className="card-link">
-            Compra
+          
+          <button className="compra-button" onClick={e => this.modalOpen(e)}>
+            Compraaaa
           </button>
-          <a href="./#" className="card-link">
-            Another link
-          </a>
-        </div>
+      
+        
       </div>
     );
   }

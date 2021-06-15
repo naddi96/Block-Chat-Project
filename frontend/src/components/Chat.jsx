@@ -152,7 +152,35 @@ class Chat extends React.Component {
 class MessageList extends React.Component {
     render() {
         return (
+
+            
             <ul className="message-list">
+                <div className="contract-info">
+                <div class="table-responsive-sm">
+                <table className="table table-borderless">
+  <thead>
+    <tr>
+    <th scope="col">Nome nft</th>
+      <th scope="col">Messaggi rimasti</th>
+      <th scope="col">Minuti blocco</th>
+      <th scope="col">id</th>
+      <th scope="col">Scadenza</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>provaaaaaa</td>
+      <td>3</td>
+      <td>3</td>
+      <td>3</td>
+      <td>2/05/2020</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+                
+                </div>
                 {this.props.messages.map((message, index) => {
                     return (
                     <div className="mexContainer">
