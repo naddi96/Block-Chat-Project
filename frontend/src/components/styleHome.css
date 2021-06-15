@@ -1,9 +1,9 @@
 
 .Services {
-    margin-top: 90px;
-    padding: 60px 0;
+    padding: 60px 60px;
     background: #0c0f38;
     font-family: Poppins;
+    height: 100vh;
 }
 
 .Services .titlepage {
@@ -63,22 +63,19 @@
     color: #fff;
 }
 
-.read_more {
-    font-size: 16px;
-    background-color: #fff;
-    color: #000;
-    padding: 10px 0px;
-    width: 100%;
-    max-width: 190px;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    margin: 0 auto;
-    margin-top: 20px;
-}
 
 .read_more:hover {
     background: #8308eb;
     color: #fff;
+}
+
+
+#homepage{
+    background-color:  #0c0f38;
+}
+
+footer{
+    background-color:  #0c0f38;
+  
 }
 

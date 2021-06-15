@@ -2,7 +2,9 @@ import React from "react";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import "./styleHome.css";
 import Chat from "./Chat";
-
+import chatIcon from "./images/Chat.png";
+import createIcon from "./images/createNft.png";
+import ShopIcon from "./images/NftShop.png";
 
 
 
@@ -10,6 +12,7 @@ class Homepage extends React.Component{
 
 render(){
    return(
+   <div id="homepage">
     <div id="service" class="Services">
          <div class="container">
             <div class="row">
@@ -25,7 +28,7 @@ render(){
                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                <Link to="/NftShop">
                   <div class="Services-box">
-                     <i><img src="images/service1.png" alt="#" /></i>
+                     <i><img src={ShopIcon} alt="#" /></i>
                      <h3> Lista degli NFT in vendita</h3>
                      <p>Acquista un NFT per poter chattare con i tuoi VIP preferiti!</p>
                   </div>
@@ -35,7 +38,7 @@ render(){
                   <Link to="/chat">
                   <div class="Services-box">
                   
-                     <i><img src="images/service2.png" alt="#" /></i>
+                     <i><img src={chatIcon} alt="#" /></i>
                      <h3>Chat</h3>
                      <p>Hai già acquistato degli NFT? Cosa aspetti, vai subito a chattare!</p>
                   </div>
@@ -44,7 +47,7 @@ render(){
                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                <Link to="/createNft">
                   <div class="Services-box">
-                     <i><img src="images/service3.png" alt="#" /></i>
+                     <i><img src={createIcon} alt="#" /></i>
                      <h3>Crea NFT</h3>
                      <p>Sei bello/a e famoso/a e vuoi fare soldi? Crea i tuoi NFT e inizia a guadagnare!</p>
                   </div>
@@ -52,6 +55,7 @@ render(){
                </div>
                </div>
          </div>
+      </div>
       </div>
    );
 }
