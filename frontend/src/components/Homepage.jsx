@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import "./styleHome.css";
-import Chat from "./Chat";
 import chatIcon from "./images/Chat.png";
 import createIcon from "./images/createNft.png";
 import ShopIcon from "./images/NftShop.png";
@@ -35,14 +34,22 @@ render(){
                </Link>
                </div>
                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                  <Link to="/chat">
+                  <Link to="/ChatListBuyer">
                   <div class="Services-box">
-                  
                      <i><img src={chatIcon} alt="#" /></i>
-                     <h3>Chat</h3>
+                     <h3>Chat con i VIP</h3>
                      <p>Hai già acquistato degli NFT? Cosa aspetti, vai subito a chattare!</p>
                   </div>
                   </Link>
+               </div>
+               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+               <Link to="/ChatListCreator">
+                  <div class="Services-box">
+                     <i><img src={chatIcon} alt="#" /></i>
+                     <h3>Chat con i fan</h3>
+                     <p>Hai già qualche fan che ha comprato i tuoi NFT? Forza, rispondigli!</p>
+                  </div>
+               </Link>
                </div>
                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                <Link to="/createNft">

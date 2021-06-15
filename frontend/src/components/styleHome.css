@@ -3,7 +3,6 @@
     padding: 60px 60px;
     background: #0c0f38;
     font-family: Poppins;
-    height: 100vh;
 }
 
 .Services .titlepage {
@@ -72,6 +71,7 @@
 
 #homepage{
     background-color:  #0c0f38;
+    height: 100%;
 }
 
 footer{

@@ -120,7 +120,7 @@ class CreateNft extends React.Component{
 
     render(){
         return(
-            
+            <div className="background-main">
             <div className="formCreaNft">
             
             <form>
@@ -182,6 +182,7 @@ class CreateNft extends React.Component{
           </form>
           <button onClick={this.sendTransition}>Crea Nft</button>
 
+         </div>
          </div>
         );
     }
