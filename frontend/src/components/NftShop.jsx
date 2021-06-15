@@ -3,7 +3,7 @@ import DisplayModel from "./DisplayModel";
 import LoginButton from "./LoginButton";
 
 
-class Home extends React.Component {
+class NftShop extends React.Component {
 
   async componentDidMount() {
     const x=this.props.data
@@ -111,4 +111,4 @@ async load_nft_models() {
 }
 }
 
-export default Home;
+export default NftShop;
