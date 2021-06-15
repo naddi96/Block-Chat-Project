@@ -17,7 +17,7 @@ function Navigation(props) {
                 }`}
               >
                 <Link className="nav-link" to="/">
-                  Home
+                  Homepage
                   <span className="sr-only">(current)</span>
                 </Link>
               </li>

@@ -1,0 +1,81 @@
+
+.Services {
+    padding: 60px 60px;
+    background: #0c0f38;
+    font-family: Poppins;
+    height: 100vh;
+}
+
+.Services .titlepage {
+    text-align: center;
+}
+
+.Services .titlepage h2 {
+    color: #fff;
+    padding-bottom: 20px;
+}
+
+.Services .titlepage p {
+    color: #fff;
+}
+
+.Services .Services-box i {
+    background: #fff;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    display: inline-block;
+    padding-top: 19px;
+}
+
+.Services .Services-box i:hover {
+    background: #ddd;
+}
+
+.Services .Services-box h3 {
+    padding: 20px 0px 20px 0px;
+    font-size: 20px;
+    line-height: 25px;
+    color: #fff;
+    display: block;
+    font-weight: 500;
+}
+
+.Services .Services-box {
+    text-align: center;
+    background-color: transparent;
+    border-radius: 20px;
+    border: #cecfd7 solid 2px;
+    padding: 40px;
+    transition: ease-in all 0.5s;
+    margin-bottom: 30px;
+}
+
+.Services .Services-box:hover {
+    background: #8308eb;
+    transition: ease-in all 0.5s;
+    cursor: pointer;
+}
+
+.Services .Services-box p {
+    font-size: 16px;
+    line-height: 24px;
+    color: #fff;
+}
+
+
+.read_more:hover {
+    background: #8308eb;
+    color: #fff;
+}
+
+
+#homepage{
+    background-color:  #0c0f38;
+}
+
+footer{
+    background-color:  #0c0f38;
+  
+}
+
