@@ -47,7 +47,7 @@ contract NFT_MODEL is ERC721{
             super._beforeTokenTransfer(from, to, amount); // Call parent hook
             if (from != address(0) && to != address(0)){           
                   block_chat.removeNftComprati(from,address(this),amount);
-                  block_chat.addNftComprati(to,address(this),amount);
+                  block_chat.addNftComprati(to,address(this),amount,nome_modello);
             }
       }
 
@@ -104,7 +104,7 @@ function compraNft(string  memory mex) public payable{
       primo_mex[last_id] = mex;
       //adress_to_id_contract(msg.sender,address(this) ,last_id )
 
-      block_chat.addNftComprati(msg.sender,address(this),last_id);
+      block_chat.addNftComprati(msg.sender,address(this),last_id,nome_modello);
       _mint(msg.sender, last_id);
 
 }
@@ -179,6 +179,8 @@ contract BlockChat {
 struct id_nft {
       uint256 id;
       address nft_contract;
+      string nome;
+
 }
 
 
@@ -192,9 +194,10 @@ mapping (bytes => address) combkey_to_creator; //abi.encodePacked(msg.sender,nom
 
 
 
-function addNftComprati(address buyer,address nft_contr,uint256 id ) public  {
+function addNftComprati(address buyer,address nft_contr,uint256 id,string memory nome ) public  {
      require( nft_address_to_creator[msg.sender] != address(0),"operazione negata");
-     id_nft memory item  = id_nft(id,nft_contr);
+     id_nft memory item  = id_nft(id,nft_contr,nome);
+     
      address_to_id_nft[buyer].push(item);
 }
 

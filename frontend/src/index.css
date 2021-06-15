@@ -132,6 +132,9 @@
 
 
 
+
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -177,3 +180,18 @@ code {
   top: 30%;
   padding: 20px;
 }
+
+.messages-box{
+  height: 510px;
+  overflow-y: scroll;
+  
+}
+
+.itemchat{
+  margin: 3px 3px 3px 3px;
+
+}
+
+
+
+

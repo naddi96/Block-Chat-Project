@@ -7,6 +7,8 @@ import Nft_model from "./build/contracts/NFT_MODEL.json";
 import CreateNft from "./components/CreateNft";
 import BuyNft from "./components/BuyNft"
 import Chat from "./components/Chat"
+import ChatListBuyer from "./components/ChatListBuyer"
+import ChatListCreator from "./components/ChatListCreator"
 
 class App extends React.Component {
 
@@ -133,6 +135,23 @@ class App extends React.Component {
                 abi_nft_model={  this.state.abi_nft_model}
                 web3={this.state.web3_istance} /> }
             />
+
+
+          <Route path="/ChatListBuyer" exact component={() => 
+          <ChatListBuyer
+                  account={this.state.account}
+                  web3={this.state.web3_istance}
+                  contract={this.state.contract_block_chat}
+            />} />
+          
+          <Route path="/ChatListCreator" exact component={() => 
+          <ChatListCreator
+                  account={this.state.account}
+                  web3={this.state.web3_istance}
+                  contract={this.state.contract_block_chat}
+            />} />
+
+          
           </Switch>
           <Footer />
         </Router>
