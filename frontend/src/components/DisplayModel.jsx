@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 
 class DisplayModel extends React.Component{
  
@@ -28,7 +28,7 @@ class DisplayModel extends React.Component{
    
         </div>
            <div className="card-body">
-          <a href={"./buyNft?nft="+item.contract} className="card-link">Dettagli</a>
+          <Link to={"./buyNft?nft="+item.contract} className="card-link">Dettagli</Link>
         
         </div>
         </div></div>

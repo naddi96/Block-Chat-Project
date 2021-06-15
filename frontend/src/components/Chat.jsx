@@ -4,8 +4,6 @@ import {sendmex,getmex} from "./requestsAPI";
 
 /** Replace these with your own API keys, username and roomId from Chatkit  */
 
-const username = 'perborgen'
-const roomId = 9806194
 class Chat extends React.Component {
     
     constructor() {
@@ -61,7 +59,7 @@ class Chat extends React.Component {
         const nft = authResult.get("nft");
         const id = authResult.get("id");
     
-        if ( this.props.account!= "" && nft && id){
+        if ( this.props.account!== "" && nft && id){
             await this.carica_contratto(nft,id)
             let x=await getmex(this.props.account,id,nft)
             
@@ -95,11 +93,11 @@ class Chat extends React.Component {
     
     async sendMessage(text) {
         let confermaDaCreator=false
-        if( this.state.account == this.state.creatore){
+        if( this.state.account === this.state.creatore){
             console.log("aaaa")
 
             for (let i=0; i<this.state.messages.length ;i++){
-                if (this.state.messages[i].sender ==this.state.creatore){
+                if (this.state.messages[i].sender ===this.state.creatore){
                     console.log("sss")
                     confermaDaCreator=true
                 }
@@ -108,9 +106,8 @@ class Chat extends React.Component {
             if (!confermaDaCreator){
                 console.log("aaaassss")
 
-                this.state.
-                contract_istance.methods.
-                confermaRisposta(this.state.id_nft,this.state.primoMex).send({
+                this.state.contract_istance.methods
+                .confermaRisposta(this.state.id_nft,this.state.primoMex).send({
                     from: this.state.account});
 
             }
@@ -129,7 +126,6 @@ class Chat extends React.Component {
             sender:this.state.account,
             css:"mymex",
             text:text,
-            roomId:roomId, 
         }])
   
         })
@@ -234,10 +230,6 @@ class SendMessageForm extends React.Component {
             </form>
         )
     }
-}
-
-function Title() {
-  return <p className="title">My awesome chat app</p>
 }
 
 

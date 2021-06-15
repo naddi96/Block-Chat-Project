@@ -1,76 +1,59 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import { Nav} from 'react-bootstrap';
+import Navbar from 'react-bootstrap/Navbar';
+import logo from "./images/logo.png"
 
 function Navigation(props) {
   return (
-    <div className="navigation">
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <div className="container">
-          <Link className="navbar-brand" to="/">
-            React Multi-Page Website
-          </Link>
-          <div>
-            <ul className="navbar-nav ml-auto">
-              <li
-                className={`nav-item  ${
-                  props.location.pathname === "/" ? "active" : ""
-                }`}
-              >
-                <Link className="nav-link" to="/">
-                  Homepage
-                  <span className="sr-only">(current)</span>
-                </Link>
-              </li>
-              <li
-                className={`nav-item  ${
-                  props.location.pathname === "/createNft" ? "active" : ""
-                }`}
-              >
-                <Link className="nav-link" to="/createNft">
-                  Crea Nft
-                  <span className="sr-only">(current)</span>
-                </Link>
-              </li>
+    <Navbar bg="navbar navbar-dark bg-dark" expand="lg">
+    
+    
+    <Link className="navbar-brand" to="/">
+    <span> <img src={logo} width="30" height="30" alt=""/></span>
+      <span> BlockChat</span>
+      
+    </Link>
+    
+  <Navbar.Toggle aria-controls="basic-navbar-nav" />
+  
 
+  <Navbar.Collapse id="basic-navbar-nav">
+  
+    <Nav className="mr-auto">
+    <Link className="nav-link" to="/">
+      Home
+      </Link>
+    
+      <Link className="nav-link" to="/NftShop">
+        Aquista Nft
+      </Link>
+    
+      <Link className="nav-link" to="/ChatListBuyer">
+        Chat con i VIP 
+      </Link>
 
-                {//TODO:: link alla pagina per comprare gli nft disponibili
-                }
-              <li
-                className={`nav-item  ${
-                  props.location.pathname === "/buyNft" ? "active" : ""
-                }`}
-              >
-                <Link className="nav-link" to="/buyNft">
-                  Compra Nft
-                  <span className="sr-only">(current)</span>
-                </Link>
-              </li>
+      <Link className="nav-link" to="/ChatListCreator">
+        Chat con i tui fan 
+      </Link>
 
+      
+      <Link className="nav-link" to="/createNft">
+        Crea Nft
+      </Link>
 
+    
 
-              <li
-                className={`nav-item  ${
-                  props.location.pathname === "/about" ? "active" : ""
-                }`}
-              >
-                <Link className="nav-link" to="/about">
-                  About
-                </Link>
-              </li>
-              <li
-                className={`nav-item  ${
-                  props.location.pathname === "/contact" ? "active" : ""
-                }`}
-              >
-                <Link className="nav-link" to="/contact">
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
+      
+
+      <div className="account nav-link" style={{color: "#ffffff"}}  >
+      Account: {props.account}    
         </div>
-      </nav>
-    </div>
+    </Nav>
+  </Navbar.Collapse>
+  
+
+</Navbar>
   );
 }
 

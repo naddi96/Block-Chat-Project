@@ -168,6 +168,5 @@ class BuyNft extends React.Component {
     );
   }
 }
-//<a href="javascript:;" onClick={this.sendTransition} className="card-link">Compra</a>
 
 export default BuyNft;

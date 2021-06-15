@@ -1,7 +1,8 @@
 import React from "react";
 import Web3 from "web3";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Navigation, Footer, Homepage, About, Contact } from "./components";
+import  Navigation from "./components/Navigation"
+import Homepage  from "./components/Homepage";
 import Block_chat from "./build/contracts/BlockChat.json";
 import Nft_model from "./build/contracts/NFT_MODEL.json";
 import CreateNft from "./components/CreateNft";
@@ -38,9 +39,17 @@ class App extends React.Component {
     
     const web3 = window.web3
     // Load account
-    
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0] })
+    this.interval = setInterval(async () => {
+      const accounts = await web3.eth.getAccounts()
+      if (accounts[0]!== this.state.account){
+          this.setState({ account: accounts[0] })
+      }
+
+    } , 900);
+
+    
     const networkId = await web3.eth.net.getId()
     const net_block_chat = Block_chat.networks[networkId]
     /*
@@ -98,7 +107,7 @@ class App extends React.Component {
   
 
   render() {
-    if (this.state.account !="" &&
+    if (this.state.account !=="" &&
       this.state.abi_nft_model!= null &&
       this.state.contract_block_chat!= null &&
       this.state.web3_istance != null){
@@ -110,13 +119,11 @@ class App extends React.Component {
           
           <Switch>
             
-            <Route path="/NftShop" exact component={ () => <div><Navigation/><NftShop data= {this.state}/></div>}/>
+            <Route path="/NftShop" exact component={ () => <div><Navigation account={this.state.account}/><NftShop data= {this.state}/></div>}/>
             <Route path="/" exact component={ () => <Homepage/>} />
-            <Route path="/about" exact component={() => <div><Navigation/><About/></div>} />
-            <Route path="/contact" exact component={() => <div><Navigation/><Contact/></div>} />
           
           <Route path="/createNft" exact component={() => <div>
-                      <Navigation/>
+                      <Navigation  account={this.state.account}/>
                       <CreateNft data={{
                         account:this.state.account,
                         web3:this.state.web3_istance, 
@@ -124,7 +131,7 @@ class App extends React.Component {
                       }} /> </div>} />
           
           <Route path="/buyNft" exact component={() => <div>
-                      <Navigation/>
+                      <Navigation  account={this.state.account}/>
                       <BuyNft data={{account:this.state.account,
                         web3:this.state.web3_istance, 
                         abi_nft_model:this.state.abi_nft_model}} />
@@ -133,7 +140,7 @@ class App extends React.Component {
     
           <Route path="/chat" exact component={() => 
           <div>
-          <Navigation/>
+          <Navigation  account={this.state.account}/>
           <Chat account={this.state.account}
                 abi_nft_model={  this.state.abi_nft_model}
                 web3={this.state.web3_istance} /> 
@@ -142,27 +149,38 @@ class App extends React.Component {
 
 
           <Route path="/ChatListBuyer" exact component={() => 
+          <div>
+
+          <Navigation  account={this.state.account}/>
+          
           <ChatListBuyer
                   account={this.state.account}
                   web3={this.state.web3_istance}
                   contract={this.state.contract_block_chat}
-            />} />
+            /> </div>} />
           
           <Route path="/ChatListCreator" exact component={() => 
+          <div>
+          <Navigation  account={this.state.account}/>
           <ChatListCreator
                   account={this.state.account}
                   web3={this.state.web3_istance}
                   contract={this.state.contract_block_chat}
-            />} />
-
+            />
+            </div>
+            
+            }  />
+          
           
           </Switch>
-          <Footer />
+         
         </Router>
       </div>
 
       );}else return (
-       ""
+        <Router>
+      <Homepage/>
+      </Router>
       
 )
     }

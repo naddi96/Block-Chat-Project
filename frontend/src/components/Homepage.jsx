@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./styleHome.css";
 import chatIcon from "./images/Chat.png";
 import createIcon from "./images/createNft.png";
@@ -17,7 +17,7 @@ render(){
             <div class="row">
                <div class="col-md-12">
                   <div class="titlepage">
-                     <h2>Benvenuto a Blockchat!</h2>
+                     <h2>Benvenuto su Blockchat!</h2>
                      <p>Scopri cosa è in grado di offrirti questo nuovissimo social:
                      </p>
                   </div>

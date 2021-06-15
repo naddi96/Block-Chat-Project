@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Link } from "react-router-dom";
 import Nft_model from "../build/contracts/NFT_MODEL.json";
 
 
@@ -64,7 +65,7 @@ class ChatListCreator extends React.Component {
                             <div class="list-group rounded-0">
                             {this.state.list_nft_models.map( (message, index) => {
                             return (
-                                <a href={"/ChatListCreator?nft="+message.contract+"&nome="+message.nome}>
+                                <Link to={"/ChatListCreator?nft="+message.contract+"&nome="+message.nome}>
                                 <div class="itemchat" >
                                 <div class="list-group-item list-group-item-action active text-white rounded-0">
                                     <div class="media">
@@ -79,7 +80,7 @@ class ChatListCreator extends React.Component {
 
                                 </div>
                             </div>
-                            </a>
+                            </Link>
                         
                             )})}
 
@@ -155,7 +156,7 @@ class ChatListNft extends React.Component {
         var elements=[];
         for(var i=1; i <=this.state.lastid ; i++){
             elements.push(
-                <a href={"/chat?nft="+this.state.nft+"&id="+(i)}>
+                <Link to={"/chat?nft="+this.state.nft+"&id="+(i)}>
                                                 <div class="itemchat" >
                                                 <div class="list-group-item list-group-item-action active text-white rounded-0">
                                                     <div class="media">
@@ -170,7 +171,7 @@ class ChatListNft extends React.Component {
 
                                                 </div>
                                             </div>
-                                            </a>
+                                            </Link>
             
             );
         }

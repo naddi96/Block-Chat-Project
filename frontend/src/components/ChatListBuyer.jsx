@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Link } from "react-router-dom";
 class ChatListBuyer extends React.Component {
     async componentDidMount() {
         
@@ -34,7 +35,7 @@ class ChatListBuyer extends React.Component {
 
                     {this.state.chat_list.map( (message, index) => {
                     return (
-                        <a href={"/chat?nft="+message.nft_contract+"&id="+message.id}>
+                        <Link to={"/chat?nft="+message.nft_contract+"&id="+message.id}>
                         <div class="itemchat" >
                         <div class="list-group-item list-group-item-action active text-white rounded-0">
                             <div class="media">
@@ -49,7 +50,7 @@ class ChatListBuyer extends React.Component {
 
                         </div>
                     </div>
-                    </a>
+                    </Link>
                     )})}
 
             
