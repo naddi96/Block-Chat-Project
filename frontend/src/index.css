@@ -165,6 +165,17 @@
 }
 
 
+.reclamo-button{
+  display: table;
+  background: red;
+  margin: 0 auto;
+  border: 1px solid black;
+  width: 90%;
+  border: #cecfd7 solid 2px;
+  border-radius: 15px;
+
+  margin-top: 30px;
+}
 
 
 

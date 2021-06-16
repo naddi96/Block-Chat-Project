@@ -18,7 +18,10 @@ class Chat extends React.Component {
             creatore:null,
             limiteMessaggi:null,
             minBlocco:null,
+            scadenza_timestamp:null,
             nome:"",
+            reclamo_fatto:false,
+            vip_risposta:true,
             messages:[],
         }
         this.sendMessage = this.sendMessage.bind(this)
@@ -39,11 +42,13 @@ formattedDate(date) {
         let limiteMessaggi = await contract.methods.getLimiteMex().call();
         let minBlocco = await contract.methods.getMinutiBlocco().call();
         let primoMex = await contract.methods.getPrimoMex(id).call();
+        let vip_risposta = await contract.methods.getVipRiposta(id).call()
+        let reclamo_fatto = await contract.methods.getReclamoFatto(id).call()
+        
         let css="mymex"
         let data_scadenza=new Date(scadenza_timestamp*1000)
         
-        this.setState({data_scadenza:this.formattedDate(data_scadenza)})
-       
+
 
 
         if (limiteMessaggi === "0" ){
@@ -60,6 +65,10 @@ formattedDate(date) {
         }
         
         this.setState({
+            reclamo_fatto:reclamo_fatto,
+            vip_risposta:vip_risposta,
+            data_scadenza:this.formattedDate(data_scadenza),
+            scadenza_timestamp:scadenza_timestamp*1000,
             primoMex:primoMex,
             nome:nome,
             id_nft:id,
@@ -109,7 +118,11 @@ formattedDate(date) {
 
             })
 
-                   
+            if (this.state.limiteMessaggi !== "illimitati" && this.state.limiteMessaggi !== null ){
+                let totali= parseInt( this.state.limiteMessaggi)+1   
+                let limitemex = totali - parseInt(this.props.messages.length) 
+                this.setState({limiteMessaggi:limitemex})
+            }        
 
     
             
@@ -130,23 +143,30 @@ formattedDate(date) {
     }
 
     async sendMessage(text) {
-        let confermaDaCreator=false
         if( this.state.account === this.state.creatore){
-            console.log("aaaa")
-
-            for (let i=0; i<this.state.messages.length ;i++){
-                if (this.state.messages[i].sender ===this.state.creatore){
-                    console.log("sss")
-                    confermaDaCreator=true
-                }
-            }
-            
-            if (!confermaDaCreator){
-                console.log("aaaassss")
-
+            if ( !this.state.vip_risposta){
                 this.state.contract_istance.methods
                 .confermaRisposta(this.state.id_nft,this.state.primoMex).send({
-                    from: this.state.account});
+                    from: this.state.account})
+                    .on("receipt", (receipt) => {
+                        alert("transazione ricevuta");
+                        console.log("receipt:" + receipt);
+                      })
+                      .on("confirmation", function (confirmationNumber, receipt) {
+                        //alert("transazione confermata")
+                        console.log(
+                          "confirmationNumber:" + confirmationNumber + " receipt:" + receipt
+                        );
+                        console.log(receipt);
+                      })
+                      .on("error", function (error) {
+                        alert(
+                          "transazione non completata ci sono stati degli errori causa:\n" +
+                            error.stack
+                        );
+                
+                        console.log(error.stack);
+                      })
 
             }
         }
@@ -169,18 +189,65 @@ formattedDate(date) {
         })
     }
     
+    check_if_can_do_reclamo(){
+        let date = new Date(this.state.scadenza_timestamp).getTime()
+        let now =  new Date().getTime()
+        if (date < now && ! this.state.vip_risposta && ! this.state.account === this.state.creatore){
+            return true
+        }
+        return false
+    }
+
+
+    do_reclamo = () => {
+
+        this.state.contract_istance.methods
+        .reclamo(this.state.id_nft).send({
+            from: this.state.account})
+            .on("receipt", (receipt) => {
+                alert("transazione ricevuta");
+                console.log("receipt:" + receipt);
+              })
+              .on("confirmation", function (confirmationNumber, receipt) {
+                //alert("transazione confermata")
+                console.log(
+                  "confirmationNumber:" + confirmationNumber + " receipt:" + receipt
+                );
+                console.log(receipt);
+              })
+              .on("error", function (error) {
+                alert(
+                  "transazione non completata ci sono stati degli errori causa:\n" +
+                    error.stack
+                );
+        
+                console.log(error.stack);
+              });
+    }
+
     render() {
   
+        let bottone=""
         
+        
+        
+        if(this.check_if_can_do_reclamo()){
+            bottone=<button  onClick={this.do_reclamo} className="reclamo-button">Clicca qui per fare reclamo</button>
+        }
+        
+        if (this.state.reclamo_fatto){
+            bottone=<button  style={{background:"green"}} className="reclamo-button">reclamo già fatto</button>
+        }
+
+
         return (
             <div className="app">
-              
+                {bottone}
               <MessageList 
                   nome={this.state.nome}
                   id_nft={this.state.id_nft}
                   minBlocco= {this.state.minBlocco}
                   limiteMessaggi={this.state.limiteMessaggi}
-                  scadenza={"2222"}
                   messages={this.state.messages}
                   data_scadenza={this.state.data_scadenza}
                    />
@@ -193,12 +260,9 @@ formattedDate(date) {
 
 class MessageList extends React.Component {
     render() {
-        let limitemex=this.props.limiteMessaggi
-        if (this.props.limiteMessaggi !== "illimitati"){
-            let totali=this.props.limiteMessaggi+1   
-            limitemex = totali -this.props.messages.length 
-        }
+
         return (
+        
 
             
             <ul className="message-list">
@@ -217,7 +281,7 @@ class MessageList extends React.Component {
   <tbody>
     <tr>
       <td>{this.props.nome}</td>
-      <td>{limitemex}</td>
+      <td>{this.props.limiteMessaggi}</td>
       <td>{this.props.minBlocco}</td>
       <td>{this.props.id_nft}</td>
       <td>{this.props.data_scadenza}</td>
