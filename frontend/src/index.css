@@ -232,16 +232,64 @@ code {
 .messages-box{
   height: 510px;
   overflow-y: scroll;
-  
 }
+
 
 .itemchat{
   margin: 3px 3px 3px 3px;
-
+  
 }
 
+.list-group-item.list-group-item-action.active{
+  float:left;
+  border: #cecfd7 solid 2px;
+  background:  #8308eb;
+  border-radius: 30px;
+  border-bottom-left-radius: 0%;
+}
 
+.list-group-item.list-group-item-action.active:hover {
+  border: #cecfd7 solid 2px;
+  background-color: #2b2f4e;
+  -webkit-transition: background-color 500ms linear;
+  -ms-transition: background-color 500ms linear;
+  transition: background-color 500ms linear;
+}
 
+.list-group-item.list-group-item-action.active.a{
+    text-decoration: none;
+}
+
+.list-group-item.list-group-item-action.active.token-list{
+  background-color: #2b2f4e;
+  border-bottom-left-radius: 30px;
+}
+
+.token-img{
+  margin-right: 10%;
+  float: right;
+  background-color:#fff;
+  border:1px solid #cecfd7;    
+  height: 80px;
+  width: 80px;
+  border-radius:50%;
+  -moz-border-radius:50%;
+  -webkit-border-radius:50%;
+  overflow: hidden;
+}
+
+.token-img img{
+  width: 100%;
+}
+
+.small .font-weight-bold{
+  font-size: 100%;
+  float: right;
+}
+
+.contract-info .table-responsive-sm{
+  border-radius: 30px;
+}
 
 .formCreaNft{
   background-color: white;

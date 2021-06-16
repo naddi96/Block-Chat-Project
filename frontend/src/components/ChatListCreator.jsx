@@ -67,19 +67,22 @@ class ChatListCreator extends React.Component {
                             return (
                                 <Link to={"/ChatListCreator?nft="+message.contract+"&nome="+message.nome}>
                                 <div class="itemchat" >
-                                <div class="list-group-item list-group-item-action active text-white rounded-0">
-                                    <div class="media">
-                                        <div class="media-body ml-4">
-                                            <div class="d-flex align-items-center justify-content-between mb-1">
-                                                <h6 class="mb-0">{message.nome}</h6>
-                                            </div>
-                                            <p class="font-italic mb-0 text-small">nft: {message.contract}</p>
-                                        </div>
-
+                                <div class="list-group-item list-group-item-action active text-white  token-list">
+                            <div class="media">
+                                <div class="media-body ml-4">
+                                    <div class="info-item">
+                                        <div class="token-img"><img src="https://pbs.twimg.com/profile_images/1280515721286619136/r35mYqRK.jpg" alt="..."/></div>
+                                        <h6 class="mb-0">{message.nome}</h6>
+                                        <p class="font-italic mb-0 text-small">Token Originale: {message.contract}</p>
                                     </div>
-
+                                    
                                 </div>
+
                             </div>
+
+                        </div>
+                        
+                    </div>
                             </Link>
                         
                             )})}
@@ -158,13 +161,15 @@ class ChatListNft extends React.Component {
             elements.push(
                 <Link to={"/chat?nft="+this.state.nft+"&id="+(i)}>
                                                 <div class="itemchat" >
-                                                <div class="list-group-item list-group-item-action active text-white rounded-0">
+                                                <div class="list-group-item list-group-item-action active text-white">
                                                     <div class="media">
                                                         <div class="media-body ml-4">
-                                                            <div class="d-flex align-items-center justify-content-between mb-1">
-                                                                <h6 class="mb-0">{this.state.nome}</h6><small class="small font-weight-bold">id: {i}</small>
+                                                        <div class="info-item">
+                                                                <h6 class="mb-0">{this.state.nome}</h6>
+                                                                <small class="small font-weight-bold">id: {i}</small>
+                                                                <p class="font-italic mb-0 text-small">Token: {this.state.nft}</p>
                                                             </div>
-                                                            <p class="font-italic mb-0 text-small">nft: {this.state.nft}</p>
+                                                            
                                                         </div>
 
                                                     </div>  
