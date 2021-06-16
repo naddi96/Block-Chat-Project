@@ -69,21 +69,34 @@ class DisplayModel extends React.Component{
           <div style={{display:"inline"}}>{item.limiteMessaggi}</div> 
             </li>
         
-          
             <li className="list-group-item">
-         <div className="text-secondary" style={{display:"inline"}} >Costo:</div>
-          <div style={{display:"inline"}}>{item.costo}</div>
-   
-          </li>
-   
-   
-   
-          
-          <li className="list-group-item">
          <div className="text-secondary" style={{display:"inline"}} >Minuti di blocco:</div>
           <div style={{display:"inline"}}>{item.minBlocco}</div>
    
           </li>
+
+
+            <li className="list-group-item">
+            <div className="text-secondary" style={{display:"inline"}} >Costo in eth:</div>
+          <div style={{display:"inline"}}>{item.eth}</div>
+          <br/>
+         <div className="text-secondary" style={{display:"inline"}} >Costo in wei:</div>
+          <div style={{display:"inline"}}>{item.wei}</div>
+
+    
+          </li>
+   
+          <li className="list-group-item">
+         <div className="text-secondary" style={{display:"inline"}} >Data creazione:</div>
+          <div style={{display:"inline"}}>{item.data_creazione}</div>
+          <br/>
+         <div className="text-secondary" style={{display:"inline"}} >Data scadenza:</div>
+          <div style={{display:"inline"}}>{item.data_scadenza}</div>
+   
+          </li>
+   
+          
+        
    
    
  

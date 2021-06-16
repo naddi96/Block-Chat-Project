@@ -1,6 +1,7 @@
 import React from "react";
 import DisplayModel from "./DisplayModel";
 import PopUp from "./PopUp";
+import Units from "ethereumjs-units";
 
 //prendere un'instanza specifica di NFT e mostrarla + pulsante buy (collegamento al contratto)
 
@@ -35,15 +36,22 @@ class BuyNft extends React.Component {
       let limiteMessaggi = await contract.methods.getLimiteMex().call();
       let limiteMint = await contract.methods.getLimiteMint().call();
       let costo = await contract.methods.getCosto().call();
-     // let gRisp = await contract.methods.getGaranziaRisposta().call();
       let creatore = await contract.methods.getCreatore().call();
+      let scadenza_timestamp = await contract.methods.getTimestampDeadline().call()
+      let creazione = await contract.methods.getTimestampCreation().call()
+      
       //let scadenza
+      
+      
       let js = {
         full: true,
+        data_creazione:this.formattedDate(new Date(creazione*1000)),
+        data_scadenza:this.formattedDate(new Date(scadenza_timestamp*1000)),
         nome: nome,
         lastid: lastid,
         minBlocco: minBlocco,
-        costo: costo,
+        eth:Units.convert(costo, 'wei', 'eth'),
+        wei:costo,
         limiteMessaggi: limiteMessaggi,
         limiteMint: limiteMint,
        // gRisp: gRisp,
@@ -55,6 +63,10 @@ class BuyNft extends React.Component {
     }
   }
 
+  formattedDate(date) {
+    return [date.getDate(), date.getMonth()+1, date.getFullYear()]
+        .map(n => n < 10 ? `0${n}` : `${n}`).join('/');
+    }
   constructor(props) {
     super(props);
     this.state = {
