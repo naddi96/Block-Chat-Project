@@ -17,7 +17,8 @@ contract NFT_MODEL is ERC721{
 
       mapping (uint256 => string) primo_mex;
       mapping (uint256  => bool ) vip_riposta;
-      
+      mapping (uint256  => bool ) reclamo_fatto;
+
       constructor(string memory nome_modello1,
                         address pub_key_creatore1,
                         uint256   minuti_blocco1,
@@ -68,6 +69,8 @@ function reclamo(uint256 id) public {
       require(ownerOf(id) == msg.sender,"nft non tuo");
       require(tempo_validita + timestamp_creation < block.timestamp,"troppo presto per chiedere reclamo");
       require(vip_riposta[id]==false,"il vip ha risposto");
+      require(reclamo_fatto[id]==false, "hai gia fatto il reclamo");
+      reclamo_fatto[id]=true;
       address payable utente= payable(msg.sender);
       utente.transfer(costo);
 }
@@ -111,6 +114,10 @@ function compraNft(string  memory mex) public payable{
 
 function getVipRiposta(uint256 id)public view returns ( bool){
       return vip_riposta[id];
+}
+
+function getReclamoFatto(uint256 id)public view returns ( bool){
+      return reclamo_fatto[id];
 }
 
 
