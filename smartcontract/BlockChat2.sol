@@ -83,9 +83,6 @@ function creaModelloNft(string memory nome_modello,
 }
 
 
-function get()
-
-
 
 //function compraNft(){}
 

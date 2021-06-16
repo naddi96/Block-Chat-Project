@@ -112,7 +112,7 @@ class CreateNft extends React.Component{
             this.setState({data:""})
         }else{ 
 
-            let offset=selected_date-now
+            let offset=parseInt((selected_date-now)/1000)
             this.setState({scadenza:offset})
             this.setState({data:e.target.value})
         }

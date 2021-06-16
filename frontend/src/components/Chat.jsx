@@ -13,32 +13,55 @@ class Chat extends React.Component {
             primoMex:null,
             contract_istance:null,
             contract_nft:null,
+            data_scadenza:"",
             account:null,
             creatore:null,
             limiteMessaggi:null,
             minBlocco:null,
+            nome:"",
             messages:[],
         }
         this.sendMessage = this.sendMessage.bind(this)
     } 
 
-
+formattedDate(date) {
+    return [date.getDate(), date.getMonth()+1, date.getFullYear()]
+        .map(n => n < 10 ? `0${n}` : `${n}`).join('/');
+    }
    async carica_contratto(nft,id){
         let abi=this.props.abi_nft_model
         let web3=this.props.web3
         let account=this.props.account
         let contract= new web3.eth.Contract(abi,nft)      
+        let nome= await contract.methods.getNome().call()
+        let scadenza_timestamp = await contract.methods.getTimestampDeadline().call()
         let creatore = await contract.methods.getCreatore().call();
         let limiteMessaggi = await contract.methods.getLimiteMex().call();
         let minBlocco = await contract.methods.getMinutiBlocco().call();
         let primoMex = await contract.methods.getPrimoMex(id).call();
         let css="mymex"
+        let data_scadenza=new Date(scadenza_timestamp*1000)
+        
+        this.setState({data_scadenza:this.formattedDate(data_scadenza)})
+       
+
+
+        if (limiteMessaggi === "0" ){
+            limiteMessaggi="Illimitati" 
+        }
+
+
+        if (minBlocco === "0" ){
+            minBlocco="Illimitati"
+        }
+        
         if (creatore===account){
             css="othermex"
         }
         
         this.setState({
             primoMex:primoMex,
+            nome:nome,
             id_nft:id,
             contract_istance:contract,
             contract_nft:nft,
@@ -85,12 +108,27 @@ class Chat extends React.Component {
                 messages:li,
 
             })
-        
+
+                   
+
+    
+            
+
         }
 
         
     }    
     
+    count_mex_compratore(list,creatore) {
+        let count=0
+        for (let i=0;i<list.length;i++){
+            if(list[i].sender === creatore){
+                count++
+            }
+        }
+        return count
+    }
+
     async sendMessage(text) {
         let confermaDaCreator=false
         if( this.state.account === this.state.creatore){
@@ -132,12 +170,20 @@ class Chat extends React.Component {
     }
     
     render() {
+  
+        
         return (
             <div className="app">
               
               <MessageList 
-                  roomId={this.state.roomId}
-                  messages={this.state.messages} />
+                  nome={this.state.nome}
+                  id_nft={this.state.id_nft}
+                  minBlocco= {this.state.minBlocco}
+                  limiteMessaggi={this.state.limiteMessaggi}
+                  scadenza={"2222"}
+                  messages={this.state.messages}
+                  data_scadenza={this.state.data_scadenza}
+                   />
               <SendMessageForm
                   sendMessage={this.sendMessage} />
             </div>
@@ -147,6 +193,11 @@ class Chat extends React.Component {
 
 class MessageList extends React.Component {
     render() {
+        let limitemex=this.props.limiteMessaggi
+        if (this.props.limiteMessaggi !== "illimitati"){
+            let totali=this.props.limiteMessaggi+1   
+            limitemex = totali -this.props.messages.length 
+        }
         return (
 
             
@@ -165,11 +216,11 @@ class MessageList extends React.Component {
   </thead>
   <tbody>
     <tr>
-      <td>provaaaaaa</td>
-      <td>3</td>
-      <td>3</td>
-      <td>3</td>
-      <td>2/05/2020</td>
+      <td>{this.props.nome}</td>
+      <td>{limitemex}</td>
+      <td>{this.props.minBlocco}</td>
+      <td>{this.props.id_nft}</td>
+      <td>{this.props.data_scadenza}</td>
     </tr>
   </tbody>
 </table>
