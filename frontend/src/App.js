@@ -114,6 +114,8 @@ class App extends React.Component {
       return (
 
         <div className="App">
+
+       
         <Router>
           
           
@@ -123,12 +125,14 @@ class App extends React.Component {
             <Route path="/" exact component={ () => <Homepage/>} />
           
           <Route path="/createNft" exact component={() => <div>
-                      <Navigation  account={this.state.account}/>
+          
+                     <Navigation  account={this.state.account}/>
                       <CreateNft data={{
                         account:this.state.account,
                         web3:this.state.web3_istance, 
                         contract:this.state.contract_block_chat
-                      }} /> </div>} />
+                      }} />                     
+                      </div>} />
           
           <Route path="/buyNft" exact component={() => <div>
                       <Navigation  account={this.state.account}/>

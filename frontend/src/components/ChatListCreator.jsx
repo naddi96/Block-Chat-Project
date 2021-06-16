@@ -2,6 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Nft_model from "../build/contracts/NFT_MODEL.json";
+import UploadImg from "./UploadImg";
 
 
 
@@ -60,30 +61,41 @@ class ChatListCreator extends React.Component {
 
 
                 return (
+
+       
                     <div>
+  
                         <div class="messages-box">
                             <div class="list-group rounded-0">
                             {this.state.list_nft_models.map( (message, index) => {
                             return (
-                                <Link to={"/ChatListCreator?nft="+message.contract+"&nome="+message.nome}>
                                 <div class="itemchat" >
+
                                 <div class="list-group-item list-group-item-action active text-white  token-list">
+
                             <div class="media">
+
                                 <div class="media-body ml-4">
-                                    <div class="info-item">
+
+                                    <Link to={"/ChatListCreator?nft="+message.contract+"&nome="+message.nome} class="info-item">
                                         <div class="token-img"><img src="https://pbs.twimg.com/profile_images/1280515721286619136/r35mYqRK.jpg" alt="..."/></div>
-                                        <h6 class="mb-0">{message.nome}</h6>
-                                        <p class="font-italic mb-0 text-small">Token Originale: {message.contract}</p>
-                                    </div>
-                                    
+                                        <h6 class="mb-0 text-secondary" >{message.nome}</h6>
+                                        <p class="font-italic mb-0 text-small text-secondary">Token Originale: {message.contract}</p>
+                                       
+                            
+                                    </Link>
+                    
+                                    <UploadImg></UploadImg>
+
                                 </div>
+
 
                             </div>
 
                         </div>
                         
                     </div>
-                            </Link>
+                            
                         
                             )})}
 

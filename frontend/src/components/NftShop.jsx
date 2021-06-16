@@ -2,7 +2,6 @@ import React from "react";
 import DisplayModel from "./DisplayModel";
 import LoginButton from "./LoginButton";
 
-
 class NftShop extends React.Component {
 
   async componentDidMount() {
@@ -106,7 +105,8 @@ async load_nft_models() {
           ))}
         </ul>
    
- </div> </div>
+ </div>
+ </div>
   );
 }
 }
