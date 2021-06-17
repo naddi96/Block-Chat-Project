@@ -1,0 +1,328 @@
+
+:root {
+  --main-color: #5ea3d0;
+  --secondary-color: white;
+  --main-text-color: #3e5869;
+  --secondary-text-color: #b0c7d6;
+  --send-message-form: #F5F5F5;
+}
+
+
+.mexContainer {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 10px 0;
+  padding: 0;
+  
+}
+
+
+
+
+.othermex {
+  display: flex;
+  max-width: 80%;
+  width: auto;
+  float: left;
+}
+
+
+.mymex {
+  display: flex;
+  max-width: 80%;
+  width: auto;
+  float: right;
+
+
+}
+
+
+
+.mymex div:nth-child(1) {
+
+  font-size: 11px;
+  color: var(--main-text-color);
+  opacity: 0.9;
+  margin-bottom: 6px;
+}
+
+
+.mymex div:nth-child(2):hover {
+  border: #cecfd7 solid 2px;
+  background: #64576f;;
+  color: var(--secondary-color);
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: ease-in all 0.5s;
+  cursor: pointer;
+}
+
+.mymex div:nth-child(2) {
+  border: #cecfd7 solid 2px;
+  background: #8308eb  ;
+  transition: ease-in all 0.5s;
+  color: var(--secondary-color);
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+
+
+
+.othermex div:nth-child(1) {
+  font-size: 11px;
+  color: var(--main-text-color);
+  opacity: 0.9;
+  margin-bottom: 6px;
+  transition: ease-in all 0.5s;
+
+}
+.othermex div:nth-child(2) {
+  transition: ease-in all 0.5s;
+
+  border: #cecfd7 solid 2px;
+  background: #64576f;
+  color: var(--secondary-color);
+  padding: 4px 8px;
+  border-radius: 6px;
+  }
+  .othermex div:nth-child(2):hover {
+    border: #cecfd7 solid 2px;
+    background: #8308eb;
+    color: var(--secondary-color);
+    padding: 4px 8px;
+    border-radius: 6px;
+    }
+
+
+
+
+.message-list {
+  box-sizing: border-box;
+  padding: 30px 30px 50px 30px;
+  margin: 0;
+  width: 100%;
+  
+}
+
+.send-message-form {
+  background-color: lime;
+  bottom: 0;
+  height: 100px;
+  left: 0;
+  position: fixed;
+  right: 0;
+  background: var(--send-message-form);
+  display: flex;
+  box-sizing: border-box;
+
+
+  height: 60px;
+}
+
+.send-message-form input {
+  width: 100%;
+  padding: 15px 10px;
+  border: none;
+  margin: 0;
+  background: #b7adad;
+  font-weight: 200;
+  border: #cecfd7 solid 2px;
+  border-radius: 15px;
+
+
+}
+
+.send-message-form input:focus {
+  outline-width: 0;
+}
+
+.send-message-form input::placeholder {
+  color: black;
+}
+
+
+.contract-info{
+  background: #ffffff;
+  border-radius: 15px;
+  border: #cecfd7 solid 2px;
+  text-align: center;
+  margin-bottom: 20px;
+
+}
+
+.compra-button{
+  display: table;
+  margin: 0 auto;
+  border: 1px solid black;
+  padding-right: 15px;
+  padding-left: 15px;
+  width: 50%;
+  border: #cecfd7 solid 2px;
+  border-radius: 15px;
+  margin-top: 3px;
+}
+
+.upload{
+  margin-top: 10px;
+
+}
+.reclamo-button{
+  display: table;
+  background: red;
+  margin: 0 auto;
+  border: 1px solid black;
+  width: 90%;
+  border: #cecfd7 solid 2px;
+  border-radius: 15px;
+
+  margin-top: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.card-img-top{
+  object-fit: cover;
+  height: 90px;;
+}
+
+.formCreaNft{
+  min-width: 300px;
+  max-width: 500px;
+  margin: auto;
+  margin-top: 20px;
+  padding-left:30px;
+  padding-right:30px;
+}
+
+.card{
+  margin-top:20;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+.modal {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.6);
+}
+.modal-container {
+  text-align: center;
+  position: absolute;
+  width: 60%;
+  background: #ffffff;
+  left: 25%;
+  top: 30%;
+  padding: 20px;
+}
+
+.messages-box{
+  height: 510px;
+  overflow-y: scroll;
+}
+
+
+.itemchat{
+  margin: 3px 3px 3px 3px;
+  
+}
+
+.list-group-item.list-group-item-action.active{
+  float:left;
+  border: #cecfd7 solid 2px;
+  background:  #8308eb;
+  border-radius: 30px;
+  border-bottom-left-radius: 0%;
+}
+
+.list-group-item.list-group-item-action.active:hover {
+  border: #cecfd7 solid 2px;
+  background-color: #2b2f4e;
+  -webkit-transition: background-color 500ms linear;
+  -ms-transition: background-color 500ms linear;
+  transition: background-color 500ms linear;
+}
+
+.list-group-item.list-group-item-action.active.a{
+    text-decoration: none;
+}
+
+.list-group-item.list-group-item-action.active.token-list{
+  background-color: #2b2f4e;
+  border-bottom-left-radius: 30px;
+}
+
+.token-img{
+  margin-right: 10%;
+  float: right;
+  background-color:#fff;
+  border:1px solid #cecfd7;    
+  height: 80px;
+  width: 80px;
+  border-radius:50%;
+  -moz-border-radius:50%;
+  -webkit-border-radius:50%;
+  overflow: hidden;
+}
+
+.token-img img{
+  width: 100%;
+}
+
+.small .font-weight-bold{
+  font-size: 100%;
+  float: right;
+}
+
+.contract-info .table-responsive-sm{
+  border-radius: 30px;
+}
+
+.formCreaNft{
+  background-color: white;
+}
+
+
+.App{
+  height: 100vh;
+  background-color:#0c0f38;
+
+;
+
+}
+
+
+.table {
+  width: 100%;
+  
+  margin-bottom: 0;
+  /* margin-bottom: 1rem; */
+  /* color: #212529; */
+}

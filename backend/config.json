@@ -1,0 +1,5 @@
+{
+    "blockchain_endpoint":"http://127.0.0.1:8545",
+    "pubblic_frontend_endpoint":"http://localhost:3000",
+    "useCorse":true
+}

@@ -1,0 +1,60 @@
+version: '3'
+services:
+  node:
+    image: trufflesuite/ganache-cli:latest
+    ports:
+      - "8545:8545"
+    volumes:
+      - ./ganache_data:/ganache_data
+    
+    networks: 
+      - mynetwork
+  
+    entrypoint:
+      - node
+      - /app/ganache-core.docker.cli.js
+      - --deterministic
+      - --db=/ganache_data
+      - --mnemonic
+      - '1234'
+      - --networkId
+      - '5777'
+      - --hostname
+      - '0.0.0.0'
+      - --debug
+  # ENTRYPOINT ["node", "./build/cli.node.js"]
+  # ENTRYPOINT ["node", "/app/ganache-core.docker.cli.js"]
+
+    
+  
+  
+  webserver:
+    build: ./backend_config
+    volumes: 
+      - ../smartcontract:/smartcontract
+      - ../backend/back.py:/backend/back.py
+      - ../backend/static:/backend/static
+      - ../backend/db.json:/backend/db.json
+      - ./backend_config/config.json:/backend/config.json
+
+    ports: 
+      - 81:80
+    networks: 
+      - mynetwork
+  
+  reverseproxy:    
+    image: nginx:latest
+    volumes:
+      - ./nginx-config-cert/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx-config-cert/cert.crt:/etc/nginx/cert.crt
+      - ./nginx-config-cert/cert.key:/etc/nginx/cert.key
+      - ./nginx-config-cert/frontend/build:/localfiles
+    ports:
+       - 443:443
+       - 80:80
+    networks: 
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge

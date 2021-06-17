@@ -9,14 +9,19 @@ from hexbytes import HexBytes
 from datetime import datetime
 from flask_cors import CORS, cross_origin
 
+config={}
+with open("config.json", "r") as read_file:
+    config = json.load(read_file)
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:3000"], headers=['Content-Type'], expose_headers=['Access-Control-Allow-Origin'], supports_credentials=True)
+
+if config['useCorse']:
+    CORS(app, origins=[config[pubblic_frontend_endpoint]], headers=['Content-Type'], expose_headers=['Access-Control-Allow-Origin'], supports_credentials=True)
 
 
 login_session={}
 pre_login={"0x45b73Aec479f33324f2529d6DbAAbe5b51f08973":"Some dataa"}
-w3 = Web3(Web3.HTTPProvider('http://127.0.0.1:8545')) 
+w3 = Web3(Web3.HTTPProvider(config["blockchain_endpoint"])) 
 f = open('../smartcontract/build/contracts/NFT_MODEL.json')
 nft_model = json.load(f)
 abi = nft_model["abi"]
