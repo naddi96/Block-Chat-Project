@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import {get_image} from "./requestsAPI"
 class DisplayModel extends React.Component{
  
     render() {    
@@ -16,7 +16,7 @@ class DisplayModel extends React.Component{
         return(
         <div key={item.nome+item.creatore}>
         <div className="card" style={{marginTop:20}} >
-        <img src="https://pbs.twimg.com/profile_images/1280515721286619136/r35mYqRK.jpg" className="card-img-top" alt="..."/>
+        <img src={get_image(item.contract)} className="card-img-top" alt="..."/>
         <div className="card-body">
           <h5 className="card-title">{ item.nome}</h5>
           
@@ -39,7 +39,7 @@ class DisplayModel extends React.Component{
       if (item.full) {return (
         <div key={item.nome+item.creatore}>
         <div className="card" style={{marginTop:20}} >
-        <img src="https://pbs.twimg.com/profile_images/1280515721286619136/r35mYqRK.jpg" className="card-img-top" alt="..."/>
+        <img src={get_image(item.contract)} className="card-img-top" alt="..."/>
         <div className="card-body">
           <h5 className="card-title">{ item.nome}</h5>
           

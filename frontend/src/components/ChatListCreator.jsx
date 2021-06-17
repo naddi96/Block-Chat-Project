@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Nft_model from "../build/contracts/NFT_MODEL.json";
 import UploadImg from "./UploadImg";
-
+import {get_image} from "./requestsAPI"
 
 
 class ChatListCreator extends React.Component {
@@ -78,14 +78,16 @@ class ChatListCreator extends React.Component {
                                 <div class="media-body ml-4">
 
                                     <Link to={"/ChatListCreator?nft="+message.contract+"&nome="+message.nome} class="info-item">
-                                        <div class="token-img"><img src="https://pbs.twimg.com/profile_images/1280515721286619136/r35mYqRK.jpg" alt="..."/></div>
+                                        <div class="token-img"><img src={get_image(message.contract)} alt="..."/></div>
                                         <h6 class="mb-0 text-secondary" >{message.nome}</h6>
                                         <p class="font-italic mb-0 text-small text-secondary">Token Originale: {message.contract}</p>
                                        
                             
                                     </Link>
                     
-                                    <UploadImg></UploadImg>
+                                    <UploadImg 
+                                            account={this.props.account}
+                                            nft={message.contract}></UploadImg>
 
                                 </div>
 

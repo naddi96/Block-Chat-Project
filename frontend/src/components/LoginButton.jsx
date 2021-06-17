@@ -6,23 +6,28 @@ class LoginButton extends React.Component{
 
 
 faiLogin = () => {
-   let prova =  login(this.props.data.account,this.props.data.web3)
+   let prova =  login(this.props.account,this.props.web3)
    prova.then(value => 
         console.log("successo login",value)
     )
 }
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            contract_nft:null
-        }
-      }
     render(){
-        if(this.props.data.account !=null){
-            return (<button onClick={() => this.faiLogin()}>Login</button>)
+        if(this.props.account !=null){
+            return (<p  htref="#" className="nav-link" onClick={() => this.faiLogin()}>Login con account:
+                <div style={{color:"white" ,fontSize: "10px"}}>
+                        {this.props.account}
+                </div>
+            </p>
+
+
+           
+
+            
+            )
+           
         }
-        return (<button>PRO</button>)
+        return ("")
     }                 
         
     

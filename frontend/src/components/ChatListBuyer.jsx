@@ -1,5 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {get_image} from "./requestsAPI"
+
+
+
 class ChatListBuyer extends React.Component {
   async componentDidMount() {
     this.setState({ account: this.props.account });
@@ -36,7 +40,7 @@ class ChatListBuyer extends React.Component {
                           <div class="info-item">
                             <div class="token-img">
                               <img
-                                src="https://pbs.twimg.com/profile_images/1280515721286619136/r35mYqRK.jpg"
+                                src={get_image(message.nft_contract)}
                                 alt="..."
                               />
                             </div>

@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { Nav} from 'react-bootstrap';
 import Navbar from 'react-bootstrap/Navbar';
 import logo from "./images/logo.png"
+import LoginButton from "./LoginButton";
 
 function Navigation(props) {
   return (
@@ -42,13 +43,17 @@ function Navigation(props) {
         Crea Nft
       </Link>
 
+      
+
     
 
       
 
-      <div className="account nav-link" style={{color: "#ffffff"}}  >
-      Account: {props.account}    
-        </div>
+
+
+
+        <LoginButton  web3={props.web3} account={props.account}/>
+
     </Nav>
   </Navbar.Collapse>
   

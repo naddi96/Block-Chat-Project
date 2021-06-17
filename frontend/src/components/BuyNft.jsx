@@ -89,7 +89,7 @@ class BuyNft extends React.Component {
       .compraNft(this.state.primoMex)
       .send({
         from: this.props.data.account,
-        value: this.state.contract_nft.costo,
+        value: this.state.contract_nft.wei,
       })
       .on("receipt", (receipt) => {
         let contract_nft = this.state.contract_nft;

@@ -29,8 +29,8 @@ def randString(length):
 
 
 def check_vincoli(id_nft,nft_contract,cookie,scrittura):
-
     contract = w3.eth.contract(abi=abi, address=nft_contract)
+
     owner = contract.functions.ownerOf(int(id_nft)).call()
     creatore = contract.functions.getCreatore().call()
     mex_list = getmex_db(id_nft,nft_contract)
@@ -44,10 +44,6 @@ def check_vincoli(id_nft,nft_contract,cookie,scrittura):
     now = datetime.now()
     timestamp = datetime.timestamp(now)
     print(owner)
-    
-
-
-
 
 
     if scrittura:
@@ -99,6 +95,14 @@ def save_mex_db(mex,id_nft,nft_contract,address):
 
 
 
+def is_creatore(address,nft):
+    contract = w3.eth.contract(abi=abi, address=nft)
+    creatore = contract.functions.getCreatore().call()
+    if address == creatore:
+        return True
+    return False
+
+
 def is_logged(address,cookie):
     if cookie in login_session:
         if address == login_session[cookie]:
@@ -139,7 +143,7 @@ def getmex_db(id_nft,nft_contract):
 '''
 /prelogin?address=0xfsfs...
 '''
-@app.route('/prelogin',methods=["GET"])
+@app.route('/api/prelogin',methods=["GET"])
 def rando():
     addres = request.args.get('address')
     rand=randString(30)
@@ -148,12 +152,33 @@ def rando():
 
 
 
+@app.route('/api/upload_img', methods=['POST'])
+def upload_file():
+    if "image" in request.files and 'nft' in request.form and 'account' in request.form:
+        file1 = request.files['image']
+        if  file1.filename[-4:] in [".png"]:
+            cookie = request.cookies.get('login')
+            address=request.form['account']
+            if is_logged(address,cookie):
+                if  is_creatore(address,request.form['nft']) :
+                    
+                    
+                    path = "./static/img/"+request.form['nft'] +".png"
+                    file1.save(path)
+                    print(path)
+                    return 'ok'
+                return "non sei il creatore di questo nft"
+            return "non sei loggato"
+    return "richiesta malformata o file non valido"
+
+
+
 
 '''
 nel body della richiesta (request.data) c'è:
 {"address":"0x...","signed_string":"....","rand_tring":"..."}
 '''
-@app.route('/login',methods=["POST"])
+@app.route('/api/login',methods=["POST"])
 def login():
     data=json.loads(request.data)
     address=data['address']
@@ -175,7 +200,7 @@ def login():
 nel body della richiesta (request.data) c'è:
 {"mex":"blabla","address":"0x000","id_nft:"3","nft_contract":"0x000"}
 '''
-@app.route('/sendmex',methods=["POST"])
+@app.route('/api/sendmex',methods=["POST"])
 def receive_mex():
     #try:
         data=json.loads(request.data)
@@ -202,7 +227,7 @@ def receive_mex():
 nel body della richiesta (request.data) c'è:
 {"address":"0x000","id_nft:"3","nft_contract":"0x000"}
 '''
-@app.route('/getmex',methods=["POST"])
+@app.route('/api/getmex',methods=["POST"])
 def get_mex():
     data=json.loads(request.data)
     id_nft=data['id_nft']

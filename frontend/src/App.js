@@ -121,12 +121,12 @@ class App extends React.Component {
           
           <Switch>
             
-            <Route path="/NftShop" exact component={ () => <div><Navigation account={this.state.account}/><NftShop data= {this.state}/></div>}/>
+            <Route path="/NftShop" exact component={ () => <div><Navigation web3={this.state.web3_istance} account={this.state.account}/><NftShop data= {this.state}/></div>}/>
             <Route path="/" exact component={ () => <Homepage/>} />
           
           <Route path="/createNft" exact component={() => <div>
           
-                     <Navigation  account={this.state.account}/>
+                     <Navigation  web3={this.state.web3_istance} account={this.state.account}/>
                       <CreateNft data={{
                         account:this.state.account,
                         web3:this.state.web3_istance, 
@@ -135,7 +135,7 @@ class App extends React.Component {
                       </div>} />
           
           <Route path="/buyNft" exact component={() => <div>
-                      <Navigation  account={this.state.account}/>
+                      <Navigation  web3={this.state.web3_istance} account={this.state.account}/>
                       <BuyNft data={{account:this.state.account,
                         web3:this.state.web3_istance, 
                         abi_nft_model:this.state.abi_nft_model}} />
@@ -144,7 +144,7 @@ class App extends React.Component {
     
           <Route path="/chat" exact component={() => 
           <div>
-          <Navigation  account={this.state.account}/>
+          <Navigation  web3={this.state.web3_istance} account={this.state.account}/>
           <Chat account={this.state.account}
                 abi_nft_model={  this.state.abi_nft_model}
                 web3={this.state.web3_istance} /> 
@@ -155,7 +155,7 @@ class App extends React.Component {
           <Route path="/ChatListBuyer" exact component={() => 
           <div>
 
-          <Navigation  account={this.state.account}/>
+          <Navigation web3={this.state.web3_istance} account={this.state.account}/>
           
           <ChatListBuyer
                   account={this.state.account}
@@ -165,7 +165,7 @@ class App extends React.Component {
           
           <Route path="/ChatListCreator" exact component={() => 
           <div>
-          <Navigation  account={this.state.account}/>
+          <Navigation web3={this.state.web3_istance} account={this.state.account}/>
           <ChatListCreator
                   account={this.state.account}
                   web3={this.state.web3_istance}

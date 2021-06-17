@@ -120,7 +120,7 @@ formattedDate(date) {
 
             if (this.state.limiteMessaggi !== "illimitati" && this.state.limiteMessaggi !== null ){
                 let totali= parseInt( this.state.limiteMessaggi)+1   
-                let limitemex = totali - parseInt(this.props.messages.length) 
+                let limitemex = totali - parseInt(this.state.messages.length) 
                 this.setState({limiteMessaggi:limitemex})
             }        
 

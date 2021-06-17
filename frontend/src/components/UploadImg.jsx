@@ -1,6 +1,6 @@
 import React  from "react";
 
-
+import {upload_img} from "./requestsAPI"
 
 class uploadedImg extends React.Component{
 
@@ -11,11 +11,12 @@ class uploadedImg extends React.Component{
     };
   }
 uploadPicture = e => {
-    this.setState({
+  //URL.createObjectURL(e.target.files[0])  
+  this.setState({
       /* contains the preview, if you want to show the picture to the user
            you can access it with this.state.currentPicture
        */
-      //picturePreview: URL.createObjectURL(e.target.files[0]),
+      
       /* this contains the file we want to send */
       pictureAsFile: e.target.files[0]
     });
@@ -24,16 +25,15 @@ uploadPicture = e => {
 
   setImageAction = async event => {
     event.preventDefault();
-    const formData = new FormData();
-    formData.append("file", this.state.pictureAsFile);
-
-    console.log(this.state.pictureAsFile);
-
-    for (var key of formData.entries()) {
-      console.log(key[0] + ", " + key[1]);
+    if (this.state.pictureAsFile===null){
+      alert("seleziona una immagine prima di fare l'upload")
+      return
     }
-
-    const data = await fetch("http://localhost:3000/upload/post", {
+    
+    upload_img(this.props.nft,this.props.account,this.state.pictureAsFile)
+    this.setState({pictureAsFile:null})
+/*
+    const data = await fetch("http://localhost/upload_img", {
       method: "post",
       headers: { "Content-Type": "multipart/form-data" },
       body: formData
@@ -43,22 +43,24 @@ uploadPicture = e => {
       console.log("Successfully uploaded image");
     } else {
       console.log("Error Found");
-    }
+    }*/
   };
 
 
 render(){
+
+  let button=<input type="file" accept="image/png" name="image" onChange={this.uploadPicture} />
+  if (this.state.pictureAsFile !==null)
+    button= <button className
+    type="submit" name="upload">
+      Carica Immagine
+    </button>
   return(
 
     <div className="content landing upload">
       <form onSubmit={this.setImageAction}>
-        <input type="file" name="image" onChange={this.uploadPicture} />
-        <button className
         
-        
-        type="submit" name="upload">
-          Carica Immagine
-        </button>
+        {button}
       </form>
     </div>
 
