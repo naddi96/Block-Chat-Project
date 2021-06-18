@@ -30,7 +30,6 @@ contract NFT_MODEL is ERC721{
       mapping (uint256 => string) primo_mex;
       mapping (uint256  => bool ) vip_riposta;
       mapping (uint256  => bool ) reclamo_fatto;
-      mapping (uint256 => uint256) prezzo;
 
       constructor(string memory nome_modello1,
                         address pub_key_creatore1,
@@ -134,8 +133,9 @@ contract NFT_MODEL is ERC721{
                     timestamp_creation);
             return nft;
     }
+ /*
+    mapping (uint256 => uint256) prezzo;
 
-    /*
         function changePrezzo(uint256 idtoken,uint256 nuovo_prezzo) public {
             require(prezzo[idtoken]>0,"L'oggetto non in vendita");
             require(msg.sender == ownerOf(idtoken),"Non sei il proprietario");
