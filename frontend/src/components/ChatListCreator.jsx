@@ -71,16 +71,16 @@ class ChatListCreator extends React.Component {
                             return (
                                 <div class="itemchat" >
 
-                                <div class="list-group-item list-group-item-action active text-white  token-list">
+                                <div class="list-group-item list-group-item-action active text-white token-list">
 
                             <div class="media">
 
                                 <div class="media-body ml-4">
-
+                                    <div class="info-item">
                                     <Link to={"/ChatListCreator?nft="+message.contract+"&nome="+message.nome} class="info-item">
                                         <div class="token-img"><img src={get_image(message.contract)} alt="..."/></div>
-                                        <h6 class="mb-0 text-secondary" >{message.nome}</h6>
-                                        <p class="font-italic mb-0 text-small text-secondary">Token Originale: {message.contract}</p>
+                                        <h6 class="mb-0" >{message.nome}</h6>
+                                        <p class="font-italic mb-0 text-small">Token Originale: {message.contract}</p>
                                        
                             
                                     </Link>
@@ -88,7 +88,7 @@ class ChatListCreator extends React.Component {
                                     <UploadImg 
                                             account={this.props.account}
                                             nft={message.contract}></UploadImg>
-
+                                    </div>
                                 </div>
 
 
@@ -143,8 +143,6 @@ class ChatListNft extends React.Component {
     }
 
 
-    
-    
     async carica_contratto(nft){
         let abi=Nft_model.abi
         let web3=this.props.web3

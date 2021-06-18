@@ -197,10 +197,6 @@ mapping (address => address) nft_address_to_creator;
 mapping (bytes => address) combkey_to_creator; //abi.encodePacked(msg.sender,nome_modello)
 
 
-
-
-
-
 function addNftComprati(address buyer,address nft_contr,uint256 id,string memory nome ) public  {
      require( nft_address_to_creator[msg.sender] != address(0),"operazione negata");
      id_nft memory item  = id_nft(id,nft_contr,nome);
@@ -222,9 +218,6 @@ function removeNftComprati(address seller,address nft_contr,uint256 id ) public 
 				}
 			}
 }
-
-
-
 
 
 function getNftComprati(address addr)  public view returns (id_nft [] memory) {

@@ -25,6 +25,11 @@
     border-radius: 50px;
     display: inline-block;
     padding-top: 19px;
+    overflow: hidden;
+}
+
+.Services .Services-box i img{
+    height: 80%;
 }
 
 .Services .Services-box i:hover {
