@@ -181,22 +181,6 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -270,8 +254,24 @@ code {
   transition: background-color 500ms linear;
 }
 
+.list-group-item.list-group-item-action.active.token-list:hover {
+  border: #cecfd7 solid 2px;
+  background-color:  #009670;
+  -webkit-transition: background-color 500ms linear;
+  -ms-transition: background-color 500ms linear;
+  transition: background-color 500ms linear;
+}
+
 .list-group-item.list-group-item-action.active.a{
     text-decoration: none;
+}
+
+.list-group-item.list-group-item-action.active.token-list.a{
+  text-decoration: none;
+}
+
+.info-item a{
+  color:#cecfd7;
 }
 
 .list-group-item.list-group-item-action.active.token-list{
@@ -326,3 +326,13 @@ code {
   /* margin-bottom: 1rem; */
   /* color: #212529; */
 }
+
+.card .card-body .card-link{
+  border: 1px solid #8308eb;
+  padding: 10px;
+  color: #8308eb;
+  margin-right: 30px;
+  border-radius: 20px;
+  border-bottom-left-radius: 0%;
+}
+
