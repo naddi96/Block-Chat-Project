@@ -45,8 +45,8 @@ se si sta lanciando il frontend per la prima volta installare le dipendenze con 
 copiare il contratto compilato nel frontend
 
 `rm -r ./frontend/src/build`
+
 `cp  -r ./smartcontract/build/ ./frontend/src`
-``
 
 
 

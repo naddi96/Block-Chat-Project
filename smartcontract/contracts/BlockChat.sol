@@ -19,16 +19,13 @@ contract BlockChat {
       mapping (bytes => address) combkey_to_creator; //abi.encodePacked(msg.sender,nome_modello)
 
       function addNftComprati(address buyer,address nft_contr,uint256 id,string memory nome ) public  {
-            require( nft_address_to_creator[msg.sender] != address(0),"operazione negata");
-            id_nft memory item  = id_nft(id,nft_contr,nome);
-            
-            address_to_id_nft[buyer].push(item);
+            require( nft_address_to_creator[msg.sender] != address(0),"operazione negata"); 
+            address_to_id_nft[buyer].push( id_nft(id,nft_contr,nome));
       }
 
       function removeNftComprati(address seller,address nft_contr,uint256 id ) public {
             require( nft_address_to_creator[msg.sender] != address(0),"operazione negata");
-            uint256 len=address_to_id_nft[seller].length;
-            for (uint256 i=0;i<len;i++ ){
+            for (uint256 i=0;i<address_to_id_nft[seller].length;i++ ){
                               if (address_to_id_nft[seller][i].id == id && 
                               address_to_id_nft[seller][i].nft_contract == nft_contr ){
                                     while (i<address_to_id_nft[seller].length-1) {
@@ -119,7 +116,7 @@ function calcolaCosto(uint MEX, uint256 TIME, uint256 EXP) public returns (uint2
                                           );
             //combinazione due chiavi
             bytes memory compKey = abi.encodePacked(msg.sender, bytes(nome_modello));
-            //require(combkey_to_creator[compKey]==address(0),"model already exist");
+            require(combkey_to_creator[compKey]==address(0),"model already exist");
             combkey_to_creator[compKey]=msg.sender;
             nft_address_to_creator[address(nft)]= msg.sender;
             emit ModelloNftCreato(msg.sender,

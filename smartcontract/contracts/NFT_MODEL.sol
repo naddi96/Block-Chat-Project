@@ -112,8 +112,7 @@ contract NFT_MODEL is ERC721{
       //invia soldi al contratto
       //id_to_proprietario[last_id]=msg.sender;
       //timestamp_mint[last_id]= now;
-            uint256 payedPrice = msg.value;
-            require(payedPrice == costo,"NON HAI I SORDI, SEI N PORACCIO.");
+            require( msg.value == costo,"NON HAI I SORDI, SEI N PORACCIO.");
             last_id = last_id+1;
             primo_mex[last_id] = mex;
             //adress_to_id_contract(msg.sender,address(this) ,last_id )
@@ -123,6 +122,18 @@ contract NFT_MODEL is ERC721{
 
             }
 
+        function getNftInfo()public view returns ( nft_info memory){
+            nft_info memory nft= nft_info(nome_modello,
+                    last_id,
+                    pub_key_creatore,
+                    minuti_blocco,
+                    limite_messaggi,
+                    limite_mint,
+                    costo,
+                    tempo_validita,
+                    timestamp_creation);
+            return nft;
+    }
 
     /*
         function changePrezzo(uint256 idtoken,uint256 nuovo_prezzo) public {
@@ -187,18 +198,6 @@ contract NFT_MODEL is ERC721{
         }
 
 
-        function getNftInfo()public view returns ( nft_info memory){
-            nft_info memory nft= nft_info(nome_modello,
-                    last_id,
-                    pub_key_creatore,
-                    minuti_blocco,
-                    limite_messaggi,
-                    limite_mint,
-                    costo,
-                    tempo_validita,
-                    timestamp_creation);
-            return nft;
-    }
 
     */
 /*
