@@ -36,11 +36,17 @@ formattedDate(date) {
         let web3=this.props.web3
         let account=this.props.account
         let contract= new web3.eth.Contract(abi,nft)      
-        let nome= await contract.methods.getNome().call()
-        let scadenza_timestamp = await contract.methods.getTimestampDeadline().call()
-        let creatore = await contract.methods.getCreatore().call();
-        let limiteMessaggi = await contract.methods.getLimiteMex().call();
-        let minBlocco = await contract.methods.getMinutiBlocco().call();
+        let nft_info = await contract.methods.getNftInfo().call();
+        let nome=nft_info.nome_modello
+
+
+       
+        let scadenza_timestamp =parseInt(nft_info.tempo_validita)+parseInt(nft_info.timestamp_creation)
+        let creatore = nft_info.pub_key_creatore
+        let limiteMessaggi =nft_info.limite_messaggi
+        let minBlocco = nft_info.minuti_blocco
+        
+        
         let primoMex = await contract.methods.getPrimoMex(id).call();
         let vip_risposta = await contract.methods.getVipRiposta(id).call()
         let reclamo_fatto = await contract.methods.getReclamoFatto(id).call()

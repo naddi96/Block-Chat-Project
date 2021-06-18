@@ -30,15 +30,18 @@ class BuyNft extends React.Component {
       }
       let contract = new web3.eth.Contract(x.abi_nft_model, nft);
       this.setState({ contract: contract });
-      let nome = await contract.methods.getNome().call();
-      let lastid = await contract.methods.getLastId().call();
-      let minBlocco = await contract.methods.getMinutiBlocco().call();
-      let limiteMessaggi = await contract.methods.getLimiteMex().call();
-      let limiteMint = await contract.methods.getLimiteMint().call();
-      let costo = await contract.methods.getCosto().call();
-      let creatore = await contract.methods.getCreatore().call();
-      let scadenza_timestamp = await contract.methods.getTimestampDeadline().call()
-      let creazione = await contract.methods.getTimestampCreation().call()
+      let nft_info = await contract.methods.getNftInfo().call();
+      console.log(nft_info)
+      //let lastid = await contract.methods.getLastId().call();
+      let nome=nft_info.nome_modello
+      let lastid=nft_info.last_id
+      let minBlocco = nft_info.minuti_blocco
+      let limiteMessaggi =nft_info.limite_messaggi
+      let limiteMint = nft_info.limite_mint
+      let costo = nft_info.costo
+      let creatore = nft_info.pub_key_creatore
+      let scadenza_timestamp =parseInt(nft_info.tempo_validita)+parseInt(nft_info.timestamp_creation)
+      let creazione = nft_info.timestamp_creation
       
       //let scadenza
       
