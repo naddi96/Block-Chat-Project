@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "./BlockChat.sol";
@@ -26,6 +27,8 @@ contract NFT_MODEL is ERC721{
       uint256 costo;
       uint256 tempo_validita; //offset di secondi 
       uint256 timestamp_creation;
+      
+      address private owner;
 
       mapping (uint256 => string) primo_mex;
       mapping (uint256  => bool ) vip_riposta;
@@ -38,7 +41,8 @@ contract NFT_MODEL is ERC721{
                         uint      limite_mint1,
                         uint256      tempo_validita1,
                         uint256  costo1,
-                        address block_chat_address
+                        address block_chat_address,
+                        address owner1
                         ) ERC721("CreatorChat","BlockChat") {
              
             nome_modello=nome_modello1;
@@ -49,6 +53,7 @@ contract NFT_MODEL is ERC721{
             limite_mint=limite_mint1;
             tempo_validita=tempo_validita1;
             block_chat=BlockChat(block_chat_address);
+            owner=owner1;
             timestamp_creation= block.timestamp;
       }
 
@@ -80,9 +85,9 @@ contract NFT_MODEL is ERC721{
             require(tempo_validita + timestamp_creation < block.timestamp,"troppo presto per chiedere reclamo");
             require(vip_riposta[id]==false,"il vip ha risposto");
             require(reclamo_fatto[id]==false, "hai gia fatto il reclamo");
+            payable(msg.sender).transfer(costo);
             reclamo_fatto[id]=true;
-            address payable utente= payable(msg.sender);
-            utente.transfer(costo);
+
       }
 
       //caller: creatore del nft
@@ -95,8 +100,9 @@ contract NFT_MODEL is ERC721{
 
             require(vip_riposta[id]==false,"hai gia ritirato questo nft");
             //fai transazione a favore del vip
-            address payable vip= payable(msg.sender);
-            vip.transfer(costo);
+            uint256 cinque_percento= costo * 5 / 100;
+            payable(owner).transfer(cinque_percento);
+            payable(msg.sender).transfer(costo - cinque_percento);
             vip_riposta[id]=true;
       }
 

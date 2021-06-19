@@ -109,12 +109,22 @@ class BuyNft extends React.Component {
         console.log(receipt);
       })
       .on("error", function (error) {
+        try{
+          let message=error.message.split(":")
+        let mex=(message[6]).replace("\"","").replace(",\"code\"","").replace("revert","")
         alert(
-          "transazione non completata ci sono stati degli errori causa:\n" +
-            error.stack
+          "transazione non completata ci sono stati degli errori causa di vincoli nel contratto:\n" +
+            mex
         );
-
         console.log(error.stack);
+
+        }catch{
+          console.log(error.stack);
+
+          alert(
+            "transazione non completata ci sono stati degli errori :\n" +error.stack
+          );
+        }
       });
 
   };

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import "./NFT_MODEL.sol";
@@ -14,9 +15,27 @@ contract BlockChat {
 
       }
 
+
       mapping (address => id_nft []) address_to_id_nft;
       mapping (address => address) nft_address_to_creator;
       mapping (bytes => address) combkey_to_creator; //abi.encodePacked(msg.sender,nome_modello)
+
+      address private owner;
+      function ret()public returns(address){
+            return owner;
+      }
+
+      
+      constructor()  {
+            owner = msg.sender; // Whoever deploys smart contract becomes the owner
+      }
+
+
+     
+            
+
+
+
 
       function addNftComprati(address buyer,address nft_contr,uint256 id,string memory nome ) public  {
             require( nft_address_to_creator[msg.sender] != address(0),"operazione negata"); 
@@ -41,7 +60,6 @@ contract BlockChat {
       function getNftComprati(address addr)  public view returns (id_nft [] memory) {
             return address_to_id_nft[addr];
       }
-
 
 /*
 uint256 constant USD_to_Wei = 430560661472170;
@@ -109,7 +127,8 @@ uint256 constant USD_to_Wei = 430560661472170;
                                           limite_mint,
                                           tempo_validita,
                                           costo,
-                                          address(this)
+                                          address(this),
+                                          owner
                                           );
             //uint256 costoVero = calcolaCosto(limite_messaggi, minuti_blocco, tempo_validita);
             //require(msg.value == costoVero,"Il costo della creazione non coincide con il mio pene.");
@@ -118,8 +137,10 @@ uint256 constant USD_to_Wei = 430560661472170;
             //combinazione due chiavi
             bytes memory compKey = abi.encodePacked(msg.sender, bytes(nome_modello));
             require(combkey_to_creator[compKey]==address(0),"model already exist");
+            require(costo>100000000000000,"inserie un costo maggiore di  0,0001 eth ");
             combkey_to_creator[compKey]=msg.sender;
             nft_address_to_creator[address(nft)]= msg.sender;
+            //payable(owner).transfer(costoVero);
             emit ModelloNftCreato(msg.sender,
                                     nft,
                                     nome_modello,

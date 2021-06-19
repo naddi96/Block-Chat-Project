@@ -166,10 +166,22 @@ formattedDate(date) {
                         console.log(receipt);
                       })
                       .on("error", function (error) {
-                        alert(
-                          "transazione non completata ci sono stati degli errori causa:\n" +
-                            error.stack
-                        );
+                        try{
+                            let message=error.message.split(":")
+                          let mex=(message[6]).replace("\"","").replace(",\"code\"","").replace("revert","")
+                          alert(
+                            "transazione non completata ci sono stati degli errori causa di vincoli nel contratto:\n" +
+                              mex
+                          );
+                          console.log(error.stack);
+                  
+                          }catch{
+                            console.log(error.stack);
+                  
+                            alert(
+                              "transazione non completata ci sono stati degli errori :\n" +error.stack
+                            );
+                          }
                 
                         console.log(error.stack);
                       })
@@ -222,10 +234,22 @@ formattedDate(date) {
                 console.log(receipt);
               })
               .on("error", function (error) {
-                alert(
-                  "transazione non completata ci sono stati degli errori causa:\n" +
-                    error.stack
-                );
+                try{
+                    let message=error.message.split(":")
+                  let mex=(message[6]).replace("\"","").replace(",\"code\"","").replace("revert","")
+                  alert(
+                    "transazione non completata ci sono stati degli errori causa di vincoli nel contratto:\n" +
+                      mex
+                  );
+                  console.log(error.stack);
+          
+                  }catch{
+                    console.log(error.stack);
+          
+                    alert(
+                      "transazione non completata ci sono stati degli errori :\n" +error.stack
+                    );
+                  }
         
                 console.log(error.stack);
               });
