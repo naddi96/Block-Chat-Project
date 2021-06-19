@@ -147,9 +147,9 @@ class ChatListNft extends React.Component {
         let abi=Nft_model.abi
         let web3=this.props.web3
         let contract= new web3.eth.Contract(abi,nft)      
-        let lastid = await contract.methods.getLastId().call();
+        let lastid = await contract.methods.getNftInfo().call();
         this.setState({
-            lastid:lastid
+            lastid:lastid.last_id
         })
 
 

@@ -1,0 +1,5 @@
+{
+    "blockchain_endpoint":"http://node:8545",
+    "pubblic_frontend_endpoint":"http://localhost",
+    "useCorse":false
+}

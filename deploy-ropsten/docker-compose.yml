@@ -1,32 +1,5 @@
 version: '3'
 services:
-  node:
-    image: trufflesuite/ganache-cli:latest
-    ports:
-      - "8545:8545"
-    volumes:
-      - ./ganache_data:/ganache_data
-    
-    networks: 
-      - mynetwork
-  
-    entrypoint:
-      - node
-      - /app/ganache-core.docker.cli.js
-      - --deterministic
-      - --db=/ganache_data
-      - --mnemonic
-      - '1234'
-      - --networkId
-      - '5777'
-      - --hostname
-      - '0.0.0.0'
-      - --debug
-  # ENTRYPOINT ["node", "./build/cli.node.js"]
-  # ENTRYPOINT ["node", "/app/ganache-core.docker.cli.js"]
-
-    
-  
   
   webserver:
     build: ./backend_config
@@ -36,7 +9,6 @@ services:
       - ../backend/static:/backend/static
       - ../backend/db.json:/backend/db.json
       - ./backend_config/config.json:/backend/config.json
-
     networks: 
       - mynetwork
   

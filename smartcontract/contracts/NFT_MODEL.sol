@@ -133,6 +133,21 @@ contract NFT_MODEL is ERC721{
                     timestamp_creation);
             return nft;
     }
+
+
+
+        function getVipRiposta(uint256 id)public view returns ( bool){
+                return vip_riposta[id];
+        }
+
+        function getReclamoFatto(uint256 id)public view returns ( bool){
+                return reclamo_fatto[id];
+        }
+
+
+      function getPrimoMex(uint256 id)public view returns (string memory ){
+            return primo_mex[id];
+      }
  /*
     mapping (uint256 => uint256) prezzo;
 
@@ -189,13 +204,6 @@ contract NFT_MODEL is ERC721{
         }
 
 
-        function getVipRiposta(uint256 id)public view returns ( bool){
-                return vip_riposta[id];
-        }
-
-        function getReclamoFatto(uint256 id)public view returns ( bool){
-                return reclamo_fatto[id];
-        }
 
 
 
@@ -209,9 +217,7 @@ contract NFT_MODEL is ERC721{
                   return timestamp_creation;
             }
 
-            function getPrimoMex(uint256 id)public view returns (string memory ){
-                  return primo_mex[id];
-            }
+
 
 
             function getTempoValidita()public view returns (uint){

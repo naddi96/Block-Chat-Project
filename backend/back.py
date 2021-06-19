@@ -16,7 +16,7 @@ with open("config.json", "r") as read_file:
 app = Flask(__name__)
 
 if config['useCorse']:
-    CORS(app, origins=[config[pubblic_frontend_endpoint]], headers=['Content-Type'], expose_headers=['Access-Control-Allow-Origin'], supports_credentials=True)
+    CORS(app, origins=[config["pubblic_frontend_endpoint"]], headers=['Content-Type'], expose_headers=['Access-Control-Allow-Origin'], supports_credentials=True)
 
 
 login_session={}
