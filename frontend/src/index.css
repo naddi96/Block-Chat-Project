@@ -40,7 +40,6 @@
 
 
 .mymex div:nth-child(1) {
-
   font-size: 11px;
   color: var(--main-text-color);
   opacity: 0.9;
@@ -279,6 +278,29 @@ code {
   border-bottom-left-radius: 30px;
 }
 
+.market-box{
+  position: relative;
+  width: 100%;
+}
+
+.market-list{
+  position: absolute;
+  margin: auto;
+}
+
+.itemtrade{
+  float: left;
+}
+
+.list-group-item.list-group-item-action.active.trade-list{
+  width: 100px;
+  height: 100px;
+  vertical-align: middle;
+  text-align: center;
+  margin: 5px;
+}
+
+
 .token-img{
   margin-right: 10%;
   float: right;
@@ -336,3 +358,6 @@ code {
   border-bottom-left-radius: 0%;
 }
 
+.text-big{
+  font-size: 40px;
+}

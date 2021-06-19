@@ -37,13 +37,13 @@ contract BlockChat {
                         }
       }
 
-/*
+
       function getNftComprati(address addr)  public view returns (id_nft [] memory) {
             return address_to_id_nft[addr];
       }
 
 
-
+/*
 uint256 constant USD_to_Wei = 430560661472170;
 
       function log2(uint x) public pure returns (uint y){
