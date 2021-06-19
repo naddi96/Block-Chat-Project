@@ -40,7 +40,7 @@ cambiare  il parametro  blockchain_endpoint   nel file `./deploy/backend_config/
 
 ## avvio della applicazione
 
-adesso lanciamo `docker-compose up` sempre nella cartella ./deploy
+adesso lanciamo `docker-compose up` sempre nella cartella ./deploy-ropsten
 
 
 
