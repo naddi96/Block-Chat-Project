@@ -76,23 +76,8 @@ contract BlockChat {
             require(
                   msg.value >= final_price &&
                   costo>100000000000000 &&
-                  tempo_validita>0,'parametri inseriti non validi: costo troppo basso o tempo_validita negativo');
+                  tempo_validita>0,'parametri inseriti non validi costo troppo basso o tempo_validita negativo');
             require(final_price > guadagno_massimo,"prezzo creazione nft maggiore del possibile guadagno" );
-
-
-         /*
-            function costo(costo,limite_mint,giorni_validita){
-            let filal_price=0
-            let fee = 
-            let guadagno_massimo=(costo-fee) * limite_mint
-            let final_price=parseInt(costo/3) + parseInt(costo/100)*giorni_validita
-            if (final_price> guadagno_massimo && guadagno_massimo != 0){
-                  return "non te conviene zi"
-            }
-            return final_price
-            
-            }*/
-
 
 
             NFT_MODEL nft = new NFT_MODEL(

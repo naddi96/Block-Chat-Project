@@ -29,7 +29,24 @@ class CreateNft extends React.Component{
         }
       }
 
+    
+    costo(costo,limite_mint,timestamp_validita){
+        var bigInt = require("big-integer");
+        
+        
+        let giorni_validita= bigInt(timestamp_validita).divide(60).divide(60).divide(24)
+        let fee = bigInt(costo).multiply(5).divide(100)
+        let guadagno_massimo= (bigInt(costo).minus(fee)).multiply(limite_mint)
+        let final_price=(bigInt(costo).divide(3)).add(bigInt(costo).divide(100).multiply(giorni_validita))
+        if (final_price.greater(guadagno_massimo) && !guadagno_massimo.eq(0) ){
+              return false
+        }
+        return final_price.toString()
+        
+        }
 
+
+    
     changeWeiToEth =(e)=>{
         try{
             let x=Units.convert(e.target.value, 'wei', 'eth') 
@@ -77,43 +94,53 @@ class CreateNft extends React.Component{
         if (this.state.limitemessaggi==="") limex=0
         
         if (this.state.mint==="") mint=0
+        let pagaaa=this.costo(this.state.wei , mint,this.state.scadenza)
+        console.log(this.state.wei , mint,this.state.scadenza,pagaaa)
 
-        let contract= this.state.contract
-        console.log(this.state)
-        contract.methods.creaModelloNft(
-            this.state.nome,
-            minblocco,
-            limex,
-            mint,
-            this.state.scadenza,
-            this.state.wei
-            )
-                .send({from: this.state.account})
-                .on('receipt', function (receipt) {
-                    alert("transazione ricevuta")
-                    console.log("receipt:" + receipt);
-                }).on('confirmation', function (confirmationNumber, receipt) {
-                    //alert("transazione confermata")
-                    console.log("confirmationNumber:" + confirmationNumber + " receipt:" + receipt);
-                    console.log(receipt)
-                }).on('error', function (error) {
-                    try{
-                        let message=error.message.split(":")
-                      let mex=(message[6]).replace("\"","").replace(",\"code\"","").replace("revert","")
-                      alert(
-                        "transazione non completata ci sono stati degli errori causa di vincoli nel contratto:\n" +
-                          mex
-                      );
-                      console.log(error.stack);
-              
-                      }catch{
-                        console.log(error.stack);
-              
+        if (pagaaa){
+            let contract= this.state.contract
+            console.log(this.state)
+            contract.methods.creaModelloNft(
+                this.state.nome,
+                minblocco,
+                limex,
+                mint,
+                this.state.scadenza,
+                this.state.wei
+                )
+                    .send({from: this.state.account, value:pagaaa})
+                    .on('receipt', function (receipt) {
+                        alert("transazione ricevuta")
+                        console.log("receipt:" + receipt);
+                    }).on('confirmation', function (confirmationNumber, receipt) {
+                        //alert("transazione confermata")
+                        console.log("confirmationNumber:" + confirmationNumber + " receipt:" + receipt);
+                        console.log(receipt)
+                    }).on('error', function (error) {
+                        try{
+                            let message=error.message.split(":")
+                        let mex=(message[6]).replace("\"","").replace(",\"code\"","").replace("revert","")
                         alert(
-                          "transazione non completata ci sono stati degli errori :\n" +error.stack
+                            "transazione non completata ci sono stati degli errori causa di vincoli nel contratto:\n" +
+                            mex
                         );
-                      }
+                        console.log(error.stack);
+                
+                        }catch{
+                            console.log(error.stack);
+                
+                            alert(
+                            "transazione non completata ci sono stati degli errori :\n" +error.stack
+                            );
+                        }
                 });
+            
+        }else{
+            alert("il guadagno potenziale dell'nft è minore del costo della sua creazione")
+
+
+
+        }
     }
 
 
