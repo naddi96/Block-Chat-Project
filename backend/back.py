@@ -47,14 +47,10 @@ def randString(length):
 
 
 
-
-def check_vincoli(id_nft,nft_contract,cookie,scrittura):
-    contract = w3.eth.contract(abi=abi, address=nft_contract)
-    
+def check_vincoli_sendmex_getmex(id_nft,nft_contract,cookie,scrittura):
+    contract = w3.eth.contract(abi=abi, address=nft_contract)    
     info_tupla = contract.functions.getNftInfo().call()
-
     owner = contract.functions.ownerOf(int(id_nft)).call()
-    
     creatore = info_tupla[info["pub_key_creatore"]]
     mex_list = getmex_db(id_nft,nft_contract)
     #
@@ -66,27 +62,29 @@ def check_vincoli(id_nft,nft_contract,cookie,scrittura):
     #print(minuti_blocco,limite_messaggi,tempo_validita,timestamp_creation)
     now = datetime.now()
     timestamp = datetime.timestamp(now)
-    print(owner)
-
-
     if scrittura:
+           
+        if tempo_validita+timestamp_creation < timestamp:
+            return "nfst scaduto non si può più inviare messaggi"
+    
+        if creatore == login_session[cookie]:
+            return True
+        
         if len(mex_list)>0:
             if mex_list[-1]["timestamp"]+minuti_blocco*60 > timestamp and minuti_blocco != 0:
-                return False
+                return "messaggio bloccato per vincolo su minuti blocco"
         
         if len(mex_list) >= limite_messaggi and limite_messaggi != 0:
-            return False
+            return "limite messaggi raggiunto non puoi più inviare messaggi"
+        
 
-    if tempo_validita+timestamp_creation < timestamp:
-        #print("aaaa")
-        return False
-    
     if owner == login_session[cookie]:
         return True
     if creatore == login_session[cookie]:
         return True
-    return False
-    
+    return "non sei l'owner o il creatore di questo nft"
+
+
 def save_mex_db(mex,id_nft,nft_contract,address):
     try:
         now = datetime.now()
@@ -236,10 +234,11 @@ def receive_mex():
         nft_contract=data['nft_contract']
         cookie = request.cookies.get('login')
         if is_logged(address,cookie):
-            if(check_vincoli(id_nft,nft_contract,cookie,True)):
+            result_vincoli=check_vincoli_sendmex_getmex(id_nft,nft_contract,cookie,True)
+            if(result_vincoli==True):
                 save_mex_db(mex,id_nft,nft_contract,address)
                 return "message saved"
-        return "vincoli non soddisfatti"
+        return result_vincoli
         #print(j)
         #richiesta=dict(request.body)
     #except  Exception as e:
@@ -261,7 +260,9 @@ def get_mex():
     nft_contract=data['nft_contract']
     cookie = request.cookies.get('login')
     if is_logged(address,cookie):
-        if(check_vincoli(id_nft,nft_contract,cookie,False)):
+        result_vincoli=check_vincoli_sendmex_getmex(id_nft,nft_contract,cookie,False)
+
+        if(result_vincoli==True):
             return json.dumps (getmex_db(id_nft,nft_contract))
     return "not logged"
         

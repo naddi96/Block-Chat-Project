@@ -126,8 +126,10 @@ formattedDate(date) {
             })
            
             if (this.state.limiteMessaggi !== "Illimitati" && this.state.limiteMessaggi !== null ){
+                let numero_mex_creatore=this.count_mex_compratore(this.state.messages,this.state.creatore)
+                let numero_mex_buyer = (this.state.messages.length - numero_mex_creatore)
                 let totali= parseInt( this.state.limiteMessaggi)+1   
-                let limitemex = totali - parseInt(this.state.messages.length) 
+                let limitemex = totali - numero_mex_buyer
                 this.setState({limiteMessaggi:limitemex})
                 console.log("dsjngngkjn")
             }        
@@ -152,13 +154,14 @@ formattedDate(date) {
 
     async sendMessage(text) {
         if( this.state.account === this.state.creatore){
-            if ( !this.state.vip_risposta){
+            if ( !this.state.vip_risposta ){
                 this.state.contract_istance.methods
                 .confermaRisposta(this.state.id_nft,this.state.primoMex).send({
                     from: this.state.account})
                     .on("receipt", (receipt) => {
                         alert("transazione ricevuta");
                         console.log("receipt:" + receipt);
+                        this.setState({vip_risposta:true})
                       })
                       .on("confirmation", function (confirmationNumber, receipt) {
                         //alert("transazione confermata")
@@ -195,11 +198,17 @@ formattedDate(date) {
         
         let risp=await sendmex(text,this.state.account,this.state.id_nft,this.state.contract_nft)
         console.log(risp)
-        if (risp==="vincoli non soddisfatti"){
-            alert("messaggio bloccato: Hai esaurito i messaggi per il momento")
+        if (risp!=="message saved"){
+            alert("messaggio bloccato motivo: \n"+risp)
             return
         }
+        let limmex=this.state.limiteMessaggi
+        if (this.state.creatore !== this.state.account && limmex !==  "Illimitati"){
+            limmex=limmex-1
+        }
+        
         this.setState({
+            limiteMessaggi:limmex,
             messages:this.state.messages.concat([{
             sender:this.state.account,
             css:"mymex",
