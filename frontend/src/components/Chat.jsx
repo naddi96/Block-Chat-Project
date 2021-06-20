@@ -57,8 +57,8 @@ formattedDate(date) {
         
 
 
-
-        if (limiteMessaggi === "0" ){
+        
+        if (limiteMessaggi.toString() === "0"){
             limiteMessaggi="Illimitati" 
         }
 
@@ -124,11 +124,12 @@ formattedDate(date) {
                 messages:li,
 
             })
-
-            if (this.state.limiteMessaggi !== "illimitati" && this.state.limiteMessaggi !== null ){
+           
+            if (this.state.limiteMessaggi !== "Illimitati" && this.state.limiteMessaggi !== null ){
                 let totali= parseInt( this.state.limiteMessaggi)+1   
                 let limitemex = totali - parseInt(this.state.messages.length) 
                 this.setState({limiteMessaggi:limitemex})
+                console.log("dsjngngkjn")
             }        
 
     

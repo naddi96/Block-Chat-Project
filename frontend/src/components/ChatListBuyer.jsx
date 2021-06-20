@@ -28,7 +28,7 @@ class ChatListBuyer extends React.Component {
     
   }
 
-  sendTransition = (e) => {
+  sendTransition = async (e) => {
     const web3 = this.props.web3;
     if (
       this.props.account !== "" &&
@@ -52,11 +52,41 @@ class ChatListBuyer extends React.Component {
       alert("inserisci l'address del destinatario")
       return
     }
-    contract.methods.transferFrom(this.props.account, this.state.address_dest, this.state.id_scambio).call();
-    console.log(this.props.account);
-    // let puzza = contract.methods.ownerOf(this.state.id_scambio)[0]
-    // console.log(puzza)
-  
+    contract.methods.safeTransferFrom(this.props.account, this.state.address_dest, this.state.id_scambio).send({from: this.props.account})
+    .on("receipt", (receipt) => {
+        alert("transazione ricevuta");
+        console.log("receipt:" + receipt);
+        let chat_list = this.state.chat_list
+       
+       chat_list = chat_list.filter(item => (item.id !== this.state.id_scambio) && (item.nft_contract !== this.state.nft_scambio))
+      
+     this.setState({chat_list: chat_list});
+      })
+    .on("confirmation", async function (confirmationNumber, receipt) {
+        //alert("transazione confermata")        
+        console.log(
+          "confirmationNumber:" + confirmationNumber + " receipt:" + receipt
+        );
+        console.log(receipt);
+      })
+      .on("error", function (error) {
+        try{
+          let message=error.message.split(":")
+        let mex=(message[6]).replace("\"","").replace(",\"code\"","").replace("revert","")
+        alert(
+          "transazione non completata ci sono stati degli errori causa di vincoli nel contratto:\n" +
+            mex
+        );
+        console.log(error.stack);
+
+        }catch{
+          console.log(error.stack);
+
+          alert(
+            "transazione non completata ci sono stati degli errori :\n" +error.stack
+          );
+        }
+      });
     }
 };
     // funzioni popUp
@@ -77,9 +107,9 @@ class ChatListBuyer extends React.Component {
       }
   
       modalOpen(e, id_scambio, nft_scambio) {
-      this.setState({ modal: true });
-      this.setState({id_scambio : id_scambio});
-      this.setState({nft_scambio : nft_scambio});
+      this.setState({ modal: true,
+                    id_scambio : id_scambio,
+                    nft_scambio : nft_scambio});
       }
   
       modalClose() {
@@ -118,7 +148,7 @@ class ChatListBuyer extends React.Component {
         </PopUp>
         <div class="messages-box">
           <div class="list-group rounded-0">
-            {this.state.chat_list.map((message,) => {
+            {this.state.chat_list.map((message, index) => {
               return (
                 <Link
                   to={"/chat?nft=" + message.nft_contract + "&id=" + message.id}

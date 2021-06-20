@@ -329,15 +329,17 @@ code {
 
 .formCreaNft{
   background-color: white;
+  border-radius : 25px;
 }
 
 
 .App{
   height: 100vh;
   background-color:#0c0f38;
+}
 
-;
-
+.background-main{
+    background-color:#0c0f38;
 }
 
 

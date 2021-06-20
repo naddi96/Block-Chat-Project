@@ -9,6 +9,21 @@ from hexbytes import HexBytes
 from datetime import datetime
 from flask_cors import CORS, cross_origin
 
+    
+info = {"nome_modello" : 0,
+        "last_id" : 1,
+        "pub_key_creatore": 2,
+        "minuti_blocco": 3,
+        "limite_messaggi": 4,
+        "limite_mint": 5,
+        "costo": 6,
+        "tempo_validita": 7, 
+        "timestamp_creation": 8
+        }
+
+
+
+
 config={}
 with open("config.json", "r") as read_file:
     config = json.load(read_file)
@@ -35,16 +50,19 @@ def randString(length):
 
 def check_vincoli(id_nft,nft_contract,cookie,scrittura):
     contract = w3.eth.contract(abi=abi, address=nft_contract)
+    
+    info_tupla = contract.functions.getNftInfo().call()
 
     owner = contract.functions.ownerOf(int(id_nft)).call()
-    creatore = contract.functions.getCreatore().call()
+    
+    creatore = info_tupla[info["pub_key_creatore"]]
     mex_list = getmex_db(id_nft,nft_contract)
     #
     # print(mex_list)
-    minuti_blocco = contract.functions.getMinutiBlocco().call()
-    limite_messaggi = contract.functions.getLimiteMex().call()
-    tempo_validita =  contract.functions.getTempoValidita().call()
-    timestamp_creation = contract.functions.getTimestampCreation().call()
+    minuti_blocco = info_tupla[info["minuti_blocco"]]
+    limite_messaggi = info_tupla[info["limite_messaggi"]]
+    tempo_validita =  info_tupla[info["tempo_validita"]]
+    timestamp_creation = info_tupla[info["timestamp_creation"]]
     #print(minuti_blocco,limite_messaggi,tempo_validita,timestamp_creation)
     now = datetime.now()
     timestamp = datetime.timestamp(now)
@@ -102,7 +120,10 @@ def save_mex_db(mex,id_nft,nft_contract,address):
 
 def is_creatore(address,nft):
     contract = w3.eth.contract(abi=abi, address=nft)
-    creatore = contract.functions.getCreatore().call()
+    
+    info_tupla = contract.functions.getNftInfo().call()
+     
+    creatore = info_tupla[info["pub_key_creatore"]]
     if address == creatore:
         return True
     return False
@@ -244,9 +265,6 @@ def get_mex():
             return json.dumps (getmex_db(id_nft,nft_contract))
     return "not logged"
         
-
-
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
