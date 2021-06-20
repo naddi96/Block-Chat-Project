@@ -47,9 +47,10 @@ formattedDate(date) {
         let minBlocco = nft_info.minuti_blocco
         
         
-        let primoMex = await contract.methods.getPrimoMex(id).call();
-        let vip_risposta = await contract.methods.getVipRiposta(id).call()
-        let reclamo_fatto = await contract.methods.getReclamoFatto(id).call()
+        let nft_id_info = await contract.methods.getNftIdInfo(id).call();
+        let primoMex=nft_id_info.primo_mex
+        let vip_risposta =nft_id_info.vip_riposta
+        let reclamo_fatto = nft_id_info.reclamo_fatto
         
         let css="mymex"
         let data_scadenza=new Date(scadenza_timestamp*1000)

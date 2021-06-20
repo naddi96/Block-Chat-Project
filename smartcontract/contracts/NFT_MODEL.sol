@@ -4,6 +4,13 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "./BlockChat.sol";
 contract NFT_MODEL is ERC721{
       BlockChat block_chat;
+      struct nft_id_info{
+            string primo_mex;
+            bool vip_riposta;
+            bool reclamo_fatto;
+
+      }
+
 
       struct nft_info{
             string nome_modello;
@@ -83,8 +90,7 @@ contract NFT_MODEL is ERC721{
       function reclamo(uint256 id) public {
             require(ownerOf(id) == msg.sender,"nft non tuo");
             require(tempo_validita + timestamp_creation < block.timestamp,"troppo presto per chiedere reclamo");
-            require(vip_riposta[id]==false,"il vip ha risposto");
-            require(reclamo_fatto[id]==false, "hai gia fatto il reclamo");
+            require(vip_riposta[id]==false && reclamo_fatto[id]==false ,"il vip ha risposto o hai gia fatto il reclamo");
             payable(msg.sender).transfer(costo);
             reclamo_fatto[id]=true;
 
@@ -128,7 +134,7 @@ contract NFT_MODEL is ERC721{
             }
 
         function getNftInfo()public view returns ( nft_info memory){
-            nft_info memory nft= nft_info(nome_modello,
+            return nft_info(nome_modello,
                     last_id,
                     pub_key_creatore,
                     minuti_blocco,
@@ -137,23 +143,19 @@ contract NFT_MODEL is ERC721{
                     costo,
                     tempo_validita,
                     timestamp_creation);
-            return nft;
+            
     }
 
+      function getNftIdInfo(uint256 id)public view returns (nft_id_info memory){
+            return nft_id_info(
+                  primo_mex[id],
+                  vip_riposta[id],
+                  reclamo_fatto[id]
+            );
 
-
-        function getVipRiposta(uint256 id)public view returns ( bool){
-                return vip_riposta[id];
-        }
-
-        function getReclamoFatto(uint256 id)public view returns ( bool){
-                return reclamo_fatto[id];
-        }
-
-
-      function getPrimoMex(uint256 id)public view returns (string memory ){
-            return primo_mex[id];
       }
+
+
  /*
     mapping (uint256 => uint256) prezzo;
 
