@@ -12,7 +12,6 @@ import Chat from "./components/Chat";
 import ChatListBuyer from "./components/ChatListBuyer";
 import ChatListCreator from "./components/ChatListCreator";
 import NftShop from "./components/NftShop";
-import NftTrade from "./components/NftTrade";
 class App extends React.Component {
   async componentDidMount() {
     await this.loadWeb3();
@@ -120,21 +119,7 @@ class App extends React.Component {
                   </div>
                 )}
               />
-              <Route
-                path="/nftTrade"
-                exact
-                component={() => (
-                  <div>
-                    <Navigation
-                      web3={this.state.web3_istance}
-                      account={this.state.account}
-                    />
-                    <NftTrade data={this.state}
-                      
-                     />
-                  </div>
-                )}
-              />
+              
               <Route
                 path="/createNft"
                 exact
@@ -206,6 +191,7 @@ class App extends React.Component {
                       account={this.state.account}
                       web3={this.state.web3_istance}
                       contract={this.state.contract_block_chat}
+                      abi_nft_model={this.state.abi_nft_model}
                     />{" "}
                   </div>
                 )}

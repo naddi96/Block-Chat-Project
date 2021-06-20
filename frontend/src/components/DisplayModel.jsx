@@ -28,8 +28,7 @@ class DisplayModel extends React.Component{
    
         </div>
            <div className="card-body">
-          <Link to={"./buyNft?nft="+item.contract} className="card-link">Acquista nuovo</Link>
-          <Link to={"./nftTrade?nft="+item.contract} className="card-link">Visualizza mercato</Link>
+          <Link to={"./buyNft?nft="+item.contract} className="card-link">Acquista nuovo</Link> 
         </div>
         </div></div>
 
