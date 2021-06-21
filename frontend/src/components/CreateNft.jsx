@@ -33,11 +33,11 @@ class CreateNft extends React.Component{
     costo(costo,limite_mint,timestamp_validita){
         var bigInt = require("big-integer");
         
-        
         let giorni_validita= bigInt(timestamp_validita).divide(60).divide(60).divide(24)
         let fee = bigInt(costo).multiply(5).divide(100)
         let guadagno_massimo= (bigInt(costo).minus(fee)).multiply(limite_mint)
         let final_price=(bigInt(costo).divide(3)).add(bigInt(costo).divide(100).multiply(giorni_validita))
+
         if (final_price.greater(guadagno_massimo) && !guadagno_massimo.eq(0) ){
               return false
         }

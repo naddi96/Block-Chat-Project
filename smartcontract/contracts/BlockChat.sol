@@ -73,12 +73,15 @@ contract BlockChat {
 
             uint256  guadagno_massimo=(costo - ((costo* 5 / 100 ) )) * limite_mint;
             uint256 final_price=(costo/3) + ((costo * (tempo_validita/60 /60 /24 ))  / 100);
+            
             require(
                   msg.value >= final_price &&
                   costo>100000000000000 &&
                   tempo_validita>0,'parametri inseriti non validi costo troppo basso o tempo_validita negativo');
-            require(final_price > guadagno_massimo,"prezzo creazione nft maggiore del possibile guadagno" );
-
+            
+            if (guadagno_massimo !=0 ){
+                  require(final_price < guadagno_massimo,"prezzo creazione nft maggiore del possibile guadagno" );
+            }
 
             NFT_MODEL nft = new NFT_MODEL(
                                           nome_modello,
