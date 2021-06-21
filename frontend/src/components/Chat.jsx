@@ -221,7 +221,7 @@ formattedDate(date) {
     check_if_can_do_reclamo(){
         let date = new Date(this.state.scadenza_timestamp).getTime()
         let now =  new Date().getTime()
-        if (date < now && ! this.state.vip_risposta && ! this.state.account === this.state.creatore){
+        if (date < now && ! this.state.vip_risposta){
             return true
         }
         return false
@@ -274,10 +274,17 @@ formattedDate(date) {
         
         if(this.check_if_can_do_reclamo()){
             bottone=<button  onClick={this.do_reclamo} className="reclamo-button">Clicca qui per fare reclamo</button>
+            if (this.state.account === this.state.creatore){
+                bottone=<p style={{textAlign:"center"}} className="reclamo-button">NFT scaduto non puoi più rispondere i riscuotere i ricavi di questo nft</p>
+            }
         }
         
         if (this.state.reclamo_fatto){
-            bottone=<button  style={{background:"green"}} className="reclamo-button">reclamo già fatto</button>
+            bottone=<p  style={{background:"green", textAlign:"center"}} className="reclamo-button">reclamo già fatto</p>
+            if (this.state.account === this.state.creatore){
+                bottone=<p style={{textAlign:"center"}} className="reclamo-button">NFT scaduto non puoi più rispondere i riscuotere i ricavi di questo nft</p>
+            }
+        
         }
 
 

@@ -164,7 +164,7 @@ class CreateNft extends React.Component{
             <div className="formCreaNft">
             
             <form>
-            <p>{this.state.account}</p>
+            <br/>
             <div className="form-group">
               <label>Nome Nft</label>
               <input onChange={e => this.setState({ nome: e.target.value })} 
@@ -218,11 +218,13 @@ class CreateNft extends React.Component{
            
          
 
-
+           
           </form>
-          <button onClick={this.sendTransition}>Crea Nft</button>
-
+          <button className="compra-button" onClick={this.sendTransition}>Crea Nft</button>
+          <br/>
          </div>
+         <br/>
+
          </div>
         );
     }
