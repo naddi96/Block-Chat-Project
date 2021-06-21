@@ -100,10 +100,9 @@ contract NFT_MODEL is ERC721{
       //caller: creatore del nft
       function confermaRisposta(uint256 id,string memory mex_utente) public{
             require(pub_key_creatore== msg.sender,"modello nft non tuo");
-            require( tempo_validita + timestamp_creation > block.timestamp,"tempo per rispondere al messaggio scaduto");
-            
-            //check lettura
-            require(compare(mex_utente,primo_mex[id]), "i messaggi non corrispondono" );
+            require( tempo_validita + timestamp_creation > block.timestamp &&
+
+            compare(mex_utente,primo_mex[id]), "tempo per rispondere al messaggio scaduto" );
 
             require(vip_riposta[id]==false,"hai gia ritirato questo nft");
             //fai transazione a favore del vip
