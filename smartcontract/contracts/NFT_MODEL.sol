@@ -68,6 +68,7 @@ contract NFT_MODEL is ERC721{
             internal virtual override // Add virtual here!
       {
             super._beforeTokenTransfer(from, to, amount); // Call parent hook
+            require(to != pub_key_creatore);
             if (from != address(0) && to != address(0)){           
                   block_chat.removeNftComprati(from,address(this),amount);
                   block_chat.addNftComprati(to,address(this),amount,nome_modello);
