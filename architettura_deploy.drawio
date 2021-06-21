@@ -1,0 +1,102 @@
+<mxfile>
+    <diagram id="TEg-PIH5Uc5KQjoDQgSk" name="Page-1">
+        <mxGraphModel dx="1277" dy="617" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1600" background="#F1FAEE" math="0" shadow="1">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="3" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="255" y="182" width="211" height="211" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="" style="shape=image;verticalLabelPosition=bottom;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://betaingegneria.it/wp-content/uploads/2019/06/nginx-logo.png;labelBackgroundColor=#F1FAEE;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" vertex="1" parent="1">
+                    <mxGeometry x="302.16" y="223" width="116.67" height="91" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="" style="shape=image;verticalLabelPosition=bottom;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.docker.com/sites/default/files/d8/2019-07/horizontal-logo-monochromatic-white.png;labelBackgroundColor=#F1FAEE;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" vertex="1" parent="1">
+                    <mxGeometry x="282" y="158" width="162.98" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="&lt;p style=&quot;line-height: 100% ; font-size: 14px&quot;&gt;Static Frontend &lt;br&gt;files&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#314354;gradientDirection=north;fillColor=#647687;fontColor=#ffffff;" vertex="1" parent="1">
+                    <mxGeometry x="255" y="343" width="109" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="" style="rounded=0;whiteSpace=wrap;html=1;sketch=0;fontColor=#1D3557;strokeColor=#457B9D;fillColor=#A8DADC;" vertex="1" parent="1">
+                    <mxGeometry x="752" y="182" width="211" height="212" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="" style="shape=image;verticalLabelPosition=bottom;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Flask_logo.svg/1200px-Flask_logo.svg.png;labelBackgroundColor=#F1FAEE;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" vertex="1" parent="1">
+                    <mxGeometry x="787.9" y="257" width="155.49" height="61" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="&lt;font style=&quot;font-size: 19px&quot;&gt;Reverse Proxy&lt;/font&gt;" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;fillColor=#A8DADC;rounded=1;labelBackgroundColor=none;fontColor=#000000;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="11">
+                    <mxGeometry x="-0.014" y="22" width="100" height="100" relative="1" as="geometry">
+                        <mxPoint x="466" y="288" as="sourcePoint"/>
+                        <mxPoint x="757" y="312" as="targetPoint"/>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="18" value="" style="shape=image;verticalLabelPosition=bottom;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.docker.com/sites/default/files/d8/2019-07/horizontal-logo-monochromatic-white.png;labelBackgroundColor=#F1FAEE;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" vertex="1" parent="1">
+                    <mxGeometry x="776.01" y="158" width="162.98" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="&lt;p style=&quot;line-height: 100% ; font-size: 14px&quot;&gt;Database files&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#314354;gradientDirection=north;fillColor=#647687;fontColor=#ffffff;" vertex="1" parent="1">
+                    <mxGeometry x="752" y="344" width="109" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="" style="rounded=0;whiteSpace=wrap;html=1;sketch=0;fontColor=#ffffff;strokeColor=#001DBC;glass=0;shadow=0;strokeWidth=6;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="208" y="132" width="808" height="387" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="&lt;font style=&quot;font-size: 16px&quot;&gt;Local Docker Network&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;glass=0;sketch=0;strokeWidth=1;strokeColor=#001DBC;fillColor=#0050ef;fontColor=#ffffff;" vertex="1" parent="1">
+                    <mxGeometry x="206" y="108" width="188" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;labelBackgroundColor=none;fontColor=#000000;strokeColor=#f0f0f0;fillColor=#A8DADC;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry width="100" height="100" relative="1" as="geometry">
+                        <mxPoint x="354.01" y="569" as="sourcePoint"/>
+                        <mxPoint x="356" y="393" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="356" y="502"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="26" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://freepikpsd.com/media/2019/10/cloud-internet-png.png;" vertex="1" parent="1">
+                    <mxGeometry x="213" y="614" width="306.16" height="262" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.techbyte.it/wp-content/uploads/2018/06/protocollo-https.png;" vertex="1" parent="1">
+                    <mxGeometry x="272" y="569" width="164.02" height="88" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://miro.medium.com/max/611/0*OOLVfwHOzhFIMhFT.png;" vertex="1" parent="1">
+                    <mxGeometry x="580" y="655" width="242.67" height="224" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.techbyte.it/wp-content/uploads/2018/06/protocollo-https.png;" vertex="1" parent="1">
+                    <mxGeometry x="280.55" y="819" width="165.88" height="89" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://www.webrexstudio.com/wp-content/uploads/2019/05/react-js-image.png;" vertex="1" parent="1">
+                    <mxGeometry x="255" y="1084" width="206" height="116.08" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" value="" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;labelBackgroundColor=none;fontColor=#000000;strokeColor=#f0f0f0;fillColor=#A8DADC;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1">
+                    <mxGeometry width="100" height="100" relative="1" as="geometry">
+                        <mxPoint x="357" y="1084" as="sourcePoint"/>
+                        <mxPoint x="358.99" y="908.0000000000001" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="358.99" y="1017"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="35" value="&lt;font style=&quot;font-size: 19px&quot;&gt;Lettura e scrittura&lt;/font&gt;" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;labelBackgroundColor=none;fontColor=#000000;strokeColor=#f0f0f0;fillColor=#A8DADC;entryX=0.495;entryY=1.05;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="29">
+                    <mxGeometry x="-0.4782" y="25" width="100" height="100" relative="1" as="geometry">
+                        <mxPoint x="467" y="1144" as="sourcePoint"/>
+                        <mxPoint x="736" y="942" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="700" y="1144"/>
+                        </Array>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="36" value="&lt;font style=&quot;font-size: 19px&quot;&gt;Lettura&lt;/font&gt;" style="shape=flexArrow;endArrow=classic;html=1;labelBackgroundColor=none;fontColor=#000000;strokeColor=#f0f0f0;fillColor=#A8DADC;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="29">
+                    <mxGeometry x="-0.23" y="-17" width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="859" y="400" as="sourcePoint"/>
+                        <mxPoint x="711" y="534" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="859" y="473"/>
+                            <mxPoint x="784" y="473"/>
+                            <mxPoint x="701" y="473"/>
+                        </Array>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

@@ -214,6 +214,7 @@ def login():
         resp = make_response("login completato")
         resp.set_cookie('login', cookie)
         login_session[cookie]=address
+        del pre_login[address]
         return resp
 
     return "loggin error"    
