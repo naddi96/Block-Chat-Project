@@ -52,6 +52,11 @@ class ChatListBuyer extends React.Component {
       alert("inserisci l'address del destinatario")
       return
     }
+    let nft_info = await contract.methods.getNftInfo().call();
+    if (this.state.address_dest===nft_info.pub_key_creatore){
+      alert("non puoi inviare l'nft al creatore")
+      return
+    }
     contract.methods.safeTransferFrom(this.props.account, this.state.address_dest, this.state.id_scambio).send({from: this.props.account})
     .on("receipt", (receipt) => {
         alert("transazione ricevuta");

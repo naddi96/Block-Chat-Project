@@ -14,21 +14,37 @@ import ChatListCreator from "./components/ChatListCreator";
 import NftShop from "./components/NftShop";
 class App extends React.Component {
   async componentDidMount() {
-    await this.loadWeb3();
+    if(await this.loadWeb3()){
     await this.loadBlockchainData();
+    }
   }
 
   async loadWeb3() {
     console.log();
+    try{
+      
     if (window.ethereum !== 'undefined') {
       window.web3 = new Web3(window.ethereum);
+      try{
       await window.ethereum.enable();
+      this.setState({metamasck:true})
+        return true
+
+      }catch{
+        this.setState({metamasck:false})
+        return false
+      }
     } else if (window.web3 !== 'undefined') {
       window.web3 = new Web3(window.web3.currentProvider);
+      this.setState({metamasck:true})
+      return true
     } else {
-      window.alert(
-        "Non-Ethereum browser detected. You should consider trying MetaMask!"
-      );
+      this.setState({metamasck:false})
+      return false
+    }
+    }catch{
+
+      return false
     }
   }
 
@@ -90,6 +106,7 @@ class App extends React.Component {
       abi_nft_model: null,
       contract_block_chat: null,
       web3_istance: null,
+      metamasck:null,
     };
   }
 
@@ -219,10 +236,23 @@ class App extends React.Component {
         </div>
       );
     } else
+      if(!this.state.metamasck){
+        return(
+          <div id="notfound">
+          <div className="notfound">
+          <div className="notfound-404">
+          </div>
+          <h2>Ops!! Sembra che tu non abbia un wallet</h2>
+          <p>Installa un wallet come Metamask e <b>Ricordati di collegare il tuo account al sito!!</b></p>
+          <a href="/">Try again :)</a>
+          </div>
+          </div>
+
+
+        )
+      }
       return (
-        <Router>
-          <Homepage />
-        </Router>
+    ""
       );
   }
 }
