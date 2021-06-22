@@ -47,13 +47,19 @@ def randString(length):
 
 
 
+def get_mex_buyer(creatore,mex_list):
+    li=[]
+    for mex in mex_list:
+        if mex["sender"]!=creatore:
+            li.append(mex)
+    return li
+
 def check_vincoli_sendmex_getmex(id_nft,nft_contract,cookie,scrittura):
     contract = w3.eth.contract(abi=abi, address=nft_contract)    
     info_tupla = contract.functions.getNftInfo().call()
     owner = contract.functions.ownerOf(int(id_nft)).call()
     creatore = info_tupla[info["pub_key_creatore"]]
-    mex_list = getmex_db(id_nft,nft_contract)
-    #
+
     # print(mex_list)
     minuti_blocco = info_tupla[info["minuti_blocco"]]
     limite_messaggi = info_tupla[info["limite_messaggi"]]
@@ -66,10 +72,12 @@ def check_vincoli_sendmex_getmex(id_nft,nft_contract,cookie,scrittura):
            
         if tempo_validita+timestamp_creation < timestamp:
             return "nfst scaduto non si può più inviare messaggi"
-    
+
         if creatore == login_session[cookie]:
             return True
         
+        mex_list = getmex_db(id_nft,nft_contract)
+        mex_list= get_mex_buyer( creatore,mex_list)
         if len(mex_list)>0:
             if mex_list[-1]["timestamp"]+minuti_blocco*60 > timestamp and minuti_blocco != 0:
                 return "messaggio bloccato per vincolo su minuti blocco"
