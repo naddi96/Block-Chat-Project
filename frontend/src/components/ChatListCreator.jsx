@@ -78,7 +78,7 @@ class ChatListCreator extends React.Component {
                                 <div class="media-body ml-4">
                                     <div class="info-item">
                                     <Link to={"/ChatListCreator?nft="+message.contract+"&nome="+message.nome} class="info-item">
-                                        <div class="token-img"><img src={get_image(message.contract)} alt="..."/></div>
+                                        <div class="token-img"><img src={get_image(message.contract)} alt=""/></div>
                                         <h6 class="mb-0" >{message.nome}</h6>
                                         <p class="font-italic mb-0 text-small">Token Originale: {message.contract}</p>
                                        

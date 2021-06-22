@@ -167,7 +167,7 @@ class ChatListBuyer extends React.Component {
                             <div class="token-img">
                               <img
                                 src={get_image(message.nft_contract)}
-                                alt="..."
+                                alt=""
                               />
                             </div>
                             <h6 class="mb-0">{message.nome}</h6>
