@@ -176,7 +176,7 @@ class BuyNft extends React.Component {
             <div className="form-group">
                 <button className="compra-button"  onClick={e => {this.sendTransition()
                                         this.modalClose(e)}} type="button">
-                Compra
+                Acquista
                 </button>
             </div>
         </PopUp>
@@ -185,7 +185,7 @@ class BuyNft extends React.Component {
         </div>
           
           <button className="compra-button" onClick={e => this.modalOpen(e)}>
-            Compraaaa
+            Acquista
           </button>
       
         
