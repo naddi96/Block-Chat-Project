@@ -412,3 +412,12 @@ code {
   .notfound .notfound-404{height:110px;line-height:110px}
   .notfound .notfound-404 h1{font-size:120px}}
 
+  .box {
+    margin: 0 auto;
+    border: 1px solid;
+    margin: 20px 20px 20px 20px;
+    background: red;
+    font-size: larger;
+    text-align: center; /* orizzontale */
+    line-height: 150px; /* verticale */
+    }

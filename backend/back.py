@@ -273,6 +273,7 @@ def get_mex():
 
         if(result_vincoli==True):
             return json.dumps (getmex_db(id_nft,nft_contract))
+        return result_vincoli
     return "not logged"
         
 

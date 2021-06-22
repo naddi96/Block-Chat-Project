@@ -102,7 +102,7 @@ export async function upload_img(nft,account,image){
 }
 
 
-export async function getmex(address,id_nft,nft_contract){
+export async function getmex(address,id_nft,nft_contract,alerta){
     
     return await axios.post(endpoint+"api/getmex",{
         address:address,
@@ -110,15 +110,20 @@ export async function getmex(address,id_nft,nft_contract){
         nft_contract:nft_contract
     },
     {withCredentials: 'True'}).then(result => {
-        if( result.data==="not logged"){
-            console.log(address,id_nft,nft_contract)
-            alert("non sei logatto o non nft non è di tua proprietà")
-            return []
-        }else{
-            return result.data
+            if (Array.isArray(result.data)){
+                return result.data
+                
+            }
+            if (alerta){
+            alert("problema di accesso: "+result.data)
+            }
+            return ""
+    }).catch(thrown => {
+        if (alerta){
+        alert("probelma con back end:   "+thrown)
         }
-
-    })
+        return ""
+      });;
 
 
 }

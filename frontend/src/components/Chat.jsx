@@ -15,6 +15,7 @@ class Chat extends React.Component {
             contract_nft:null,
             data_scadenza:"",
             account:null,
+            isLogged:null,
             creatore:null,
             limiteMessaggi:null,
             minBlocco:null,
@@ -92,38 +93,58 @@ formattedDate(date) {
         })
    }
 
+   async caricaMessaggi(alerta){
+    const authResult = new URLSearchParams(window.location.search);
+    const nft = authResult.get("nft");
+    const id = authResult.get("id");
+    console.log(this.props.account,id,nft)
+    let x=await getmex(this.props.account,id,nft,alerta)    
+    
+    if (Array.isArray(x)){
+        
+        let li=[this.state.messages[0]]
+        for (let i=0; i<x.length;i++){
+            if (x[i].sender === this.props.account){
+                li.push(
+                    {   
+                        sender:x[i].sender,
+                        css:"mymex",
+                        text:x[i].mex,
+                    })
+            }else{
+                li.push(
+                    {
+                        sender:x[i].sender,
+                        css:"othermex",
+                        text:x[i].mex,
+                    })
+            }
+        }
+        this.setState({
+            isLogged:true,
+            messages:li,
+        })
+    }else{
+        this.setState({isLogged:false})
+    }
+    
+   }
+
+   async componentWillUnmount(){
+    clearInterval(this.interval);
+   }
+
    async componentDidMount() {
         
         const authResult = new URLSearchParams(window.location.search);
         const nft = authResult.get("nft");
         const id = authResult.get("id");
-    
         if ( this.props.account!== "" && nft && id){
             await this.carica_contratto(nft,id)
-            let x=await getmex(this.props.account,id,nft)
-            
-            let li=this.state.messages
-            for (let i=0; i<x.length;i++){
-                if (x[i].sender === this.props.account){
-                    li.push(
-                        {   
-                            sender:x[i].sender,
-                            css:"mymex",
-                            text:x[i].mex,
-                        })
-                }else{
-                    li.push(
-                        {
-                            sender:x[i].sender,
-                            css:"othermex",
-                            text:x[i].mex,
-                        })
-                }
-            }
-            this.setState({
-                messages:li,
-
-            })
+            await this.caricaMessaggi(true)
+            this.interval = setInterval(async () => {   
+                await this.caricaMessaggi(false)
+            }, 5900);
            
             if (this.state.limiteMessaggi !== "Illimitati" && this.state.limiteMessaggi !== null ){
                 let numero_mex_creatore=this.count_mex_compratore(this.state.messages,this.state.creatore)
@@ -287,9 +308,13 @@ formattedDate(date) {
         
         }
 
-
+        if (this.state.isLogged ===null){
+            return ("")
+        }
+        if (this.state.isLogged){
         return (
             <div className="app">
+            
                 {bottone}
               <MessageList 
                   nome={this.state.nome}
@@ -302,13 +327,18 @@ formattedDate(date) {
               <SendMessageForm
                   sendMessage={this.sendMessage} />
             </div>
-        );
+        )}
+        return(
+            <div class="box">Fai il login con il pulsante in alto a destra</div>
+
+
+        )
     }
 }
 
 class MessageList extends React.Component {
     render() {
-
+        
         return (
         
 
@@ -353,6 +383,8 @@ class MessageList extends React.Component {
                 })}
             </ul>
         )
+
+        
     }
 }
 
