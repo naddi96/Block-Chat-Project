@@ -1,5 +1,6 @@
 # Block-Chat-Project
 
+Una versione live del progetto può esserre raggiunta a questo link [BlockChat](https://blockchat.mywire.org/)
 
  
 
