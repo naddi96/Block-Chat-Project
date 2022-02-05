@@ -3,7 +3,7 @@
 Una versione live del progetto può esserre raggiunta a questo link [BlockChat](https://blockchat.mywire.org/)
 
  
-
+![demo](https://s10.gifyu.com/images/demo9e3ede767934d250.gif)
 
 ## Istruzioni per avviare il progetto in locale (al fine di testing e sviluppo)
 
